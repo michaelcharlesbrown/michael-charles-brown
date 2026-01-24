@@ -22,6 +22,7 @@ export default function HomePage() {
           style={{ 
             gap: "20px",
           }}
+          data-mobile-gap="19px"
         >
           {projects.map((project, i) => (
             <VideoCard key={project.slug} project={project} index={i} />

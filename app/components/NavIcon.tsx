@@ -10,7 +10,7 @@ export default function NavIcon() {
   const href = pathname === "/" ? "/about" : "/";
 
   return (
-    <nav className="fixed top-6 left-0 right-0 z-50 flex justify-center">
+    <nav className="fixed left-0 right-0 z-50 flex justify-center nav-icon-mobile">
       <Link 
         href={href}
         className="transition-opacity duration-300 hover:opacity-80"

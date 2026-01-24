@@ -54,6 +54,7 @@ body {
 @media (max-width: 767px) {
   html {
     scroll-snap-type: y mandatory;
+    scroll-padding-top: 88px; /* 33px nav top + 36px nav height + 19px gap */
     -webkit-overflow-scrolling: touch;
   }
   
@@ -69,4 +70,23 @@ body {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
+
+  /* Mobile-specific padding and gap for homepage */
+  main {
+    padding: 33px 10px !important;
+  }
+
+  main > div[data-mobile-gap] {
+    gap: 19px !important;
+  }
+
+  /* Nav icon positioning on mobile */
+  .nav-icon-mobile {
+    top: 33px;
+  }
+}
+
+/* Nav icon positioning on desktop */
+.nav-icon-mobile {
+  top: 24px;
 }
