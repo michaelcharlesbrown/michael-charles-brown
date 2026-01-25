@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { projects } from "@/data/projects";
 import { notFound } from "next/navigation";
 import NavIcon from "@/app/components/NavIcon";
@@ -24,24 +25,53 @@ export default async function ProjectPage({ params }: PageProps) {
     <div className="min-h-screen bg-white">
       <NavIcon />
       <main className="mx-auto w-full max-w-[2400px] px-5 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h1 className="mb-8 text-4xl font-bold text-black">{project.title}</h1>
-          
-          {project.description && (
-            <p className="mb-8 text-lg text-zinc-600">{project.description}</p>
-          )}
-
-          <div className="relative aspect-[5/7] w-full overflow-hidden bg-zinc-100">
-            <video
-              src={project.video}
-              poster={project.poster}
-              controls
-              muted
-              loop
-              playsInline
-              className="h-full w-full object-cover transition-opacity duration-300"
-              autoPlay
+        <div className="mx-auto w-full">
+          {/* Hero Image */}
+          <div className="relative w-full mb-16">
+            <Image
+              src="/images/hero-img.jpg"
+              alt={project.title}
+              width={2400}
+              height={1600}
+              className="w-full h-auto object-contain object-left"
+              priority
             />
+          </div>
+
+          {/* Three columns of text */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {/* Column 1: Project Title and Credits */}
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black mb-2" style={{ lineHeight: '0.6' }}>
+                CANCUNCITO
+              </h1>
+              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-black mb-4" style={{ lineHeight: '0.6' }}>
+                ORIGINAL SCORE
+              </h2>
+              <p className="text-sm md:text-base leading-relaxed text-black">
+                Written and directed by Carlos Alejandro Marulanda
+              </p>
+            </div>
+
+            {/* Column 2: Info About The Project */}
+            <div>
+              <h3 className="text-base md:text-lg font-bold uppercase tracking-tight text-black mb-4">
+                INFO ABOUT THE PROJECT
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed text-black">
+                A true multidisciplinary artist, Michael co-founded a Mission District art collective, designing soundscapes for avant-garde installations and electrifying event spaces with immersive audio-visual performances. Alongside these creative ventures.
+              </p>
+            </div>
+
+            {/* Column 3: Process/Arrangement/Instrumentation */}
+            <div>
+              <h3 className="text-base md:text-lg font-bold uppercase tracking-tight text-black mb-4">
+                MY PROCESS/ARRANGEMENT/INSTRUMENTATION
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed text-black">
+                A true multidisciplinary artist, Michael co-founded a Mission District art collective, designing soundscapes for avant-garde installations and electrifying event spaces with immersive audio-visual performances. Alongside these creative ventures.
+              </p>
+            </div>
           </div>
         </div>
       </main>

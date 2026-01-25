@@ -115,7 +115,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
     <Link href={`/projects/${project.slug}`}>
       <div
         ref={containerRef}
-        className="video-card snap-item relative aspect-[5/7] w-full overflow-hidden bg-zinc-100 cursor-pointer"
+        className="video-card snap-item relative aspect-[5/7] w-full overflow-hidden bg-zinc-100 cursor-pointer rounded-lg"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

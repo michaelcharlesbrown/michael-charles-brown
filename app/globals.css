@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, monospace;
+  --font-sans: "IBM Plex Mono", ui-monospace, monospace;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,7 +28,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
   overflow-x: hidden;
 }
 
@@ -73,11 +73,14 @@ body {
 
   /* Mobile-specific padding and gap for homepage */
   main {
-    padding: 33px 10px !important;
+    padding-top: 88px !important; /* Start content below header (33px nav top + 36px nav height + 19px gap) */
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 33px !important;
   }
 
   main > div[data-mobile-gap] {
-    gap: 19px !important;
+    gap: 88px !important; /* Match padding-top so each card lands with same gap as the first */
   }
 
   /* Nav icon positioning on mobile */
