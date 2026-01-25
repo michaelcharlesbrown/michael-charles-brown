@@ -10,8 +10,8 @@ export const projects: Project[] = [
   {
     slug: "cancuncito",
     title: "Cancuncito",
-    video: "/video/project-card-video.mp4",
-    poster: "/images/project-card-poster.jpg",
+    video: "/video/cancuncito.mp4",
+    poster: "/images/cancuncito.jpg",
     description: "",
   },
   {

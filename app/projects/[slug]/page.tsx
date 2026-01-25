@@ -24,18 +24,90 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-white">
       <NavIcon />
-      <main className="mx-auto w-full max-w-[2400px] px-5 py-20">
+      <main className="mx-auto w-full max-w-[2400px] px-5 pt-20 pb-[180px]">
         <div className="mx-auto w-full">
-          {/* Hero Image */}
+          {/* Hero Image or Video */}
           <div className="relative w-full mb-16">
-            <Image
-              src="/images/hero-img.jpg"
-              alt={project.title}
-              width={2400}
-              height={1600}
-              className="w-full h-auto object-contain object-left"
-              priority
-            />
+            {project.slug === "snow-king" ? (
+              <div className="relative w-full aspect-video">
+                <iframe
+                  title="vimeo-player"
+                  src="https://player.vimeo.com/video/42444069?h=0c4c57b95b"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : project.slug === "breathing-chamber" ? (
+              <div className="relative w-full aspect-video">
+                <iframe
+                  title="vimeo-player"
+                  src="https://player.vimeo.com/video/59210170"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : project.slug === "mad-denizen" ? (
+              <div className="relative w-full aspect-video">
+                <iframe
+                  title="YouTube video player"
+                  src="https://www.youtube.com/embed/9De1ylIPqWE?si=xAu3nMIx93S6kBPc"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : project.slug === "booming-dunes" ? (
+              <div className="relative w-full aspect-video">
+                <iframe
+                  title="YouTube video player"
+                  src="https://www.youtube.com/embed/kydR3NaZVwg?si=LasO5DdVRv1BNK8Q"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : project.slug === "red-moon-apostles" ? (
+              <div className="relative w-full aspect-video">
+                <iframe
+                  title="YouTube video player"
+                  src="https://www.youtube.com/embed/4hZ34bKRIZE?si=gdEzqGPmcgheT4Vi"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : (
+              <Image
+                src="/images/hero-img.jpg"
+                alt={project.title}
+                width={2400}
+                height={1600}
+                className="w-full h-auto object-contain object-left"
+                priority
+              />
+            )}
           </div>
 
           {/* Three columns of text */}
@@ -43,7 +115,7 @@ export default async function ProjectPage({ params }: PageProps) {
             {/* Column 1: Project Title and Credits */}
             <div>
               <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black mb-2" style={{ lineHeight: '0.6' }}>
-                CANCUNCITO
+                {project.title}
               </h1>
               <h2 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-black mb-4" style={{ lineHeight: '0.6' }}>
                 ORIGINAL SCORE

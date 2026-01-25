@@ -3,9 +3,9 @@ import AboutHeroSection from "@/app/components/AboutHeroSection";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="md:min-h-screen bg-white">
       <NavIcon />
-      <main className="mx-auto w-full max-w-[2400px] px-5 py-20 pb-[40vh] md:pb-[50vh]">
+      <main className="mx-auto w-full max-w-[2400px] px-5 pt-20 pb-0 md:pb-[180px]">
         <div className="mx-auto w-full">
           {/* Top Section: Name and Role - Hero */}
           <div className="relative min-h-[70vh] md:min-h-[65vh] mb-16">
@@ -44,7 +44,7 @@ export default function AboutPage() {
           <AboutHeroSection />
 
           {/* Links Section - Bottom of page, left aligned */}
-          <section className="pt-16 pb-8">
+          <section className="pt-16 pb-8 md:pb-8">
             <div className="flex flex-col text-left">
               <a
                 href="https://instagram.com"
