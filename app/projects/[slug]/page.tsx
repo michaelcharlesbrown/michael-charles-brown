@@ -2,6 +2,7 @@ import Image from "next/image";
 import { projects } from "@/data/projects";
 import { notFound } from "next/navigation";
 import NavIcon from "@/app/components/NavIcon";
+import AudioPlayer from "@/app/components/AudioPlayer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -109,6 +110,13 @@ export default async function ProjectPage({ params }: PageProps) {
               />
             )}
           </div>
+
+          {/* Audio Player - Testing on Cancuncito */}
+          {project.slug === "cancuncito" && (
+            <div className="mb-16">
+              <AudioPlayer src="/audio/placeholder-track.mp3" />
+            </div>
+          )}
 
           {/* Three columns of text */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
