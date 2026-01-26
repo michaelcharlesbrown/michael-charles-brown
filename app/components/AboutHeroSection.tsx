@@ -1,15 +1,10 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-
-const PARALLAX_FACTOR = 0.25;
-const IMAGE_PARALLAX_FACTOR = 0.08;
+import { useParallax } from "@/app/hooks/useParallax";
 
 export default function AboutHeroSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [offsetY, setOffsetY] = useState(0);
-  const [imageOffsetY, setImageOffsetY] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -19,37 +14,17 @@ export default function AboutHeroSection() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current || !isDesktop) {
-        setOffsetY(0);
-        setImageOffsetY(0);
-        return;
-      }
-      
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const viewportHeight = typeof window !== "undefined" ? window.innerHeight : 0;
-
-      const scrolled = -rect.top;
-      const clamped = Math.max(0, Math.min(scrolled, sectionHeight + viewportHeight));
-      setOffsetY(clamped * PARALLAX_FACTOR);
-      setImageOffsetY(clamped * IMAGE_PARALLAX_FACTOR);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isDesktop]);
-
-  const transform = isDesktop ? `translateY(${offsetY}px)` : 'none';
-  const imageTransform = isDesktop ? `translateY(${imageOffsetY}px)` : 'none';
+  // Image moves slower (background effect)
+  const imageParallax = useParallax({ speed: 0.15 });
+  // Text moves faster (foreground effect)
+  const textParallax = useParallax({ speed: 0.45 });
 
   return (
-    <div ref={sectionRef} className="mb-16 md:mb-32 relative">
+    <div className="mb-16 md:mb-32 relative">
       <div
+        ref={imageParallax.ref as React.RefObject<HTMLDivElement>}
         className="relative w-full md:w-2/3 md:overflow-hidden"
-        style={{ transform: imageTransform }}
+        style={{ transform: imageParallax.transform }}
       >
         <Image
           src="/images/michael-charles-brown.jpg"
@@ -63,10 +38,11 @@ export default function AboutHeroSection() {
 
       {/* Text Content - Stacked on mobile, overlapping on desktop */}
       <div
+        ref={textParallax.ref as React.RefObject<HTMLDivElement>}
         className="mt-8 md:mt-0 md:absolute md:left-[45%] md:top-1/2 md:max-w-[50%] md:pl-8 lg:pl-12 md:z-10"
         style={{
           mixBlendMode: isDesktop ? "difference" : "normal",
-          transform,
+          transform: textParallax.transform,
         }}
       >
         {/* Headline */}
