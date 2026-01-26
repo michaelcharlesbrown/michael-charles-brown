@@ -8,9 +8,34 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://michael-charles-brown.vercel.app";
+
 export const metadata: Metadata = {
-  title: "MCB — Projects",
-  description: "Projects page",
+  title: "Michael Charles Brown /// Composer /// Recording Artist",
+  description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
+  metadataBase: new URL(baseUrl),
+  openGraph: {
+    title: "Michael Charles Brown /// Composer /// Recording Artist",
+    description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
+    url: baseUrl,
+    siteName: "Michael Charles Brown",
+    images: [
+      {
+        url: "/images/mcb-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Michael Charles Brown /// Composer /// Recording Artist",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Michael Charles Brown /// Composer /// Recording Artist",
+    description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
+    images: ["/images/mcb-og.jpg"],
+  },
 };
 
 export default function RootLayout({

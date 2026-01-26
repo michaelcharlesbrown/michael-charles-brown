@@ -72,15 +72,15 @@ body {
     transform: translateZ(0);
   }
 
-  /* Mobile-specific padding and gap for homepage */
-  main {
+  /* Mobile-specific padding and gap for homepage only ( Projects page with scroll-snap ) */
+  main:has(> div[data-mobile-gap]) {
     padding-top: 88px !important; /* Start content below header (33px nav top + 36px nav height + 19px gap) */
     padding-left: 10px !important;
     padding-right: 10px !important;
     padding-bottom: 500px !important; /* Ensure last card can scroll up and snap into place */
   }
 
-  main > div[data-mobile-gap] {
+  main:has(> div[data-mobile-gap]) > div[data-mobile-gap] {
     gap: 88px !important; /* Match padding-top so each card lands with same gap as the first */
   }
 
