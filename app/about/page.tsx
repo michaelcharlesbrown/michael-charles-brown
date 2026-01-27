@@ -18,20 +18,19 @@ export default function AboutPage() {
           {/* Top Section: Name and Role - Hero */}
           <div className="relative min-h-[70vh] md:min-h-[65vh] mb-16">
             {/* Mobile: H1 top-left, H2 bottom-right */}
-            <h1 
+            <h1
               ref={h1Parallax.ref as React.RefObject<HTMLHeadingElement>}
-              className="md:hidden text-4xl font-bold uppercase tracking-tight text-black" 
-              style={{ lineHeight: '0.6', transform: h1Parallax.transform }}
+              className="md:hidden text-4xl font-bold uppercase tracking-tight text-black"
+              style={{ lineHeight: '0.6' }}
             >
               <span className="block">MICHAEL</span>
               <span className="block mt-2">CHARLES</span>
               <span className="block mt-2">BROWN</span>
             </h1>
             
-            <div 
+            <div
               ref={h2Parallax.ref as React.RefObject<HTMLDivElement>}
               className="md:hidden absolute bottom-0 right-0 text-right"
-              style={{ transform: h2Parallax.transform }}
             >
               <h2 className="text-xl font-normal uppercase tracking-tight text-black" style={{ lineHeight: '0.8' }}>
                 <span className="block">COMPOSER///</span>
@@ -41,20 +40,19 @@ export default function AboutPage() {
             </div>
 
             {/* Desktop: H1 top-left, H2 bottom-right */}
-            <h1 
+            <h1
               ref={h1Parallax.ref as React.RefObject<HTMLHeadingElement>}
-              className="hidden md:block text-8xl font-bold uppercase tracking-tight text-black" 
-              style={{ lineHeight: '0.6', transform: h1Parallax.transform }}
+              className="hidden md:block text-8xl font-bold uppercase tracking-tight text-black"
+              style={{ lineHeight: '0.6' }}
             >
               <span className="block">MICHAEL</span>
               <span className="block mt-4">CHARLES</span>
               <span className="block mt-4">BROWN</span>
             </h1>
             
-            <div 
+            <div
               ref={h2Parallax.ref as React.RefObject<HTMLDivElement>}
               className="hidden md:block absolute bottom-0 right-0 text-right"
-              style={{ transform: h2Parallax.transform }}
             >
               <h2 className="text-3xl font-normal uppercase tracking-tight text-black" style={{ lineHeight: '0.8' }}>
                 <span className="block">COMPOSER///</span>
@@ -68,10 +66,9 @@ export default function AboutPage() {
           <AboutHeroSection />
 
           {/* Links Section - Bottom of page, left aligned */}
-          <section 
+          <section
             ref={linksParallax.ref as React.RefObject<HTMLElement>}
             className="pt-16 pb-8 md:pb-8"
-            style={{ transform: linksParallax.transform }}
           >
             <div className="flex flex-col text-left">
               <a

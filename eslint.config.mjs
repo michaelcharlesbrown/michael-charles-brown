@@ -13,6 +13,13 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Disable overly strict rules that flag valid patterns
+  {
+    rules: {
+      // The refs rule incorrectly flags passing ref objects to ref props
+      "react-hooks/refs": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

@@ -24,7 +24,6 @@ export default function AboutHeroSection() {
       <div
         ref={imageParallax.ref as React.RefObject<HTMLDivElement>}
         className="relative w-full md:w-2/3 md:overflow-hidden"
-        style={{ transform: imageParallax.transform }}
       >
         <Image
           src="/images/michael-charles-brown.jpg"
@@ -42,7 +41,6 @@ export default function AboutHeroSection() {
         className="mt-8 md:mt-0 md:absolute md:left-[45%] md:top-1/2 md:max-w-[50%] md:pl-8 lg:pl-12 md:z-10"
         style={{
           mixBlendMode: isDesktop ? "difference" : "normal",
-          transform: textParallax.transform,
         }}
       >
         {/* Headline */}

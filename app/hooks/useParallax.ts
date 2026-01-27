@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 interface UseParallaxOptions {
   speed?: number;
@@ -14,10 +14,10 @@ interface UseParallaxOptions {
  * @param enabled - Whether parallax is enabled (default: true)
  * @param mobileEnabled - Whether parallax works on mobile (default: false)
  */
-export function useParallax({ 
-  speed = 0.5, 
+export function useParallax({
+  speed = 0.5,
   enabled = true,
-  mobileEnabled = false 
+  mobileEnabled = false
 }: UseParallaxOptions = {}) {
   const elementRef = useRef<HTMLElement>(null);
   const [offsetY, setOffsetY] = useState(0);
@@ -33,21 +33,22 @@ export function useParallax({
 
   useEffect(() => {
     if (!enabled || (!isDesktop && !mobileEnabled)) {
-      setOffsetY(0);
+      // Reset transform when disabled
+      if (elementRef.current) {
+        elementRef.current.style.transform = 'translateY(0px)';
+      }
       initialTopRef.current = null;
       return;
     }
 
     const handleScroll = () => {
       if (!elementRef.current) {
-        setOffsetY(0);
         return;
       }
 
       const rect = elementRef.current.getBoundingClientRect();
       const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      
+
       // Store initial position relative to document
       if (initialTopRef.current === null) {
         initialTopRef.current = rect.top + scrollY;
@@ -57,7 +58,9 @@ export function useParallax({
       // Speed < 1 means element moves slower than scroll (creates parallax)
       // The offset is the difference between normal scroll and parallax scroll
       const parallaxOffset = scrollY * (1 - speed);
-      
+
+      // Apply transform directly to element
+      elementRef.current.style.transform = `translateY(${parallaxOffset}px)`;
       setOffsetY(parallaxOffset);
     };
 
@@ -78,9 +81,12 @@ export function useParallax({
     };
   }, [enabled, isDesktop, mobileEnabled, speed]);
 
+  // Create a stable getTransform function for consumers that need inline styles
+  const getTransform = useCallback(() => `translateY(${offsetY}px)`, [offsetY]);
+
   return {
     ref: elementRef,
     offsetY,
-    transform: `translateY(${offsetY}px)`,
+    getTransform,
   };
 }
