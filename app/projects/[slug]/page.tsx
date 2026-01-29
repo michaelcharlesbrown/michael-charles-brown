@@ -2,6 +2,7 @@ import { projects } from "@/data/projects";
 import { notFound } from "next/navigation";
 import NavIcon from "@/app/components/NavIcon";
 import ProjectHeroSplit from "@/components/project/ProjectHeroSplit";
+import AudioPlayer from "@/components/audio/AudioPlayer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -72,6 +73,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   body: "Written and directed by Carlos Alejandro Marulanda",
                 },
               ]}
+              audioPlayer={<AudioPlayer src="/audio/test.mp3" label="Cancuncito" />}
             />
           </div>
         </main>
@@ -100,6 +102,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   body: "Snow King is the story of a man, who, as a young boy witnesses the horrors of war, human cruelty and insufferable pain. Deported to a distant land far from home, the boy develops a dangerous friendship with an eccentric local puppet-maker, a bond he must sacrifice to save his mother. Ever since, he is cursed with an unlikely ability; to see the evil in all people. An ability that stays with him into his adult life. One that fuels both talent and malice, bringing him fame and fortune yet driving him ever further toward madness",
                 },
               ]}
+              audioPlayer={<AudioPlayer src="/audio/test.mp3" label={project.title} />}
             />
           </div>
         </main>
@@ -136,6 +139,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   body: "Sitges International Film Festival\nAnn Arbor Film Festival\nS.F. Indiefest\nSan Francisco Latino Film Festival\n(Winner: best Short Film)\nSan Francisco Videofest\nCSU Media Arts Festival\n(Winner: Best Cinematography)",
                 },
               ]}
+              audioPlayer={<AudioPlayer src="/audio/test.mp3" label={project.title} />}
             />
           </div>
         </main>
@@ -166,6 +170,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 { label: "YOUTUBE", href: "https://www.youtube.com/@boomingdunes" },
               ]}
               linksHeading="STREAM"
+              audioPlayer={<AudioPlayer src="/audio/test.mp3" label={project.title} />}
             />
           </div>
         </main>
@@ -204,6 +209,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 { label: "YOUTUBE", href: "https://www.youtube.com/@redmoonapostles" },
               ]}
               linksHeading="STREAM"
+              audioPlayer={<AudioPlayer src="/audio/test.mp3" label={project.title} />}
             />
           </div>
         </main>
@@ -250,6 +256,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 { label: "BANDCAMP", href: "https://maddenizen.bandcamp.com" },
                 { label: "YOUTUBE", href: "https://www.youtube.com/@maddenizen" },
               ]}
+              audioPlayer={<AudioPlayer src="/audio/test.mp3" label={project.title} />}
             />
           </div>
         </main>
@@ -279,6 +286,7 @@ export default async function ProjectPage({ params }: PageProps) {
             meta={{
               eyebrow: project.slug === "red-moon-apostles" ? "RED MOON APOSTLES" : undefined,
             }}
+            audioPlayer={<AudioPlayer src="/audio/test.mp3" label={project.title} />}
           />
         </div>
       </main>

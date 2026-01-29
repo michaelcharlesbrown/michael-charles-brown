@@ -10,6 +10,7 @@ interface ProjectHeroSplitProps {
   spotifyEmbed?: boolean | { artistId: string; height?: number; theme?: number };
   links?: Array<{ label: string; href: string }>;
   linksHeading?: string;
+  audioPlayer?: React.ReactNode;
 }
 
 export default function ProjectHeroSplit({
@@ -22,6 +23,7 @@ export default function ProjectHeroSplit({
   spotifyEmbed,
   links,
   linksHeading,
+  audioPlayer,
 }: ProjectHeroSplitProps) {
   return (
     <div className="w-full">
@@ -135,6 +137,11 @@ export default function ProjectHeroSplit({
               );
             })}
           </div>
+          {audioPlayer && (
+            <div className="mt-6 md:mt-8">
+              {audioPlayer}
+            </div>
+          )}
           {links && links.length > 0 && (
             <div className="flex flex-col text-left mt-8 md:mt-12">
               {linksHeading && (
@@ -261,6 +268,11 @@ export default function ProjectHeroSplit({
               );
             })}
         </div>
+        {audioPlayer && (
+          <div className="mt-6 md:mt-8">
+            {audioPlayer}
+          </div>
+        )}
         {links && links.length > 0 && (
           <div className="flex flex-col text-left mt-8 md:mt-12">
             {links.map((link, index) => (
