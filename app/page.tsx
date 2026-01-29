@@ -12,7 +12,7 @@ export default function HomePage() {
       <main
         className="mx-auto w-full max-w-[2400px]"
         style={{
-          padding: "101px 20px 120px 20px",
+          padding: "100px 20px 120px 20px",
           background: "#FFF",
           minHeight: "100vh",
         }}

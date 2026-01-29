@@ -56,13 +56,13 @@ export default function AboutHeroSection() {
 
         {/* Body Copy */}
         <div className="space-y-6">
-          <p className="text-sm md:text-base leading-relaxed text-black md:text-white">
+          <p className="text-sm md:text-xs leading-relaxed text-black md:text-white">
             A composer whose work moves fluidly between film scoring and experimental atmospheric textures with bold rhythmic undercurrents, creating sound worlds that feel both cinematic and deeply personal.
           </p>
-          <p className="text-sm md:text-base leading-relaxed text-black md:text-white">
+          <p className="text-sm md:text-xs leading-relaxed text-black md:text-white">
             Most recently, Brown completed the original score for Cancuncito (2025), a debut feature headed into festival circulation this year. The project highlights his instinct for sculpting immersive themes that heighten narrative and emotional depth, a style equally at home in fiction and documentary work.
           </p>
-          <p className="text-sm md:text-base leading-relaxed text-black md:text-white">
+          <p className="text-sm md:text-xs leading-relaxed text-black md:text-white">
             As a recording artist, Brown has released a series of albums under various monikers and collaborative projects including Red Moon Apostles and Mad Denizen. These projects explore everything from meditative, minimalist soundscapes to raw, driving post-punk energy, reflecting the wide range of voices he brings to his scoring work.
           </p>
         </div>

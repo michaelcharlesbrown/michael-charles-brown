@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <div className="md:min-h-screen bg-white">
       <NavIcon />
-      <main className="mx-auto w-full max-w-[2400px] px-5 pt-20 pb-0 md:pb-[180px]">
+      <main className="mx-auto w-full max-w-[2400px] px-5 pt-[100px] pb-0 md:pb-[180px]">
         <div className="mx-auto w-full">
           {/* Top Section: Name and Role - Hero */}
           <div className="relative min-h-[70vh] md:min-h-[65vh] mb-16">
