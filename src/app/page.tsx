@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useEffect, useRef, useState } from "react";
+import Script from "next/script";
 
 const SLIDES = ["/test/1.jpg", "/test/2.jpg", "/test/3.jpg"];
 
@@ -27,15 +24,27 @@ const SCALE_MAP: number[][] = [
 
 export default function ElasticScrollGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [gsapReady, setGsapReady] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const slides = gsap.utils.toArray<HTMLElement>(".elastic-slide");
+    if (!gsapReady) return;
 
-      slides.forEach((slide) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const gsap = (window as any).gsap;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ScrollTrigger = (window as any).ScrollTrigger;
+
+    if (!gsap || !ScrollTrigger) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const slides = gsap.utils.toArray(".elastic-slide");
+
+      slides.forEach((slide: HTMLElement) => {
         const cells = slide.querySelectorAll<HTMLElement>(".grid-cell");
 
-        cells.forEach((cell) => {
+        cells.forEach((cell: HTMLElement) => {
           const row = Number(cell.dataset.row);
           const col = Number(cell.dataset.col);
           const maxScale = SCALE_MAP[row][col];
@@ -71,21 +80,35 @@ export default function ElasticScrollGallery() {
           );
         });
       });
-    }, containerRef);
+    }, containerRef.current);
 
     return () => ctx.revert();
-  }, []);
+  }, [gsapReady]);
 
   return (
-    <div ref={containerRef} className="elastic-gallery">
-      {SLIDES.map((src, i) => (
-        <Slide key={i} src={src} index={i} />
-      ))}
-    </div>
+    <>
+      <Script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          // Load ScrollTrigger after core GSAP is ready
+          const st = document.createElement("script");
+          st.src =
+            "https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js";
+          st.onload = () => setGsapReady(true);
+          document.head.appendChild(st);
+        }}
+      />
+      <div ref={containerRef} className="elastic-gallery">
+        {SLIDES.map((src, i) => (
+          <Slide key={i} src={src} />
+        ))}
+      </div>
+    </>
   );
 }
 
-function Slide({ src, index }: { src: string; index: number }) {
+function Slide({ src }: { src: string }) {
   const cells: { row: number; col: number }[] = [];
   for (let r = 0; r < GRID_ROWS; r++) {
     for (let c = 0; c < GRID_COLS; c++) {
@@ -118,7 +141,8 @@ function Slide({ src, index }: { src: string; index: number }) {
               backgroundSize: `${GRID_COLS * 100}% ${GRID_ROWS * 100}%`,
               backgroundPosition: `${(col / (GRID_COLS - 1)) * 100}% ${(row / (GRID_ROWS - 1)) * 100}%`,
               willChange: "transform",
-              transformOrigin: row === 0 ? "top" : row === 2 ? "bottom" : "center",
+              transformOrigin:
+                row === 0 ? "top" : row === 2 ? "bottom" : "center",
             }}
           />
         ))}
