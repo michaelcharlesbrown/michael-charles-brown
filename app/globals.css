@@ -94,3 +94,12 @@ body {
 .nav-icon-mobile {
   top: 24px;
 }
+
+/* Elastic scroll gallery */
+.elastic-gallery {
+  background: #000;
+}
+
+.grid-cell {
+  transition: none !important;
+}

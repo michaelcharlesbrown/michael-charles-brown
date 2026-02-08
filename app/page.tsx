@@ -1,135 +1,128 @@
 "use client";
 
-import Link from "next/link";
-import { useRef, useEffect, useState } from "react";
-import { projects, type Project } from "@/data/projects";
-import NavIcon from "@/app/components/NavIcon";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function HomePage() {
+gsap.registerPlugin(ScrollTrigger);
+
+const SLIDES = ["/test/1.jpg", "/test/2.jpg", "/test/3.jpg"];
+
+const GRID_ROWS = 3;
+const GRID_COLS = 3;
+
+/**
+ * Scale multiplier per grid position.
+ * Center cell stretches most, edges less, corners least.
+ *
+ *   1.1  1.2  1.1
+ *   1.2  1.8  1.2
+ *   1.1  1.2  1.1
+ */
+const SCALE_MAP: number[][] = [
+  [1.1, 1.2, 1.1],
+  [1.2, 1.8, 1.2],
+  [1.1, 1.2, 1.1],
+];
+
+export default function ElasticScrollGallery() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const slides = gsap.utils.toArray<HTMLElement>(".elastic-slide");
+
+      slides.forEach((slide) => {
+        const cells = slide.querySelectorAll<HTMLElement>(".grid-cell");
+
+        cells.forEach((cell) => {
+          const row = Number(cell.dataset.row);
+          const col = Number(cell.dataset.col);
+          const maxScale = SCALE_MAP[row][col];
+
+          gsap.fromTo(
+            cell,
+            { scaleY: 1 },
+            {
+              scaleY: maxScale,
+              ease: "none",
+              scrollTrigger: {
+                trigger: slide,
+                start: "top bottom",
+                end: "top top",
+                scrub: true,
+              },
+            }
+          );
+
+          gsap.fromTo(
+            cell,
+            { scaleY: maxScale },
+            {
+              scaleY: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: slide,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          );
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white">
-      <NavIcon />
-      <main
-        className="mx-auto w-full max-w-[2400px]"
-        style={{
-          padding: "100px 20px 120px 20px",
-          background: "#FFF",
-          minHeight: "100vh",
-        }}
-      >
-        <div
-          className="grid w-full grid-cols-1 md:grid-cols-3"
-          style={{ 
-            gap: "20px",
-          }}
-          data-mobile-gap="19px"
-        >
-          {projects.map((project, i) => (
-            <VideoCard key={project.slug} project={project} index={i} />
-          ))}
-        </div>
-      </main>
+    <div ref={containerRef} className="elastic-gallery">
+      {SLIDES.map((src, i) => (
+        <Slide key={i} src={src} index={i} />
+      ))}
     </div>
   );
 }
 
-function VideoCard({ project, index }: { project: Project; index: number }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile || !containerRef.current || !videoRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            videoRef.current?.play().catch(() => {
-              // Silently handle autoplay errors
-            });
-          } else {
-            videoRef.current?.pause();
-          }
-        });
-      },
-      {
-        threshold: 0.6,
-      }
-    );
-
-    observer.observe(containerRef.current);
-
-    // Autoplay first video on page load
-    if (index === 0) {
-      const checkVisibility = () => {
-        if (containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-          const visibleRatio = visibleHeight / rect.height;
-          
-          if (visibleRatio >= 0.6) {
-            videoRef.current?.play().catch(() => {
-              // Silently handle autoplay errors
-            });
-          }
-        }
-      };
-      
-      // Check immediately and after a short delay
-      checkVisibility();
-      setTimeout(checkVisibility, 100);
+function Slide({ src, index }: { src: string; index: number }) {
+  const cells: { row: number; col: number }[] = [];
+  for (let r = 0; r < GRID_ROWS; r++) {
+    for (let c = 0; c < GRID_COLS; c++) {
+      cells.push({ row: r, col: c });
     }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [isMobile, index]);
-
-  const handleMouseEnter = () => {
-    if (videoRef.current && !isMobile) {
-      videoRef.current.play().catch(() => {
-        // Silently handle autoplay errors
-      });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current && !isMobile) {
-      videoRef.current.pause();
-    }
-  };
+  }
 
   return (
-    <Link href={`/projects/${project.slug}`}>
+    <section
+      className="elastic-slide"
+      style={{ height: "100vh", width: "100%", overflow: "hidden" }}
+    >
       <div
-        ref={containerRef}
-        className="video-card snap-item relative aspect-[5/7] w-full overflow-hidden bg-zinc-100 cursor-pointer rounded-lg"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        style={{
+          display: "grid",
+          gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
+          gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
+          width: "100%",
+          height: "100%",
+        }}
       >
-        <video
-          ref={videoRef}
-          src={project.video}
-          poster={project.poster}
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-          preload="metadata"
-        />
+        {cells.map(({ row, col }) => (
+          <div
+            key={`${row}-${col}`}
+            className="grid-cell"
+            data-row={row}
+            data-col={col}
+            style={{
+              backgroundImage: `url(${src})`,
+              backgroundSize: `${GRID_COLS * 100}% ${GRID_ROWS * 100}%`,
+              backgroundPosition: `${(col / (GRID_COLS - 1)) * 100}% ${(row / (GRID_ROWS - 1)) * 100}%`,
+              willChange: "transform",
+              transformOrigin: row === 0 ? "top" : row === 2 ? "bottom" : "center",
+            }}
+          />
+        ))}
       </div>
-    </Link>
+    </section>
   );
 }
