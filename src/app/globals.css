@@ -100,6 +100,10 @@ body {
   background: #000;
 }
 
-.grid-cell {
+.elastic-gallery *,
+.elastic-gallery *::before,
+.elastic-gallery *::after {
   transition: none !important;
+  margin: 0;
+  padding: 0;
 }

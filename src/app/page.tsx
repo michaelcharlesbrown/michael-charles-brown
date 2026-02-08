@@ -41,7 +41,7 @@ export default function ElasticScrollGallery() {
     const ctx = gsap.context(() => {
       const slides = gsap.utils.toArray(".elastic-slide");
 
-      slides.forEach((slide: HTMLElement) => {
+      slides.forEach((slide: HTMLElement, i: number) => {
         const cells = slide.querySelectorAll<HTMLElement>(".grid-cell");
 
         cells.forEach((cell: HTMLElement) => {
@@ -49,24 +49,28 @@ export default function ElasticScrollGallery() {
           const col = Number(cell.dataset.col);
           const maxScale = SCALE_MAP[row][col];
 
-          gsap.fromTo(
-            cell,
-            { scaleY: 1 },
-            {
-              scaleY: maxScale,
-              ease: "none",
-              scrollTrigger: {
-                trigger: slide,
-                start: "top bottom",
-                end: "top top",
-                scrub: true,
-              },
-            }
-          );
+          // First slide is already visible on load — only animate OUT
+          if (i > 0) {
+            gsap.fromTo(
+              cell,
+              { scaleY: 1 },
+              {
+                scaleY: maxScale,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: slide,
+                  start: "top bottom",
+                  end: "top top",
+                  scrub: true,
+                },
+              }
+            );
+          }
 
+          // All slides: stretch relaxes as slide scrolls away
           gsap.fromTo(
             cell,
-            { scaleY: maxScale },
+            { scaleY: i === 0 ? 1 : maxScale },
             {
               scaleY: 1,
               ease: "none",
@@ -91,7 +95,6 @@ export default function ElasticScrollGallery() {
         src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"
         strategy="afterInteractive"
         onLoad={() => {
-          // Load ScrollTrigger after core GSAP is ready
           const st = document.createElement("script");
           st.src =
             "https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js";
@@ -126,6 +129,7 @@ function Slide({ src }: { src: string }) {
           display: "grid",
           gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
           gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
+          gap: 0,
           width: "100%",
           height: "100%",
         }}
