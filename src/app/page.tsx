@@ -5,16 +5,12 @@ import Script from "next/script";
 
 const SLIDES = ["/test/1.jpg", "/test/2.jpg", "/test/3.jpg"];
 
-const GRID_ROWS = 3;
-const GRID_COLS = 3;
+const ROWS = 3;
+const COLS = 3;
 
 /**
  * Scale multiplier per grid position.
  * Center cell stretches most, edges less, corners least.
- *
- *   1.1  1.2  1.1
- *   1.2  1.8  1.2
- *   1.1  1.2  1.1
  */
 const SCALE_MAP: number[][] = [
   [1.1, 1.2, 1.1],
@@ -35,7 +31,6 @@ export default function ElasticScrollGallery() {
     const ScrollTrigger = (window as any).ScrollTrigger;
 
     if (!gsap || !ScrollTrigger) return;
-
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
@@ -49,7 +44,7 @@ export default function ElasticScrollGallery() {
           const col = Number(cell.dataset.col);
           const maxScale = SCALE_MAP[row][col];
 
-          // First slide is already visible on load — only animate OUT
+          // First slide is already in viewport on load — skip enter anim
           if (i > 0) {
             gsap.fromTo(
               cell,
@@ -67,7 +62,6 @@ export default function ElasticScrollGallery() {
             );
           }
 
-          // All slides: stretch relaxes as slide scrolls away
           gsap.fromTo(
             cell,
             { scaleY: i === 0 ? 1 : maxScale },
@@ -102,7 +96,7 @@ export default function ElasticScrollGallery() {
           document.head.appendChild(st);
         }}
       />
-      <div ref={containerRef} className="elastic-gallery">
+      <div ref={containerRef} style={{ background: "#000" }}>
         {SLIDES.map((src, i) => (
           <Slide key={i} src={src} />
         ))}
@@ -112,9 +106,12 @@ export default function ElasticScrollGallery() {
 }
 
 function Slide({ src }: { src: string }) {
+  const cellWidth = 100 / COLS;
+  const cellHeight = 100 / ROWS;
+
   const cells: { row: number; col: number }[] = [];
-  for (let r = 0; r < GRID_ROWS; r++) {
-    for (let c = 0; c < GRID_COLS; c++) {
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
       cells.push({ row: r, col: c });
     }
   }
@@ -122,35 +119,38 @@ function Slide({ src }: { src: string }) {
   return (
     <section
       className="elastic-slide"
-      style={{ height: "100vh", width: "100%", overflow: "hidden" }}
+      style={{
+        position: "relative",
+        height: "100vh",
+        width: "100%",
+        overflow: "hidden",
+      }}
     >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
-          gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
-          gap: 0,
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {cells.map(({ row, col }) => (
-          <div
-            key={`${row}-${col}`}
-            className="grid-cell"
-            data-row={row}
-            data-col={col}
-            style={{
-              backgroundImage: `url(${src})`,
-              backgroundSize: `${GRID_COLS * 100}% ${GRID_ROWS * 100}%`,
-              backgroundPosition: `${(col / (GRID_COLS - 1)) * 100}% ${(row / (GRID_ROWS - 1)) * 100}%`,
-              willChange: "transform",
-              transformOrigin:
-                row === 0 ? "top" : row === 2 ? "bottom" : "center",
-            }}
-          />
-        ))}
-      </div>
+      {cells.map(({ row, col }) => (
+        <div
+          key={`${row}-${col}`}
+          className="grid-cell"
+          data-row={row}
+          data-col={col}
+          style={{
+            position: "absolute",
+            top: `${row * cellHeight}%`,
+            left: `${col * cellWidth}%`,
+            width: `${cellWidth}%`,
+            height: `${cellHeight}%`,
+            backgroundImage: `url(${src})`,
+            backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
+            backgroundPosition: `${(col / (COLS - 1)) * 100}% ${(row / (ROWS - 1)) * 100}%`,
+            willChange: "transform",
+            transformOrigin:
+              row === 0 ? "top" : row === ROWS - 1 ? "bottom" : "center",
+            transition: "none",
+            margin: 0,
+            padding: 0,
+            border: "none",
+          }}
+        />
+      ))}
     </section>
   );
 }
