@@ -106,8 +106,8 @@ export default function ElasticScrollGallery() {
 }
 
 function Slide({ src }: { src: string }) {
-  const cellWidth = 100 / COLS;
-  const cellHeight = 100 / ROWS;
+  const cellW = 100 / COLS; // 33.333vw
+  const cellH = 100 / ROWS; // 33.333vh
 
   const cells: { row: number; col: number }[] = [];
   for (let r = 0; r < ROWS; r++) {
@@ -122,7 +122,7 @@ function Slide({ src }: { src: string }) {
       style={{
         position: "relative",
         height: "100vh",
-        width: "100%",
+        width: "100vw",
         overflow: "hidden",
       }}
     >
@@ -134,13 +134,13 @@ function Slide({ src }: { src: string }) {
           data-col={col}
           style={{
             position: "absolute",
-            top: `${row * cellHeight}%`,
-            left: `${col * cellWidth}%`,
-            width: `${cellWidth}%`,
-            height: `${cellHeight}%`,
+            left: `${col * cellW}vw`,
+            top: `${row * cellH}vh`,
+            width: `${cellW}vw`,
+            height: `${cellH}vh`,
             backgroundImage: `url(${src})`,
-            backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
-            backgroundPosition: `${(col / (COLS - 1)) * 100}% ${(row / (ROWS - 1)) * 100}%`,
+            backgroundSize: "100vw 100vh",
+            backgroundPosition: `-${col * cellW}vw -${row * cellH}vh`,
             willChange: "transform",
             transformOrigin:
               row === 0 ? "top" : row === ROWS - 1 ? "bottom" : "center",
