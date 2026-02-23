@@ -94,3 +94,8 @@ body {
 .nav-icon-mobile {
   top: 24px;
 }
+
+/* All images get 8px border radius */
+img {
+  border-radius: 8px;
+}
