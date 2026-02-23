@@ -25,16 +25,35 @@ export default function NavIcon() {
           pointer-events: none;
         }
         .navTriOverlay {
-          width: 100%;
-          height: 100%;
+          position: absolute;
+          inset: 0;
+          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
+          /* Soft radial glow only — no directionality */
+          background: radial-gradient(
+            120% 120% at 50% 40%,
+            rgba(255, 100, 160, 0.6),
+            rgba(255, 100, 160, 0.4) 45%,
+            rgba(255, 100, 160, 0.2) 70%,
+            rgba(255, 100, 160, 0.05) 100%
+          );
+
+          /* Very slow subtle color morph */
+          animation: navGlow 28s ease-in-out infinite;
+
           opacity: 0;
-          transition: opacity 160ms ease;
-          mix-blend-mode: normal;
+          transition: opacity 180ms ease;
+          will-change: filter, opacity;
         }
         .navTriWrap:hover .navTriOverlay,
         .navTriWrap:focus-visible .navTriOverlay,
         .navTriWrap:focus-within .navTriOverlay {
           opacity: 1;
+        }
+        @keyframes navGlow {
+          0%   { filter: hue-rotate(0deg) saturate(1.05); }
+          50%  { filter: hue-rotate(180deg) saturate(1.1); }
+          100% { filter: hue-rotate(360deg) saturate(1.05); }
         }
       `}</style>
       <nav 
@@ -54,27 +73,7 @@ export default function NavIcon() {
           </Link>
           {/* Overlay layer - hover only, isolated from blend mode */}
           <div className="navTriOverlayWrap">
-            <svg className="navTriOverlay" width="42" height="36" viewBox="0 0 42 36" aria-hidden="true">
-            <defs>
-              {/* Colors inverted for difference blend mode - will display as red/purple/violet/blue when inverted */}
-              {/* To get red/purple/violet/blue, we provide cyan/yellow/green which invert to those colors */}
-              <linearGradient id="navTriPsyGradient" x1="50%" y1="0%" x2="50%" y2="100%">
-                <stop offset="0%">
-                  <animate attributeName="stop-color" dur="1.9s" repeatCount="indefinite"
-                    values="#FFFF66; #FFFF33; #FFFF00; #FFCC00; #FFFF66" />
-                </stop>
-                <stop offset="50%">
-                  <animate attributeName="stop-color" dur="2.3s" repeatCount="indefinite"
-                    values="#00FFFF; #33FFFF; #66FFFF; #00FFFF; #33FFFF" />
-                </stop>
-                <stop offset="100%">
-                  <animate attributeName="stop-color" dur="2.7s" repeatCount="indefinite"
-                    values="#00FF00; #33FF00; #66FF00; #00FF00; #33FF00" />
-                </stop>
-              </linearGradient>
-            </defs>
-            <path d="M20.7847 0L41.5693 36H5.91278e-05L20.7847 0Z" fill="url(#navTriPsyGradient)"></path>
-          </svg>
+            <span className="navTriOverlay" aria-hidden="true" />
           </div>
         </div>
       </nav>
