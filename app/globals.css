@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --content-top: 100px; /* Clear space below nav */
 }
 
 @theme inline {
@@ -72,6 +73,10 @@ body {
     transform: translateZ(0);
   }
 
+  :root {
+    --content-top: 88px;
+  }
+
   /* Mobile-specific padding and gap for homepage only ( Projects page with scroll-snap ) */
   main:has(> div[data-mobile-gap]) {
     padding-top: 88px !important; /* Start content below header (33px nav top + 36px nav height + 19px gap) */
@@ -98,4 +103,9 @@ body {
 /* All images get 8px border radius */
 img {
   border-radius: 8px;
+}
+
+/* About page portrait: no rounded corners */
+.about-page-portrait img {
+  border-radius: 0;
 }
