@@ -15,6 +15,11 @@ export default function NavIcon() {
         .navTriWrap {
           position: relative;
           display: inline-block;
+          animation: navRotate 45s linear infinite;
+        }
+        @keyframes navRotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         .navTriOverlayWrap {
           position: absolute;
@@ -24,10 +29,27 @@ export default function NavIcon() {
           isolation: isolate;
           pointer-events: none;
         }
+        .navShapeHexagon {
+          transition: opacity 240ms ease;
+        }
+        .navShapeOctagon {
+          transition: opacity 240ms ease;
+          opacity: 0;
+        }
+        .navTriWrap:hover .navShapeHexagon,
+        .navTriWrap:focus-visible .navShapeHexagon,
+        .navTriWrap:focus-within .navShapeHexagon {
+          opacity: 0;
+        }
+        .navTriWrap:hover .navShapeOctagon,
+        .navTriWrap:focus-visible .navShapeOctagon,
+        .navTriWrap:focus-within .navShapeOctagon {
+          opacity: 1;
+        }
         .navTriOverlay {
           position: absolute;
           inset: 0;
-          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+          clip-path: polygon(50% 0%, 81% 14%, 93% 50%, 81% 86%, 50% 100%, 19% 86%, 7% 50%, 19% 14%);
 
           /* Soft radial glow only — no directionality */
           background: radial-gradient(
@@ -68,7 +90,8 @@ export default function NavIcon() {
           >
             {/* Base layer - unchanged */}
             <svg width="42" height="36" viewBox="0 0 42 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20.7847 0L41.5693 36H5.91278e-05L20.7847 0Z" fill="white"/>
+              <path className="navShapeHexagon" d="M21 0L36 9L36 27L21 36L6 27L6 9Z" fill="white"/>
+              <path className="navShapeOctagon" d="M21 0L34 5L39 18L34 31L21 36L8 31L3 18L8 5Z" fill="white"/>
             </svg>
           </Link>
           {/* Overlay layer - hover only, isolated from blend mode */}

@@ -36,8 +36,8 @@ export default function AboutPage() {
               />
             </div>
             <div
-              className="flex flex-col gap-2"
-              style={{ fontFamily: MONO }}
+              className="flex flex-col gap-1"
+              style={{ fontFamily: MONO, lineHeight: "1" }}
             >
               {SOCIAL_LINKS.map(({ label, href }) => (
                 <a
@@ -45,7 +45,7 @@ export default function AboutPage() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold uppercase text-black hover:opacity-70 transition-opacity text-base md:text-lg"
+                  className="font-bold uppercase text-black hover:opacity-70 transition-opacity text-lg md:text-xl leading-none"
                   style={{ textDecoration: "none" }}
                 >
                   {label}
