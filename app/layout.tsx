@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
+import { LenisProvider } from "./components/LenisProvider";
 import "./globals.css";
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -49,9 +50,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${ibmPlexMono.className}`}>
+    <html lang="en" className={ibmPlexMono.className}>
       <body className={`antialiased ${ibmPlexMono.className}`}>
-        {children}
+        <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
   );
