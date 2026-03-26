@@ -10,18 +10,10 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <NavIcon />
       <main
-        className="mx-auto w-full max-w-[2400px]"
-        style={{
-          padding: "var(--content-top) 20px 20px 20px",
-          background: "#FFF",
-          minHeight: "100vh",
-        }}
+        className="home-main mx-auto w-full max-w-[2400px]"
       >
         <div
-          className="grid w-full grid-cols-1 md:grid-cols-3"
-          style={{ 
-            gap: "20px",
-          }}
+          className="home-grid grid w-full grid-cols-1 md:grid-cols-3"
           data-mobile-gap="19px"
         >
           {projects.map((project, i) => (
@@ -42,7 +34,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -78,7 +70,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
           const viewportHeight = window.innerHeight;
           const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
           const visibleRatio = visibleHeight / rect.height;
-          
+
           if (visibleRatio >= 0.6) {
             videoRef.current?.play().catch(() => {
               // Silently handle autoplay errors
@@ -86,7 +78,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
           }
         }
       };
-      
+
       // Check immediately and after a short delay
       checkVisibility();
       setTimeout(checkVisibility, 100);

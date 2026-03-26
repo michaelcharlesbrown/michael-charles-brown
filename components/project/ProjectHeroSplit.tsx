@@ -70,8 +70,8 @@ export default function ProjectHeroSplit({
             <div className="w-full">
               <iframe
                 data-testid="embed-iframe"
-                style={{ borderRadius: '12px' }}
-                src={typeof spotifyEmbed === 'object' 
+                className="spotify-embed"
+                src={typeof spotifyEmbed === 'object'
                   ? `https://open.spotify.com/embed/artist/${spotifyEmbed.artistId}?utm_source=generator${spotifyEmbed.theme !== undefined ? `&theme=${spotifyEmbed.theme}` : ''}`
                   : "https://open.spotify.com/embed/artist/3WJymJTqfpwT0iybktxqQh?utm_source=generator&theme=0"}
                 width="100%"
@@ -87,31 +87,27 @@ export default function ProjectHeroSplit({
 
         {/* Right Column: Title, Subtitle, and Text Sections */}
         <div className="flex flex-col">
-          {/* Eyebrow */}
           {meta?.eyebrow && (
             <div className="text-xs md:text-sm font-bold uppercase tracking-tight text-black mb-2">
               {meta.eyebrow}
             </div>
           )}
 
-          {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black mb-2" style={{ lineHeight: '0.6' }}>
+          <h1 className="project-title text-2xl md:text-3xl font-bold uppercase tracking-tight text-black mb-2">
             {title}
           </h1>
 
-          {/* Subtitle */}
           {subtitle && (
-            <h2 className="text-xl md:text-2xl font-normal uppercase tracking-tight text-black mb-6 md:mb-8" style={{ lineHeight: '0.8' }}>
+            <h2 className="project-subtitle text-xl md:text-2xl font-normal uppercase tracking-tight text-black mb-6 md:mb-8">
               {subtitle}
             </h2>
           )}
 
-          {/* Text Sections */}
           <div className="space-y-6 md:space-y-8">
             {sections.map((section, index) => {
               const isQuote = !section.heading && section.body.includes('"') && section.body.includes('—');
               const quoteMatch = isQuote ? section.body.match(/^"([^"]+)"\s*(—\s*.+)$/) : null;
-              
+
               return (
                 <div key={index}>
                   {section.heading && (
@@ -155,8 +151,7 @@ export default function ProjectHeroSplit({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold uppercase tracking-wide text-black hover:opacity-70 transition-opacity"
-                  style={{ fontSize: '30px', lineHeight: '74%', fontFamily: '"IBM Plex Mono", ui-monospace, monospace' }}
+                  className="project-link font-bold uppercase tracking-wide text-black hover:opacity-70 transition-opacity"
                 >
                   {link.label}
                 </a>
@@ -168,7 +163,6 @@ export default function ProjectHeroSplit({
 
       {/* Mobile: Stacked layout */}
       <div className="lg:hidden space-y-6 md:space-y-8">
-        {/* Video or Image */}
         {image ? (
           <div className="w-full mb-6">
             <Image
@@ -208,7 +202,7 @@ export default function ProjectHeroSplit({
           <div className="w-full">
             <iframe
               data-testid="embed-iframe"
-              style={{ borderRadius: '12px' }}
+              className="spotify-embed"
               src="https://open.spotify.com/embed/artist/3WJymJTqfpwT0iybktxqQh?utm_source=generator&theme=0"
               width="100%"
               height="152"
@@ -220,29 +214,27 @@ export default function ProjectHeroSplit({
           </div>
         )}
 
-        {/* Title and Subtitle */}
         <div>
           {meta?.eyebrow && (
             <div className="text-xs md:text-sm font-bold uppercase tracking-tight text-black mb-2">
               {meta.eyebrow}
             </div>
           )}
-          <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black mb-2" style={{ lineHeight: '0.6' }}>
+          <h1 className="project-title text-2xl md:text-3xl font-bold uppercase tracking-tight text-black mb-2">
             {title}
           </h1>
           {subtitle && (
-            <h2 className="text-xl md:text-2xl font-normal uppercase tracking-tight text-black mb-6" style={{ lineHeight: '0.8' }}>
+            <h2 className="project-subtitle text-xl md:text-2xl font-normal uppercase tracking-tight text-black mb-6">
               {subtitle}
             </h2>
           )}
         </div>
 
-        {/* Text Sections */}
         <div className="space-y-6 md:space-y-8">
           {sections.map((section, index) => {
             const isQuote = !section.heading && section.body.includes('"') && section.body.includes('—');
             const quoteMatch = isQuote ? section.body.match(/^"([^"]+)"\s*(—\s*.+)$/) : null;
-            
+
             return (
               <div key={index}>
                 {section.heading && (
@@ -265,8 +257,8 @@ export default function ProjectHeroSplit({
                   </p>
                 )}
               </div>
-              );
-            })}
+            );
+          })}
         </div>
         {audioPlayer && (
           <div className="mt-6 md:mt-8">
@@ -281,8 +273,7 @@ export default function ProjectHeroSplit({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold uppercase tracking-wide text-black hover:opacity-70 transition-opacity"
-                style={{ fontSize: '30px', lineHeight: '74%', fontFamily: '"IBM Plex Mono", ui-monospace, monospace' }}
+                className="project-link font-bold uppercase tracking-wide text-black hover:opacity-70 transition-opacity"
               >
                 {link.label}
               </a>

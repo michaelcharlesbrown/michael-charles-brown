@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { LenisProvider } from "./components/LenisProvider";
 import "./globals.css";
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
   title: "Michael Charles Brown /// Composer /// Recording Artist",
@@ -50,8 +47,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={ibmPlexMono.className}>
-      <body className={`antialiased ${ibmPlexMono.className}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="antialiased">
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

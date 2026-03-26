@@ -9,8 +9,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "IBM Plex Mono", ui-monospace, monospace;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,7 +28,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-family: var(--font-geist-sans), ui-sans-serif, sans-serif;
   overflow-x: hidden;
 }
 
@@ -39,7 +39,20 @@ body {
   transition-duration: 150ms;
 }
 
-/* Video card transitions */
+/* ─── Homepage ─────────────────────────────────────────── */
+
+.home-main {
+  padding: var(--content-top) 20px 20px 20px;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.home-grid {
+  gap: 20px;
+}
+
+/* ─── Video card ────────────────────────────────────────── */
+
 .video-card {
   transition: opacity 0.3s ease-in-out;
 }
@@ -50,7 +63,228 @@ body {
   transform: translateZ(0);
 }
 
-/* Mobile Safari fixes */
+/* ─── About page ────────────────────────────────────────── */
+
+.about-main {
+  padding-top: var(--content-top);
+  padding-bottom: 4rem;
+}
+
+.about-links {
+  line-height: 1;
+}
+
+/* Social link variable font weight hover */
+.social-link {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  text-decoration: none;
+  transition: font-weight 0.15s cubic-bezier(0.25, 0, 0, 1);
+}
+
+.social-link:hover {
+  font-weight: 700;
+}
+
+.social-link::after {
+  content: attr(data-text);
+  font-weight: 700;
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ─── Project pages ─────────────────────────────────────── */
+
+.spotify-embed {
+  border-radius: 12px;
+}
+
+.project-title {
+  line-height: 0.6;
+}
+
+.project-subtitle {
+  line-height: 0.8;
+}
+
+.project-link {
+  font-size: 30px;
+  line-height: 74%;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* ─── NavIcon ───────────────────────────────────────────── */
+
+.nav-icon-nav {
+  mix-blend-mode: difference;
+}
+
+.navTriWrap {
+  position: relative;
+  display: inline-block;
+  animation: navRotate 45s linear infinite;
+}
+
+@keyframes navRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.navTriOverlayWrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.navTriOverlay {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0%, 99.5% 100%, 0.5% 100%);
+  background: radial-gradient(
+    120% 120% at 50% 40%,
+    rgba(255, 100, 160, 0.6),
+    rgba(255, 100, 160, 0.4) 45%,
+    rgba(255, 100, 160, 0.2) 70%,
+    rgba(255, 100, 160, 0.05) 100%
+  );
+  animation: navGlow 28s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  will-change: filter, opacity;
+}
+
+.navTriWrap:hover .navTriOverlay,
+.navTriWrap:focus-visible .navTriOverlay,
+.navTriWrap:focus-within .navTriOverlay {
+  opacity: 1;
+}
+
+@keyframes navGlow {
+  0%   { filter: hue-rotate(0deg) saturate(1.05); }
+  50%  { filter: hue-rotate(180deg) saturate(1.1); }
+  100% { filter: hue-rotate(360deg) saturate(1.05); }
+}
+
+/* ─── AudioPlayer ───────────────────────────────────────── */
+
+.ap-host {
+  --audio-player-progress: 0;
+  width: 100%;
+  display: inline-flex;
+  align-items: stretch;
+  max-width: 100%;
+}
+
+.ap * { box-sizing: border-box; }
+
+.ap {
+  width: 100%;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.ap-pill {
+  width: 100%;
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  border-radius: 999px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.ap-button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  background: transparent;
+  padding-left: 10px;
+}
+
+.ap-sep {
+  width: 1px;
+  background: rgba(0, 0, 0, 0.22);
+  margin-left: 10px;
+}
+
+.ap-timebar {
+  position: relative;
+  flex: 1;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.ap-progress {
+  position: absolute;
+  inset: 0;
+  width: calc(var(--audio-player-progress, 0) * 100%);
+  background: rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.ap-label {
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+}
+
+.ap-playIcon {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid rgba(0, 0, 0, 0.75);
+  margin-left: 2px;
+}
+
+.ap-pauseIcon {
+  display: flex;
+  gap: 4px;
+}
+
+.ap-pauseIcon > span {
+  width: 3px;
+  height: 14px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 2px;
+}
+
+/* ─── All images ────────────────────────────────────────── */
+
+img {
+  border-radius: 8px;
+}
+
+/* About page portrait: no rounded corners */
+.about-page-portrait img {
+  border-radius: 0;
+}
+
+/* ─── Mobile Safari fixes ───────────────────────────────── */
+
 @media (max-width: 767px) {
   html {
     scroll-snap-type: y mandatory;
@@ -58,14 +292,14 @@ body {
     scroll-padding-bottom: 0;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .snap-item {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
-  
+
   video {
     -webkit-playsinline: true;
     -webkit-transform: translateZ(0);
@@ -76,16 +310,16 @@ body {
     --content-top: 88px;
   }
 
-  /* Mobile-specific padding and gap for homepage only ( Projects page with scroll-snap ) */
+  /* Mobile-specific padding and gap for homepage only (scroll-snap) */
   main:has(> div[data-mobile-gap]) {
-    padding-top: 88px !important; /* Start content below header (33px nav top + 36px nav height + 19px gap) */
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    padding-bottom: 500px !important; /* Ensure last card can scroll up and snap into place */
+    padding-top: 88px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 500px; /* Ensure last card can scroll up and snap into place */
   }
 
   main:has(> div[data-mobile-gap]) > div[data-mobile-gap] {
-    gap: 88px !important; /* Match padding-top so each card lands with same gap as the first */
+    gap: 88px; /* Match padding-top so each card lands with same gap as the first */
   }
 
   /* Nav icon positioning on mobile */
@@ -97,14 +331,4 @@ body {
 /* Nav icon positioning on desktop */
 .nav-icon-mobile {
   top: 24px;
-}
-
-/* All images get 8px border radius */
-img {
-  border-radius: 8px;
-}
-
-/* About page portrait: no rounded corners */
-.about-page-portrait img {
-  border-radius: 0;
 }
