@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import CursorDotClient from "./components/CursorDotClient";
 import { LenisProvider } from "./components/LenisProvider";
 import "./globals.css";
 
@@ -7,38 +8,32 @@ const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
-  title: "Michael Charles Brown /// Composer /// Recording Artist",
-  description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
-  metadataBase: new URL("https://michael-charles-brown.vercel.app"),
+  title: {
+    default: "Michael Charles Brown — Composer & Recording Artist",
+    template: "%s | Michael Charles Brown",
+  },
+  description:
+    "Los Angeles-based composer and recording artist. Film scoring, experimental albums, original scores.",
+  metadataBase: new URL("https://www.michaelcharlesbrown.com"),
   openGraph: {
-    title: "Michael Charles Brown /// Composer /// Recording Artist",
-    description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
-    url: "https://michael-charles-brown.vercel.app",
+    type: "website",
+    locale: "en_US",
+    url: "https://www.michaelcharlesbrown.com",
     siteName: "Michael Charles Brown",
     images: [
       {
         url: "/images/mcb-og.jpg",
         width: 1200,
         height: 630,
-        alt: "Michael Charles Brown /// Composer /// Recording Artist",
+        alt: "Michael Charles Brown — Composer & Recording Artist",
       },
     ],
-    locale: "en_US",
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Michael Charles Brown /// Composer /// Recording Artist",
-    description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
-    images: [
-      {
-        url: "/images/mcb-og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Michael Charles Brown /// Composer /// Recording Artist",
-      },
-    ],
+    images: ["/images/mcb-og.jpg"],
   },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -49,7 +44,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          {children}
+          <CursorDotClient />
+        </LenisProvider>
       </body>
     </html>
   );

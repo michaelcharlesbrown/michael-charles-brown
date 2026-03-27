@@ -13,7 +13,7 @@ export default function HomePage() {
         className="home-main mx-auto w-full max-w-[2400px]"
       >
         <div
-          className="home-grid grid w-full grid-cols-1 md:grid-cols-3"
+          className="home-grid grid w-full grid-cols-1 gap-5 md:grid-cols-3"
           data-mobile-gap="19px"
         >
           {projects.map((project, i) => (
@@ -104,7 +104,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
   };
 
   return (
-    <Link href={`/projects/${project.slug}`}>
+    <Link href={`/projects/${project.slug}`} aria-label={project.title}>
       <div
         ref={containerRef}
         className="video-card snap-item relative aspect-[5/7] w-full overflow-hidden bg-zinc-100 cursor-pointer rounded-lg"
