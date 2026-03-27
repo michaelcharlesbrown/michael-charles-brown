@@ -112,14 +112,9 @@ export const projects: Project[] = [
     vimeoId: "59210170",
     description:
       "Mysterious breathing problems begin to change a boy's life as he finds himself suffocating in his familiar surroundings.\n\nEXPERIMENTAL/NARRATIVE, 16mm Film.\n\nOFFICIAL SELECTION: Sitges International Film Festival, Ann Arbor Film Festival, S.F. Indiefest, San Francisco Latino Film Festival (Winner: best Short Film), San Francisco Videofest, CSU Media Arts Festival (Winner: Best Cinematography).",
-    audioSrc: "/audio/placeholder.mp3",
+    audioSrc: "",
     audioLabel: "BREATHING CHAMBER",
-    links: [
-      { label: "IMDB", href: "https://www.imdb.com" },
-      { label: "INSTAGRAM", href: "https://instagram.com" },
-      { label: "BANDCAMP", href: "https://bandcamp.com" },
-      { label: "YOUTUBE", href: "https://youtube.com" },
-    ],
+    links: [],
   },
   {
     slug: "mad-denizen",

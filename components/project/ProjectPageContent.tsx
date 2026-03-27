@@ -23,7 +23,7 @@ function ProjectTitleBlock({ project }: { project: Project }) {
         <FitWidthLine text={project.title} textClassName="project-title-fit-text" />
         <FitWidthLine
           text={project.category}
-          textClassName="project-title-fit-text"
+          textClassName="project-category-fit-text"
           wrapperClassName="project-title-line--category-wrap"
         />
       </h1>
@@ -95,9 +95,11 @@ export default function ProjectPageContent({ project }: ProjectPageContentProps)
           ))}
         </div>
 
-        <div className="mt-[var(--space-section)] w-full max-w-full">
-          <AudioPlayer src={project.audioSrc} label={project.audioLabel} />
-        </div>
+        {project.audioSrc ? (
+          <div className="project-audio-wrap w-full max-w-full">
+            <AudioPlayer src={project.audioSrc} label={project.audioLabel} />
+          </div>
+        ) : null}
 
         {project.links.length > 0 ? (
           <ProjectLinksFit

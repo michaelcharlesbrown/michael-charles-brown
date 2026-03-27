@@ -645,6 +645,7 @@ body.has-custom-cursor * {
 
 .project-page-content-inner {
   color: var(--foreground);
+  margin-top: clamp(1rem, 4vw, 4rem);
 }
 
 /* Hero sits in the same max-width + padded column as title, body, and links (no full-bleed breakout). */
@@ -723,6 +724,17 @@ body.has-custom-cursor * {
   margin-top: -0.04em;
 }
 
+.project-category-fit-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 300;
+  font-family: var(--font-geist-sans), ui-sans-serif, sans-serif;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 18vw, 18rem);
+}
+
 .project-title-stack {
   display: flex;
   flex-direction: column;
@@ -747,16 +759,21 @@ body.has-custom-cursor * {
   white-space: nowrap;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.06em;
   line-height: 1.2;
   font-size: clamp(0.65rem, 2vw, 1rem);
   max-width: 100%;
 }
 
+.project-audio-wrap {
+  margin-top: clamp(1rem, 4vw, 4rem);
+}
+
 .project-body-columns {
   column-count: 1;
   column-gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(1rem, 4vw, 4rem);
 }
 
 @media (min-width: 768px) {
@@ -774,6 +791,7 @@ body.has-custom-cursor * {
 }
 
 .project-links-row {
+  margin-top: clamp(1rem, 4vw, 4rem);
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
@@ -803,8 +821,8 @@ body.has-custom-cursor * {
 }
 
 .project-links-sep {
-  opacity: 0.45;
   user-select: none;
+  opacity: 1;
 }
 
 /* ─── NavIcon ───────────────────────────────────────────── */
