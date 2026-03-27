@@ -38,11 +38,15 @@ const BARS = [
 
 interface KineticFooterProps {
   reducedMotion: boolean;
+  className?: string;
 }
 
-export default function KineticFooter({ reducedMotion }: KineticFooterProps) {
+export default function KineticFooter({ reducedMotion, className = "" }: KineticFooterProps) {
   return (
-    <footer className="kinetic-footer mt-[var(--space-section)]" aria-label="Social links">
+    <footer
+      className={`kinetic-footer mt-[var(--space-section)] ${className}`.trim()}
+      aria-label="Social links"
+    >
       {BARS.map((bar) => (
         <MarqueeBar
           key={bar.text}

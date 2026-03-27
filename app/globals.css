@@ -13,7 +13,7 @@
   /* About — Figma 296:58: headline ~54px, body ~27px, CTA ~142px, label ~31px */
   --text-about-h1: clamp(1.75rem, 3.8vw, 3.375rem);
   --text-about-body: clamp(1rem, 1.9vw, 1.7rem);
-  --text-about-cta: clamp(2.5rem, 9.9vw, 8.875rem);
+  --text-about-cta: clamp(2rem, 7.5vw, 7rem);
   --text-about-label: clamp(0.75rem, 2.15vw, 1.94rem);
   --text-project: 18vw;
   --text-footer: clamp(2.5rem, 12vw, 14rem);
@@ -62,9 +62,256 @@ body.has-custom-cursor * {
   min-height: 100vh;
 }
 
-/* Homepage grid — 20px gutters (see page.tsx gap-5); mobile override below */
+/* Homepage grid — 20px gutters */
 .home-grid {
-  gap: 1.25rem; /* 20px */
+  gap: 1.25rem;
+}
+
+/* ─── About hero (full-viewport) ───────────────────────── */
+
+.home-page {
+  min-height: 100vh;
+  /* White is the floor revealed when the image peels away */
+  background: var(--background);
+  color: var(--background);
+}
+
+.home-hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* White background acts as the blend surface once the image is gone */
+  background: var(--background);
+  /* Clips the image as it translates upward during the peel */
+  overflow: hidden;
+}
+
+.home-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.home-hero__img {
+  border-radius: 0;
+}
+
+.home-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: color-mix(in srgb, var(--foreground) 42%, transparent);
+  pointer-events: none;
+}
+
+.home-hero__content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--content-top);
+  padding-left: var(--space-page);
+  padding-right: var(--space-page);
+  padding-bottom: var(--space-page);
+  min-height: 100dvh;
+  max-width: 2400px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
+  /* Label sits above the two-column grid */
+  gap: clamp(0.15rem, 0.5vw, 0.4rem);
+  /*
+   * Difference blend: white text on dark image stays white.
+   * As the image peels away revealing the white hero background,
+   * white text inverts to black — same mechanic as the NavIcon and cursor.
+   */
+  mix-blend-mode: difference;
+}
+
+.home-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+}
+
+.home-hero__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100dvh - var(--content-top) - 2 * var(--space-page));
+  /* Small gap so Say hello button sits just above the viewport bottom */
+  padding-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.home-hero__left-top {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Fit-to-width label and monogram for the About hero */
+.about-label-fit {
+  display: block;
+  white-space: nowrap;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0em;
+  line-height: 1.1;
+}
+
+.about-monogram-fit {
+  display: block;
+  white-space: nowrap;
+  font-family: var(--font-geist-sans), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin-top: clamp(0.15rem, 0.4vw, 0.35rem);
+}
+
+.home-hero__headline {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  /* Matches mockup — large bold mono filling the right column top */
+  font-size: clamp(1.5rem, 3.8vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 0 0 clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.home-hero__body {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(0.8rem, 1.2vw, 1.1rem);
+  line-height: 1.45;
+}
+
+.home-hero__body p {
+  margin: 0;
+}
+
+.home-hero__body p + p {
+  margin-top: 1em;
+}
+
+.home-hero__cta-line {
+  font-family: var(--font-geist-sans), ui-sans-serif, sans-serif;
+  font-size: var(--text-about-cta);
+  font-weight: 500;
+  line-height: 0.95;
+  margin: 0 0 clamp(1rem, 2.5vw, 2rem);
+  text-transform: none;
+}
+
+.home-hero__cta-row {
+  display: block;
+}
+
+.home-hero__say-hello {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em 1.25em;
+  border-radius: 999px;
+  border: none;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, sans-serif;
+  font-size: clamp(0.9rem, 2.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.home-hero__say-hello:hover {
+  opacity: 0.85;
+}
+
+.home-kinetic-footer {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  /* ── Mobile: same dark-image aesthetic, single column ── */
+
+  /* Hero grows to fit all stacked content; background image fills it */
+  .home-hero {
+    min-height: 100dvh;
+  }
+
+  /* Content: no fixed height — grows with stacked content */
+  .home-hero__content {
+    min-height: 100dvh;
+    padding-bottom: clamp(2.5rem, 8vw, 4rem);
+    gap: 0;
+  }
+
+  /*
+   * Flatten the left column (display: contents removes its box but
+   * keeps its children as direct flex children of the grid).
+   * Enables order: label+MCB → headline+body → CTA
+   */
+  .home-hero__left {
+    display: contents;
+  }
+
+  /* Switch to single-column flex so order properties apply */
+  .home-hero__grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Stack order matching the mockup */
+  .home-hero__left-top {
+    order: 1;
+    overflow: hidden;
+    margin-bottom: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .home-hero__right {
+    order: 2;
+    margin-bottom: 0;
+  }
+
+  /* CTA pushes to bottom of available space */
+  .home-hero__cta {
+    order: 3;
+    margin-top: auto;
+    padding-top: clamp(2rem, 8vw, 4rem);
+    padding-bottom: clamp(2rem, 6vw, 3rem);
+  }
+
+  /* Headline fills full phone width — larger at mobile */
+  .home-hero__headline {
+    font-size: clamp(1.4rem, 5.5vw, 2.5rem);
+    line-height: 1.05;
+    margin-bottom: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  /* Body copy — legible at small sizes */
+  .home-hero__body {
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
+  }
+
+  /* CTA scales for mobile */
+  .home-hero__cta-line {
+    font-size: clamp(2rem, 10vw, 4rem);
+    margin-bottom: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  /* Say hello button */
+  .home-hero__say-hello {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
 }
 
 /* ─── Video card ────────────────────────────────────────── */

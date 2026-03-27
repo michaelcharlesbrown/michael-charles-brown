@@ -13,7 +13,7 @@ export default function HomePage() {
         className="home-main mx-auto w-full max-w-[2400px]"
       >
         <div
-          className="home-grid grid w-full grid-cols-1 gap-5 md:grid-cols-3"
+          className="home-grid grid w-full grid-cols-1 md:grid-cols-3"
           data-mobile-gap="19px"
         >
           {projects.map((project, i) => (
@@ -47,64 +47,45 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            videoRef.current?.play().catch(() => {
-              // Silently handle autoplay errors
-            });
+            videoRef.current?.play().catch(() => {});
           } else {
             videoRef.current?.pause();
           }
         });
       },
-      {
-        threshold: 0.6,
-      }
+      { threshold: 0.6 }
     );
 
     observer.observe(containerRef.current);
 
-    // Autoplay first video on page load
     if (index === 0) {
       const checkVisibility = () => {
         if (containerRef.current) {
           const rect = containerRef.current.getBoundingClientRect();
           const viewportHeight = window.innerHeight;
           const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-          const visibleRatio = visibleHeight / rect.height;
-
-          if (visibleRatio >= 0.6) {
-            videoRef.current?.play().catch(() => {
-              // Silently handle autoplay errors
-            });
+          if (visibleHeight / rect.height >= 0.6) {
+            videoRef.current?.play().catch(() => {});
           }
         }
       };
-
-      // Check immediately and after a short delay
       checkVisibility();
       setTimeout(checkVisibility, 100);
     }
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [isMobile, index]);
 
   const handleMouseEnter = () => {
-    if (videoRef.current && !isMobile) {
-      videoRef.current.play().catch(() => {
-        // Silently handle autoplay errors
-      });
-    }
+    if (videoRef.current && !isMobile) videoRef.current.play().catch(() => {});
   };
 
   const handleMouseLeave = () => {
-    if (videoRef.current && !isMobile) {
-      videoRef.current.pause();
-    }
+    if (videoRef.current && !isMobile) videoRef.current.pause();
   };
 
   return (
-    <Link href={`/projects/${project.slug}`} aria-label={project.title}>
+    <Link href={`/projects/${project.slug}`}>
       <div
         ref={containerRef}
         className="video-card snap-item relative aspect-[5/7] w-full overflow-hidden bg-zinc-100 cursor-pointer rounded-lg"
