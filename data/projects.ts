@@ -17,6 +17,8 @@ export interface Project {
   /** Local HTML5 clip used after facade click when no iframe source */
   html5VideoSrc?: string;
   description: string;
+  /** Per-project OG image. Falls back to /images/mcb-og.jpg if not set. */
+  ogImage?: string;
   audioSrc: string;
   audioLabel: string;
   links: ProjectLink[];

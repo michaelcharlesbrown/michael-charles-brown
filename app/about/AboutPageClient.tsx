@@ -77,10 +77,10 @@ export default function AboutPageClient() {
                 />
               </div>
               <div className="home-hero__cta">
-                <p className="home-hero__cta-line">
-                  <span className="home-hero__cta-row">Let&apos;s work</span>
-                  <span className="home-hero__cta-row">together.</span>
-                </p>
+                <div className="home-hero__cta-line">
+                  <FitWidthLine text="Let's work" textClassName="home-hero__cta-fit" />
+                  <FitWidthLine text="together." textClassName="home-hero__cta-fit" />
+                </div>
                 <a href="mailto:hello@michaelcharlesbrown.com" className="home-hero__say-hello">
                   Say hello
                 </a>

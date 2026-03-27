@@ -13,7 +13,7 @@ export default function HomePage() {
         className="home-main mx-auto w-full max-w-[2400px]"
       >
         <div
-          className="home-grid grid w-full grid-cols-1 md:grid-cols-3"
+          className="home-grid grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           data-mobile-gap="19px"
         >
           {projects.map((project, i) => (

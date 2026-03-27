@@ -21,11 +21,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: "Project" };
   }
   const desc = project.description.replace(/\s+/g, " ").trim().slice(0, 155);
+  const ogImage = project.ogImage ?? "/images/mcb-og.jpg";
   return {
     title: project.title,
     description: desc,
     openGraph: {
-      images: [{ url: project.poster, width: 1200, height: 630, alt: project.title }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: project.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [ogImage],
     },
   };
 }
