@@ -1,76 +1,55 @@
-"use client";
-
 import NavIcon from "@/app/components/NavIcon";
-import Image from "next/image";
 
 const SOCIAL_LINKS = [
-  { label: "INSTAGRAM", href: "https://instagram.com" },
-  { label: "IMDB", href: "https://imdb.com" },
-  { label: "BANDCAMP", href: "https://bandcamp.com" },
-  { label: "SPOTIFY", href: "https://spotify.com" },
-  { label: "YOUTUBE", href: "https://youtube.com" },
+  { label: "IMDB", href: "https://www.imdb.com/" },
+  { label: "INSTAGRAM", href: "https://www.instagram.com/" },
+  { label: "BANDCAMP", href: "https://bandcamp.com/" },
+  { label: "YOUTUBE", href: "https://www.youtube.com/" },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="about-page-wrap">
       <NavIcon />
-      <main className="about-main mx-auto w-full max-w-[1200px] px-6 md:px-12">
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-          {/* Mobile: order 2. Desktop: left column — image + links */}
-          <div className="order-2 md:order-1 flex flex-col gap-6 w-full md:w-auto flex-shrink-0">
-            <div className="about-page-portrait">
-              <Image
-                src="/images/michael-charles-brown.jpg"
-                alt="Michael Charles Brown"
-                width={400}
-                height={533}
-                className="w-full max-w-[400px] h-auto grayscale rounded-none"
-                priority
-              />
-            </div>
-            <div className="about-links flex flex-col gap-1">
-              {SOCIAL_LINKS.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-text={label}
-                  className="social-link uppercase text-black text-lg md:text-xl leading-none"
-                >
-                  {label}
-                </a>
-              ))}
-            </div>
-          </div>
+      <main className="about-page-main">
+        <h1 className="about-page-headline">
+          MICHAEL CHARLES BROWN IS A COMPOSER AND RECORDING ARTIST BASED IN LOS ANGELES.
+        </h1>
 
-          {/* Mobile: order 1 (first). Desktop: right column — heading + bio */}
-          <div className="order-1 md:order-2 flex-1 min-w-0">
-            <h1 className="font-bold uppercase text-black mb-6 text-lg md:text-xl leading-tight">
-              MICHAEL CHARLES BROWN IS A COMPOSER AND RECORDING ARTIST BASED IN LOS ANGELES.
-            </h1>
-            <div className="text-black text-sm md:text-base leading-relaxed space-y-4">
-              <p>
-                A composer whose work moves fluidly between film scoring and experimental
-                albums. His music blends atmospheric textures with bold rhythmic undercurrents,
-                creating sound worlds that feel both cinematic and deeply personal.
-              </p>
-              <p>
-                Most recently, Brown completed the original score for Cancuncito (2025), a
-                debut feature headed into festival circulation this year. The project highlights
-                his instinct for sculpting immersive themes that heighten narrative and
-                emotional depth — a style equally at home in fiction and documentary work.
-              </p>
-              <p>
-                As a recording artist, Brown has released a series of albums under various
-                monikers and collaborative projects including Red Moon Apostles and Mad Denizen.
-                These projects explore everything from meditative, minimalist soundscapes to raw,
-                driving post-punk energy, reflecting the wide range of voices he brings to his
-                scoring work.
-              </p>
-            </div>
-          </div>
+        <div className="about-page-body">
+          <p>
+            A composer whose work moves fluidly between film scoring and experimental
+            albums. His music blends atmospheric textures with bold rhythmic undercurrents,
+            creating sound worlds that feel both cinematic and deeply personal.
+          </p>
+          <p>
+            Most recently, Brown completed the original score for Cancuncito (2025), a
+            debut feature headed into festival circulation this year. The project highlights
+            his instinct for sculpting immersive themes that heighten narrative and
+            emotional depth — a style equally at home in fiction and documentary work.
+          </p>
+          <p>
+            As a recording artist, Brown has released a series of albums under various
+            monikers and collaborative projects including Red Moon Apostles and Mad Denizen.
+            These projects explore everything from meditative, minimalist soundscapes to raw,
+            driving post-punk energy, reflecting the wide range of voices he brings to his
+            scoring work.
+          </p>
+        </div>
+
+        <div className="about-page-social">
+          {SOCIAL_LINKS.map(({ label, href }, i) => (
+            <span key={label}>
+              {i > 0 && " | "}
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                {label}
+              </a>
+            </span>
+          ))}
+        </div>
+
+        <div className="about-page-dm">
+          <a href="#">DIRECT MESSAGE</a>
         </div>
       </main>
     </div>

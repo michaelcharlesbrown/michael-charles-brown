@@ -65,35 +65,71 @@ body {
 
 /* ─── About page ────────────────────────────────────────── */
 
-.about-main {
-  padding-top: var(--content-top);
-  padding-bottom: 4rem;
+.about-page-wrap {
+  background: #fff;
+  min-height: 100vh;
 }
 
-.about-links {
-  line-height: 1;
+.about-page-main {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding-top: calc(var(--content-top) + 3rem);
+  padding-left: clamp(1.5rem, 6vw, 8rem);
+  padding-right: clamp(1.5rem, 6vw, 8rem);
+  padding-bottom: 6rem;
 }
 
-/* Social link variable font weight hover */
-.social-link {
-  display: flex;
-  flex-direction: column;
-  font-weight: 400;
+.about-page-headline {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 6rem);
+  line-height: 1.0;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 2.5rem;
+}
+
+.about-page-body {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  line-height: 1.75;
+  color: #000;
+}
+
+.about-page-body p + p {
+  margin-top: 1.5rem;
+}
+
+.about-page-social {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  color: #000;
+  margin-top: 2.5rem;
+}
+
+.about-page-social a {
   text-decoration: none;
-  transition: font-weight 0.15s cubic-bezier(0.25, 0, 0, 1);
+  color: #000;
 }
 
-.social-link:hover {
-  font-weight: 700;
+.about-page-social a:hover {
+  text-decoration: underline;
 }
 
-.social-link::after {
-  content: attr(data-text);
-  font-weight: 700;
-  height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  pointer-events: none;
+.about-page-dm {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  color: #000;
+  margin-top: 1.25rem;
+}
+
+.about-page-dm a {
+  text-decoration: none;
+  color: #000;
+}
+
+.about-page-dm a:hover {
+  text-decoration: underline;
 }
 
 /* ─── Project pages ─────────────────────────────────────── */
