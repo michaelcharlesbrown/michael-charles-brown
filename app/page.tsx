@@ -3,24 +3,23 @@
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { projects, type Project } from "@/data/projects";
-import NavIcon from "@/app/components/NavIcon";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <NavIcon />
-      <main
-        className="home-main mx-auto w-full max-w-[2400px]"
-      >
-        <div
-          className="home-grid grid w-full grid-cols-1 md:grid-cols-3"
-          data-mobile-gap="19px"
-        >
-          {projects.map((project, i) => (
-            <VideoCard key={project.slug} project={project} index={i} />
-          ))}
-        </div>
-      </main>
+    <div className="home-main page-wrap">
+      <div className="home-grid">
+        {projects.map((project, i) => (
+          <div key={project.slug}>
+            <Link href={`/projects/${project.slug}`}>
+              <VideoCard project={project} index={i} />
+            </Link>
+            <div className="card-caption">
+              <span className="card-caption-title">{project.title}</span>
+              <span className="card-caption-descriptor">{project.cardDescriptor}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -104,24 +103,21 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
   };
 
   return (
-    <Link href={`/projects/${project.slug}`}>
-      <div
-        ref={containerRef}
-        className="video-card snap-item relative aspect-[5/7] w-full overflow-hidden bg-zinc-100 cursor-pointer rounded-lg"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <video
-          ref={videoRef}
-          src={project.video}
-          poster={project.poster}
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-          preload="metadata"
-        />
-      </div>
-    </Link>
+    <div
+      ref={containerRef}
+      className="video-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        src={project.cardVideo}
+        poster={project.cardPoster}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    </div>
   );
 }

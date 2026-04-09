@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { LenisProvider } from "./components/LenisProvider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
@@ -9,20 +11,13 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 export const metadata: Metadata = {
   title: "Michael Charles Brown /// Composer /// Recording Artist",
   description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
-  metadataBase: new URL("https://michael-charles-brown.vercel.app"),
+  metadataBase: new URL("https://michaelcharlesbrown.com"),
   openGraph: {
     title: "Michael Charles Brown /// Composer /// Recording Artist",
     description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
-    url: "https://michael-charles-brown.vercel.app",
+    url: "https://michaelcharlesbrown.com",
     siteName: "Michael Charles Brown",
-    images: [
-      {
-        url: "/images/mcb-og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Michael Charles Brown /// Composer /// Recording Artist",
-      },
-    ],
+    images: [{ url: "/images/mcb-og.jpg", width: 1200, height: 630, alt: "Michael Charles Brown" }],
     locale: "en_US",
     type: "website",
   },
@@ -30,26 +25,19 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Michael Charles Brown /// Composer /// Recording Artist",
     description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
-    images: [
-      {
-        url: "/images/mcb-og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Michael Charles Brown /// Composer /// Recording Artist",
-      },
-    ],
+    images: [{ url: "/images/mcb-og.jpg", width: 1200, height: 630, alt: "Michael Charles Brown" }],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </LenisProvider>
       </body>
     </html>
   );
