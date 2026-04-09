@@ -9,21 +9,21 @@ const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
-  title: "Michael Charles Brown /// Composer /// Recording Artist",
+  title: "M/C/B",
   description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
   metadataBase: new URL("https://michaelcharlesbrown.com"),
   openGraph: {
-    title: "Michael Charles Brown /// Composer /// Recording Artist",
+    title: "M/C/B",
     description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
     url: "https://michaelcharlesbrown.com",
-    siteName: "Michael Charles Brown",
+    siteName: "M/C/B",
     images: [{ url: "/images/mcb-og.jpg", width: 1200, height: 630, alt: "Michael Charles Brown" }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Michael Charles Brown /// Composer /// Recording Artist",
+    title: "M/C/B",
     description: "Composer and recording artist creating original music for film, experimental soundscapes, and collaborative projects.",
     images: [{ url: "/images/mcb-og.jpg", width: 1200, height: 630, alt: "Michael Charles Brown" }],
   },

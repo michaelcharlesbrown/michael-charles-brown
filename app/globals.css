@@ -95,9 +95,14 @@ body {
 
 .site-header-triangle {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.site-header-triangle > * {
   pointer-events: auto;
 }
 
@@ -256,13 +261,23 @@ body {
 .home-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .home-grid {
+    /* Extra space between the top row of cards and the bottom row */
+    row-gap: 3rem;
+  }
 }
 
 @media (max-width: 767px) {
   .home-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    column-gap: 0;
+    /* Room between each project block (card + caption) so it fits the viewport comfortably */
+    row-gap: clamp(3rem, 12vmin, 5rem);
   }
 }
 
@@ -463,7 +478,18 @@ body {
 .navTriWrap {
   position: relative;
   display: inline-block;
+  line-height: 0;
+  transform-origin: center center;
   animation: navRotate 45s linear infinite;
+}
+
+/* Inline SVG sits on text baseline by default; that gap skews rotation + overlay vs the visible triangle */
+.navTriWrap > a {
+  display: block;
+}
+
+.navTriWrap svg {
+  display: block;
 }
 
 @keyframes navRotate {
@@ -483,7 +509,7 @@ body {
 .navTriOverlay {
   position: absolute;
   inset: 0;
-  clip-path: polygon(50% 0%, 99.5% 100%, 0.5% 100%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
   background: radial-gradient(
     120% 120% at 50% 40%,
     rgba(255, 100, 160, 0.6),
