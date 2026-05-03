@@ -15,12 +15,18 @@ export interface Project {
   type: "film" | "music";
   heroImage: string;
   credits: string;
-  description: string[];        // array of paragraphs
+  description: string[];
   cardVideo: string;
   cardPoster: string;
   cardDescriptor: string;
-  videoEmbed?: ProjectEmbed;    // music projects: YouTube/Vimeo embed
-  filmVideo?: string;           // film projects: self-hosted video path
+  galleryImages: string[];
+  cta: "WATCH" | "STREAM";
+  videoUrl?: string;
+  quote?: string;
+  streamUrl?: string;
+  buyUrl?: string;
+  videoEmbed?: ProjectEmbed;
+  filmVideo?: string;
   spotifyId?: string;
   links?: ProjectLink[];
   festivalSelections?: string[];
@@ -40,6 +46,14 @@ export const projects: Project[] = [
     cardVideo: "/video/cancuncito.mp4",
     cardPoster: "/images/cancuncito.jpg",
     cardDescriptor: "ORIGINAL SCORE",
+    galleryImages: [
+      "/images/hero-cancuncito.jpg",
+      "/images/cancuncito.jpg",
+      "/images/cancuncito.jpg",
+      "/images/hero-cancuncito.jpg",
+    ],
+    cta: "WATCH",
+    videoUrl: "/video/cancuncito.mp4",
     filmVideo: "/video/cancuncito.mp4",
   },
   {
@@ -56,6 +70,15 @@ export const projects: Project[] = [
     cardVideo: "/video/rma.mp4",
     cardPoster: "/images/rma.jpg",
     cardDescriptor: "APOCALYPTIC AMERICANA",
+    galleryImages: [
+      "/images/hero-rma.jpg",
+      "/images/rma.jpg",
+      "/images/rma.jpg",
+      "/images/hero-rma.jpg",
+    ],
+    cta: "STREAM",
+    streamUrl: "https://open.spotify.com/artist/3IXgCsALnK7snY68rFwwe9",
+    buyUrl: "https://redmoonapostles.bandcamp.com",
     videoEmbed: {
       type: "youtube",
       src: "https://www.youtube.com/embed/4hZ34bKRIZE?si=gdEzqGPmcgheT4Vi",
@@ -64,6 +87,7 @@ export const projects: Project[] = [
     links: [
       { label: "INSTAGRAM", href: "https://instagram.com/redmoonapostles" },
       { label: "BANDCAMP", href: "https://redmoonapostles.bandcamp.com" },
+      { label: "SPOTIFY", href: "https://open.spotify.com/artist/3IXgCsALnK7snY68rFwwe9" },
       { label: "YOUTUBE", href: "https://www.youtube.com/@redmoonapostles" },
     ],
   },
@@ -72,7 +96,7 @@ export const projects: Project[] = [
     title: "SNOW KING",
     subtitle: "ORIGINAL SCORE",
     type: "film",
-    heroImage: "/images/snow-king.jpg",
+    heroImage: "/images/hero-snowking.jpg",
     credits: "Written and directed by Greg Jonkajtys",
     description: [
       "Snow King is the story of a man, who, as a young boy witnesses the horrors of war, human cruelty and insufferable pain. Deported to a distant land far from home, the boy develops a dangerous friendship with an eccentric local puppet-maker, a bond he must sacrifice to save his mother. Ever since, he is cursed with an unlikely ability; to see the evil in all people. An ability that stays with him into his adult life. One that fuels both talent and malice, bringing him fame and fortune yet driving him ever further toward madness.",
@@ -80,6 +104,14 @@ export const projects: Project[] = [
     cardVideo: "/video/snow-king.mp4",
     cardPoster: "/images/snow-king.jpg",
     cardDescriptor: "ORIGINAL SCORE",
+    galleryImages: [
+      "/images/hero-snowking.jpg",
+      "/images/snow-king.jpg",
+      "/images/snow-king.jpg",
+      "/images/hero-snowking.jpg",
+    ],
+    cta: "WATCH",
+    videoUrl: "https://player.vimeo.com/video/42444069?h=0c4c57b95b",
     videoEmbed: {
       type: "vimeo",
       src: "https://player.vimeo.com/video/42444069?h=0c4c57b95b",
@@ -98,6 +130,15 @@ export const projects: Project[] = [
     cardVideo: "/video/booming-dunes.mp4",
     cardPoster: "/images/booming-dunes.jpg",
     cardDescriptor: "EXPERIMENTAL ELECTRONIC",
+    galleryImages: [
+      "/images/hero-bd.jpg",
+      "/images/booming-dunes.jpg",
+      "/images/booming-dunes.jpg",
+      "/images/hero-bd.jpg",
+    ],
+    cta: "STREAM",
+    streamUrl: "https://open.spotify.com/artist/6Gur5AyvODlXA3mvKSHcOP",
+    buyUrl: "https://boomingdunes.bandcamp.com",
     videoEmbed: {
       type: "youtube",
       src: "https://www.youtube.com/embed/kydR3NaZVwg?si=LasO5DdVRv1BNK8Q",
@@ -106,6 +147,7 @@ export const projects: Project[] = [
     links: [
       { label: "INSTAGRAM", href: "https://instagram.com/boomingdunes" },
       { label: "BANDCAMP", href: "https://boomingdunes.bandcamp.com" },
+      { label: "SPOTIFY", href: "https://open.spotify.com/artist/6Gur5AyvODlXA3mvKSHcOP" },
       { label: "YOUTUBE", href: "https://www.youtube.com/@boomingdunes" },
     ],
   },
@@ -114,7 +156,7 @@ export const projects: Project[] = [
     title: "BREATHING CHAMBER",
     subtitle: "ORIGINAL SCORE",
     type: "film",
-    heroImage: "/images/breathing-chamber.jpg",
+    heroImage: "/images/hero-bc.jpg",
     credits: "Written and directed by Carlos Alejandro Marulanda",
     description: [
       "Mysterious breathing problems begin to change a boy's life as he finds himself suffocating in his familiar surroundings.",
@@ -123,6 +165,14 @@ export const projects: Project[] = [
     cardVideo: "/video/breathing-chamber.mp4",
     cardPoster: "/images/breathing-chamber.jpg",
     cardDescriptor: "ORIGINAL SCORE",
+    galleryImages: [
+      "/images/hero-bc.jpg",
+      "/images/breathing-chamber.jpg",
+      "/images/breathing-chamber.jpg",
+      "/images/hero-bc.jpg",
+    ],
+    cta: "WATCH",
+    videoUrl: "https://player.vimeo.com/video/59210170",
     videoEmbed: {
       type: "vimeo",
       src: "https://player.vimeo.com/video/59210170",
@@ -143,16 +193,26 @@ export const projects: Project[] = [
     type: "music",
     heroImage: "/images/hero-md.jpg",
     credits: "",
+    quote: "“Men are so necessarily mad that not to be mad would appear mad through another trick madness played.”",
     description: [
-      '"Men are so necessarily mad that not to be mad would appear mad through another trick madness played." — Blaise Pascal',
-      '"Discovering the debut LP from Mad Denizen, Starved, is like putting on Springsteen\'s Nebraska for the first time." — Benjamin Ricci, Performer Magazine',
       "Mad Denizen is an acoustic project recorded entirely on analog tape. The songs were written on acoustic guitar and captured end-to-end on a reel-to-reel tape machine, with no digital recording at any stage of the process.",
-      "The entire album was self-recorded, engineered, produced, and mixed on a Tascam 388, embracing the limitations and discipline of a fully analog workflow. Final touches — additional instrumentation and subtle production details — were completed at Tiny Telephone in San Francisco, including cello and vocal treatments that expanded the intimate core of the recordings without compromising their rawness.",
+      "The entire album was self-recorded, engineered, produced, and mixed on a Tascam 388, embracing the limitations and discipline of a fully analog workflow. Final touches — additional instrumentation and subtle production details — were completed at Tiny Telephone in San Francisco.",
       "The album was released on vinyl to critical acclaim, praised for its warmth, restraint, and commitment to process — an artifact shaped as much by intention and limitation as by songcraft.",
     ],
     cardVideo: "/video/mad-denizen.mp4",
     cardPoster: "/images/mad-denizen.jpg",
     cardDescriptor: "BLEEDING HEART DOOM BALLADS",
+    galleryImages: [
+      "/images/hero-md.jpg",
+      "/images/mad-denizen.jpg",
+      "/images/mad-denizen.jpg",
+      "/images/hero-md.jpg",
+      "/images/hero-md.jpg",
+      "/images/mad-denizen.jpg",
+    ],
+    cta: "STREAM",
+    streamUrl: "https://maddenizen.bandcamp.com",
+    buyUrl: "https://maddenizen.bandcamp.com/album/starved",
     videoEmbed: {
       type: "youtube",
       src: "https://www.youtube.com/embed/9De1ylIPqWE?si=xAu3nMIx93S6kBPc",
@@ -160,6 +220,7 @@ export const projects: Project[] = [
     links: [
       { label: "INSTAGRAM", href: "https://instagram.com/maddenizen" },
       { label: "BANDCAMP", href: "https://maddenizen.bandcamp.com" },
+      { label: "SPOTIFY", href: "https://open.spotify.com/artist/maddenizen" },
       { label: "YOUTUBE", href: "https://www.youtube.com/@maddenizen" },
     ],
   },
