@@ -10,22 +10,27 @@ interface Props {
   project: Project;
 }
 
+function buildVimeoSrc(raw: string): string {
+  const url = new URL(raw);
+  url.searchParams.set("title", "0");
+  url.searchParams.set("byline", "0");
+  url.searchParams.set("portrait", "0");
+  url.searchParams.set("quality", "1080p");
+  url.searchParams.set("autoplay", "1");
+  return url.toString();
+}
+
 export default function ProjectPageClient({ project }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSrc, setModalSrc] = useState("");
   const parallax = useParallax({ speed: 0.6 });
 
-  const isExternalVideo = project.videoUrl
-    ? project.videoUrl.startsWith("http")
-    : false;
-
   const openModal = useCallback(() => {
-    if (!project.videoUrl) return;
-    setModalSrc(
-      isExternalVideo ? `${project.videoUrl}&autoplay=1` : project.videoUrl
-    );
+    const embed = project.videoEmbed;
+    if (!embed) return;
+    setModalSrc(buildVimeoSrc(embed.src));
     setModalOpen(true);
-  }, [project.videoUrl, isExternalVideo]);
+  }, [project.videoEmbed]);
 
   const closeModal = useCallback(() => {
     setModalOpen(false);
@@ -34,11 +39,17 @@ export default function ProjectPageClient({ project }: Props) {
 
   useEffect(() => {
     if (!modalOpen) return;
+
+    document.body.style.overflow = "hidden";
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
   }, [modalOpen, closeModal]);
 
   return (
@@ -82,7 +93,7 @@ export default function ProjectPageClient({ project }: Props) {
             )}
 
             <div className="proj-cta-btns">
-              {project.type === "film" && project.videoUrl && (
+              {project.type === "film" && project.videoEmbed && (
                 <button className="proj-cta-btn" onClick={openModal}>
                   WATCH
                 </button>
@@ -175,15 +186,11 @@ export default function ProjectPageClient({ project }: Props) {
             className="proj-modal-video"
             onClick={(e) => e.stopPropagation()}
           >
-            {isExternalVideo ? (
-              <iframe
-                src={modalSrc}
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-              />
-            ) : (
-              <video src={modalSrc} controls autoPlay playsInline />
-            )}
+            <iframe
+              src={modalSrc}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+            />
           </div>
         </div>
       )}

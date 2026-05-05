@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 /** Equilateral: base = view width, altitude = width * √3 / 2 */
 const TRI_VIEW_W = 100;
 const TRI_VIEW_H = (TRI_VIEW_W * Math.sqrt(3)) / 2;
-const TRI_DISPLAY_W = 63;
+const TRI_DISPLAY_W = 22;
 const TRI_DISPLAY_H = (TRI_DISPLAY_W * TRI_VIEW_H) / TRI_VIEW_W;
 
 export default function NavIcon() {
