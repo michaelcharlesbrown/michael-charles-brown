@@ -25,6 +25,11 @@ export default function ProjectPageClient({ project }: Props) {
   const [modalSrc, setModalSrc] = useState("");
   const parallax = useParallax({ speed: 0.6 });
 
+  const showCtaRow =
+    (project.type === "film" && Boolean(project.videoEmbed)) ||
+    (project.type === "music" &&
+      Boolean(project.streamUrl || project.buyUrl));
+
   const openModal = useCallback(() => {
     const embed = project.videoEmbed;
     if (!embed) return;
@@ -54,7 +59,6 @@ export default function ProjectPageClient({ project }: Props) {
 
   return (
     <>
-      {/* Hero — full viewport */}
       <div className="proj-hero-wrap">
         <div
           ref={parallax.ref as React.Ref<HTMLDivElement>}
@@ -72,11 +76,8 @@ export default function ProjectPageClient({ project }: Props) {
         </div>
       </div>
 
-      {/* Info section */}
       <div className="proj-info-section">
         <div className="proj-info-inner">
-
-          {/* Left column */}
           <div className="proj-info-left">
             <div className="proj-title">{project.title}</div>
             {project.subtitle && (
@@ -92,57 +93,60 @@ export default function ProjectPageClient({ project }: Props) {
               </div>
             )}
 
-            <div className="proj-cta-btns">
-              {project.type === "film" && project.videoEmbed && (
-                <button className="proj-cta-btn" onClick={openModal}>
-                  WATCH
-                </button>
-              )}
-              {project.type === "music" && (
-                <>
-                  {project.streamUrl && (
-                    <a
-                      className="proj-cta-btn"
-                      href={project.streamUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      STREAM
-                    </a>
-                  )}
-                  {project.buyUrl && (
-                    <a
-                      className="proj-cta-btn"
-                      href={project.buyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      BUY VINYL
-                    </a>
-                  )}
-                </>
-              )}
-            </div>
+            {showCtaRow && (
+              <div className="proj-cta-btns">
+                {project.type === "film" && project.videoEmbed && (
+                  <button
+                    type="button"
+                    className="proj-cta-btn"
+                    onClick={openModal}
+                  >
+                    WATCH
+                  </button>
+                )}
+                {project.type === "music" && (
+                  <>
+                    {project.streamUrl && (
+                      <a
+                        className="proj-cta-btn"
+                        href={project.streamUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        STREAM
+                      </a>
+                    )}
+                    {project.buyUrl && (
+                      <a
+                        className="proj-cta-btn"
+                        href={project.buyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        BUY VINYL
+                      </a>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Right column */}
           <div className="proj-info-right">
-            <div className="proj-right-body">
-              {project.quote && (
-                <div className="proj-quote">{project.quote}</div>
-              )}
-              <div className="proj-description">
-                {project.description.map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
+            {project.quote && (
+              <div className="proj-quote">{project.quote}</div>
+            )}
+
+            <div className="proj-description">
+              {project.description.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
             </div>
 
             {project.links && project.links.length > 0 && (
               <div className="proj-social-row">
                 {project.links.map((link, i) => (
                   <span key={link.label}>
-                    {i > 0 && <span className="proj-social-pipe">|</span>}
                     <a
                       href={link.href}
                       target="_blank"
@@ -150,16 +154,15 @@ export default function ProjectPageClient({ project }: Props) {
                     >
                       {link.label}
                     </a>
+                    {i < project.links!.length - 1 && <span> | </span>}
                   </span>
                 ))}
               </div>
             )}
           </div>
-
         </div>
       </div>
 
-      {/* Gallery */}
       {project.galleryImages && project.galleryImages.length > 0 && (
         <div className="proj-gallery">
           {project.galleryImages.map((src, i) => (
@@ -176,10 +179,9 @@ export default function ProjectPageClient({ project }: Props) {
         </div>
       )}
 
-      {/* Video modal — film projects only */}
       {modalOpen && (
         <div className="proj-modal-overlay" onClick={closeModal}>
-          <button className="proj-modal-close" onClick={closeModal}>
+          <button type="button" className="proj-modal-close" onClick={closeModal}>
             ×
           </button>
           <div

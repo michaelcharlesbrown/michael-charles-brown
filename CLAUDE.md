@@ -68,28 +68,22 @@ hooks/
 
 ### Typography
 
-- **Geist Sans**: Used for ONE thing only — the site name "MICHAEL CHARLES BROWN" in the Header. Nowhere else.
-- **Geist Mono**: Everything else on the entire site. Tagline, nav, captions, body copy, footer, labels, all of it.
-- No other fonts. IBM Plex Mono and any other font references must not appear anywhere.
+The entire site uses one font, one size, period:
+
+- **Geist Mono, 12px** — everywhere. Header, captions, body copy, labels, buttons, all of it.
+- No other fonts. No Geist Sans. No IBM Plex Mono. No other size variants.
+- Defined once: `--text: 0.75rem` on `:root`, applied on `body` via `font-size: var(--text)`. Every element inherits.
+- The only typographic deviations allowed:
+  - `font-weight: 700` on items that are bold (site title, card titles, project titles, CTA buttons, social rows, audio player label).
+  - `text-transform: uppercase` on items that are uppercase.
+  - That is the full extent. No `letter-spacing`, no per-class `font-size`, no per-class `font-family` declarations.
+- Non-typography elements may have larger sizes when they are icons or glyph buttons (e.g. the `×` close button on the project video modal). These are UI elements, not text.
 
 ### Color
 
 - Black and white only. `#000000` and `#ffffff`.
 - No dark mode. The `@media (prefers-color-scheme: dark)` block does not exist in this project.
 - No grays, no off-whites, no rgba tints except inside specific component internals (AudioPlayer progress bar, etc.).
-
-### Fluid Typography
-
-All fluid/scaling typography uses the `useFitText` hook (`hooks/useFitText.ts`). It uses a ResizeObserver to measure the text element against its container and sets font-size in exact pixels so the text fills precisely 100% of the available width.
-
-Current viewport-fill elements:
-1. Header name ("MICHAEL CHARLES BROWN") — mobile only
-2. Header tagline ("COMPOSER///PRODUCER///RECORDING ARTIST") — mobile only
-3. Footer social links row — mobile only
-
-**Never use `vw` units for fluid typography. Never use `clamp()` for fluid typography.** Those are approximations. The hook produces exact results on every screen size. No `clamp()` typography tokens in `:root`.
-
-For non-scaling text (body copy, labels, captions), use `rem` values or Tailwind utility classes.
 
 ### Layout & Spacing
 
@@ -213,7 +207,7 @@ interface Project {
 - Do not run `npm run build` unless explicitly asked.
 - Do not start the dev server more than once per session.
 - The dev server is already running on port 3000 when you receive this. That is the site we are working on. Do not attempt to start it, restart it, kill it, or suggest running on any other port. If you see port 3000 is occupied, that is correct and expected. Leave it alone.
-- Do not use `vw` units or `clamp()` for fluid typography. Use the `useFitText` hook.
+- Do not introduce additional fonts, font sizes, or `letter-spacing`. The site is one font (Geist Mono) at one size (12px). See the Typography section.
 - Do not add dark mode styles.
 - Do not add border-radius to images.
 - Do not drop Header, Footer, or NavIcon manually into page files — they render from layout.tsx.

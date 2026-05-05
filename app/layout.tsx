@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { LenisProvider } from "./components/LenisProvider";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LenisProvider>
           <Header />
           <main>{children}</main>
-          <Footer />
         </LenisProvider>
       </body>
     </html>
