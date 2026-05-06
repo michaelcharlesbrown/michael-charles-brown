@@ -226,7 +226,17 @@ a:hover {
 
 .about-social {
   margin: 2.5rem 0 0 0;
+}
+
+/* Unified social account links (About, project pages, etc.) */
+
+.social-links {
   text-transform: uppercase;
+  font-weight: 600;
+}
+
+.social-links a {
+  font-weight: 600;
 }
 
 @media (max-width: 767px) {
@@ -502,6 +512,18 @@ img {
   align-items: start;
 }
 
+.proj-info-left .proj-subtitle + .proj-credits {
+  margin-top: 1.5rem;
+}
+
+.proj-info-left .proj-credits + .proj-cta-btns {
+  margin-top: 2.75rem;
+}
+
+.proj-credits a:hover {
+  text-decoration: underline;
+}
+
 .proj-title {
   font-weight: 700;
   text-transform: uppercase;
@@ -553,6 +575,19 @@ img {
   text-decoration: none;
 }
 
+.proj-cta-btn:disabled {
+  opacity: 1;
+  cursor: default;
+  color: #fff;
+  background: #000;
+}
+
+.proj-cta-btn:disabled:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
 .proj-info-right .proj-quote {
   margin-top: 0;
   font-style: italic;
@@ -572,7 +607,6 @@ img {
 
 .proj-social-row {
   margin-top: 2.5rem;
-  text-transform: uppercase;
 }
 
 .proj-gallery {
@@ -638,6 +672,10 @@ img {
 }
 
 @media (max-width: 767px) {
+  :root {
+    --text: 14px;
+  }
+
   .proj-info-section {
     padding: 6rem var(--page-x);
   }

@@ -1,4 +1,7 @@
-const socialLinks = [
+import SocialLinks from "@/components/SocialLinks";
+import type { ProjectLink } from "@/data/projects";
+
+const socialLinks: ProjectLink[] = [
   { label: "INSTAGRAM", href: "https://instagram.com" },
   { label: "BANDCAMP", href: "https://bandcamp.com" },
   { label: "SPOTIFY", href: "https://spotify.com" },
@@ -47,18 +50,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <p className="about-social">
-          {socialLinks.map((link, i) => (
-            <span key={link.label}>
-              <a href={link.href} target="_blank" rel="noopener noreferrer">
-                {link.label}
-              </a>
-              {i < socialLinks.length - 1 && (
-                <span className="about-sep"> | </span>
-              )}
-            </span>
-          ))}
-        </p>
+        <SocialLinks links={socialLinks} className="about-social" />
       </div>
     </div>
   );

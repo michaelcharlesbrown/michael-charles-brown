@@ -8,6 +8,13 @@ export interface ProjectEmbed {
   src: string;
 }
 
+export interface DirectorCredit {
+  /** Text before the linked director name, usually ends with a space (e.g. "A film by ") */
+  prefix: string;
+  name: string;
+  href: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -15,6 +22,8 @@ export interface Project {
   type: "film" | "music";
   heroImage: string;
   credits: string;
+  /** When set, replaces plain credits with prefix + linked director name */
+  directorCredit?: DirectorCredit;
   description: string[];
   cardVideo: string;
   cardPoster: string;
@@ -35,9 +44,15 @@ export const projects: Project[] = [
     subtitle: "ORIGINAL SCORE",
     type: "film",
     heroImage: "/images/hero-cancuncito.jpg",
-    credits: "Written and directed by Carlos Alejandro Marulanda",
+    credits: "",
+    directorCredit: {
+      prefix: "A film by ",
+      name: "Carlos Alejandro Marulanda",
+      href: "https://example.com/director-carlos-marulanda",
+    },
     description: [
-      "This project is a Lorem ipsum dolor sit amet consectetur. Porttitor malesuada quis quam ultricies quam justo. Tincidunt leo sed purus diam id sed praesent sit.",
+      "Placeholder synopsis for this film project. Final copy will summarize the story, tone, and score when materials are ready.",
+      "Second short paragraph placeholder for additional context, festival notes, or instrumentation — replace with real text later.",
     ],
     cardVideo: "/video/cancuncito.mp4",
     cardPoster: "/images/cancuncito.jpg",
@@ -88,7 +103,12 @@ export const projects: Project[] = [
     subtitle: "ORIGINAL SCORE",
     type: "film",
     heroImage: "/images/hero-snowking.jpg",
-    credits: "Written and directed by Greg Jonkajtys",
+    credits: "",
+    directorCredit: {
+      prefix: "A film by ",
+      name: "Greg Jonkajtys",
+      href: "https://example.com/director-greg-jonkajtys",
+    },
     description: [
       "Snow King is the story of a man, who, as a young boy witnesses the horrors of war, human cruelty and insufferable pain. Deported to a distant land far from home, the boy develops a dangerous friendship with an eccentric local puppet-maker, a bond he must sacrifice to save his mother. Ever since, he is cursed with an unlikely ability; to see the evil in all people. An ability that stays with him into his adult life. One that fuels both talent and malice, bringing him fame and fortune yet driving him ever further toward madness.",
     ],
@@ -144,7 +164,12 @@ export const projects: Project[] = [
     subtitle: "ORIGINAL SCORE",
     type: "film",
     heroImage: "/images/hero-bc.jpg",
-    credits: "Written and directed by Carlos Alejandro Marulanda",
+    credits: "",
+    directorCredit: {
+      prefix: "A film by ",
+      name: "Carlos Alejandro Marulanda",
+      href: "https://example.com/director-carlos-marulanda",
+    },
     description: [
       "Mysterious breathing problems begin to change a boy's life as he finds himself suffocating in his familiar surroundings.",
       "EXPERIMENTAL/NARRATIVE, 16mm Film.",

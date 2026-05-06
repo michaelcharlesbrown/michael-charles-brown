@@ -6,6 +6,7 @@ import AudioPlayer from "@/components/audio/AudioPlayer";
 import { useParallax } from "@/app/hooks/useParallax";
 import { useLenis } from "@/app/components/LenisProvider";
 import type { Project } from "@/data/projects";
+import SocialLinks from "@/components/SocialLinks";
 
 interface Props {
   project: Project;
@@ -60,7 +61,7 @@ export default function ProjectPageClient({ project }: Props) {
   const lenis = useLenis();
 
   const showCtaRow =
-    (project.type === "film" && Boolean(project.videoEmbed)) ||
+    project.type === "film" ||
     (project.type === "music" &&
       Boolean(project.streamUrl || project.buyUrl));
 
@@ -120,8 +121,21 @@ export default function ProjectPageClient({ project }: Props) {
             {project.subtitle && (
               <div className="proj-subtitle">{project.subtitle}</div>
             )}
-            {project.credits && (
-              <div className="proj-credits">{project.credits}</div>
+            {project.directorCredit ? (
+              <div className="proj-credits">
+                {project.directorCredit.prefix}
+                <a
+                  href={project.directorCredit.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.directorCredit.name}
+                </a>
+              </div>
+            ) : (
+              project.credits && (
+                <div className="proj-credits">{project.credits}</div>
+              )
             )}
 
             {project.type === "music" && (
@@ -132,11 +146,17 @@ export default function ProjectPageClient({ project }: Props) {
 
             {showCtaRow && (
               <div className="proj-cta-btns">
-                {project.type === "film" && project.videoEmbed && (
+                {project.type === "film" && (
                   <button
                     type="button"
                     className="proj-cta-btn"
-                    onClick={openModal}
+                    disabled={!project.videoEmbed}
+                    onClick={project.videoEmbed ? openModal : undefined}
+                    aria-label={
+                      project.videoEmbed
+                        ? `Watch ${project.title}`
+                        : "Watch: video not available yet"
+                    }
                   >
                     WATCH
                   </button>
@@ -181,20 +201,10 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {project.links && project.links.length > 0 && (
-              <div className="proj-social-row">
-                {project.links.map((link, i) => (
-                  <span key={link.label}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.label}
-                    </a>
-                    {i < project.links!.length - 1 && <span> | </span>}
-                  </span>
-                ))}
-              </div>
+              <SocialLinks
+                links={project.links}
+                className="proj-social-row"
+              />
             )}
           </div>
         </div>
