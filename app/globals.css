@@ -648,7 +648,8 @@ img {
   }
 
   .proj-gallery {
-    column-gap: 3px;
+    column-count: 1;
+    column-gap: 0;
   }
 
   .proj-gallery-item {
