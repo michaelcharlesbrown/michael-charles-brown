@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import Lenis from "lenis";
 import Snap from "lenis/snap";
 import { projects, type Project } from "@/data/projects";
@@ -20,41 +20,65 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
 export default function HomePage() {
   const rows = chunkArray(projects, 3);
   const containerRef = useRef<HTMLDivElement>(null);
-  const sectionRefs = useRef<HTMLElement[]>([]);
-
-  const addSectionRef = useCallback((el: HTMLElement | null, index: number) => {
-    if (el) sectionRefs.current[index] = el;
-  }, []);
+  const desktopRowRefs = useRef<(HTMLElement | null)[]>([]);
+  const mobileCardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const lenis = new Lenis({
-      wrapper: container,
-      content: container,
-    });
+    let rafId: number;
+    let currentLenis: Lenis | null = null;
+    let currentSnap: Snap | null = null;
 
-    const snap = new Snap(lenis, {
-      type: "mandatory",
-      duration: SNAP_DURATION,
-      easing: SNAP_EASING,
-    });
+    const initDesktop = () => {
+      const lenis = new Lenis({ wrapper: container, content: container });
+      const snap = new Snap(lenis, {
+        type: "mandatory",
+        duration: SNAP_DURATION,
+        easing: SNAP_EASING,
+      });
 
-    sectionRefs.current.forEach((el) => {
-      if (el) snap.addElement(el, { align: ["start"] });
-    });
+      desktopRowRefs.current.forEach((el) => {
+        if (el) snap.addElement(el, { align: ["start"] });
+      });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    const rafId = requestAnimationFrame(raf);
+      function raf(time: number) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+      rafId = requestAnimationFrame(raf);
+
+      currentLenis = lenis;
+      currentSnap = snap;
+    };
+
+    const destroyDesktop = () => {
+      cancelAnimationFrame(rafId);
+      if (currentSnap) { currentSnap.destroy(); currentSnap = null; }
+      if (currentLenis) { currentLenis.destroy(); currentLenis = null; }
+    };
+
+    // Mobile uses native CSS scroll-snap — no Lenis needed there.
+    let lastMobile = window.innerWidth < 768;
+    if (!lastMobile) initDesktop();
+
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      if (mobile === lastMobile) return;
+      lastMobile = mobile;
+      if (mobile) {
+        destroyDesktop();
+      } else {
+        initDesktop();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(rafId);
-      snap.destroy();
-      lenis.destroy();
+      window.removeEventListener("resize", handleResize);
+      destroyDesktop();
     };
   }, []);
 
@@ -64,7 +88,7 @@ export default function HomePage() {
       {rows.map((row, rowIndex) => (
         <section
           key={`row-${rowIndex}`}
-          ref={(el) => addSectionRef(el, rowIndex)}
+          ref={(el) => { desktopRowRefs.current[rowIndex] = el; }}
           className="home-snap-section home-snap-row"
         >
           <div className="home-snap-inner page-wrap">
@@ -89,7 +113,7 @@ export default function HomePage() {
       {projects.map((project, i) => (
         <section
           key={`mobile-${project.slug}`}
-          ref={(el) => addSectionRef(el, rows.length + i)}
+          ref={(el) => { mobileCardRefs.current[i] = el; }}
           className="home-snap-section home-snap-card"
         >
           <div className="home-snap-inner page-wrap">
@@ -105,7 +129,6 @@ export default function HomePage() {
           </div>
         </section>
       ))}
-
     </div>
   );
 }
@@ -116,10 +139,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -132,53 +152,22 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            videoRef.current?.play().catch(() => {
-              // Silently handle autoplay errors
-            });
+            videoRef.current?.play().catch(() => {});
           } else {
             videoRef.current?.pause();
           }
         });
       },
-      {
-        threshold: 0.6,
-      }
+      { threshold: 0.6 }
     );
 
     observer.observe(containerRef.current);
-
-    // Autoplay first video on page load
-    if (index === 0) {
-      const checkVisibility = () => {
-        if (containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-          const visibleRatio = visibleHeight / rect.height;
-
-          if (visibleRatio >= 0.6) {
-            videoRef.current?.play().catch(() => {
-              // Silently handle autoplay errors
-            });
-          }
-        }
-      };
-
-      // Check immediately and after a short delay
-      checkVisibility();
-      setTimeout(checkVisibility, 100);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [isMobile, index]);
 
   const handleMouseEnter = () => {
     if (videoRef.current && !isMobile) {
-      videoRef.current.play().catch(() => {
-        // Silently handle autoplay errors
-      });
+      videoRef.current.play().catch(() => {});
     }
   };
 

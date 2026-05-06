@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/* recompile-2026-05-05-2-redesign-proj-two-col-restored */
 :root {
   --background: #ffffff;
   --foreground: #000000;
@@ -146,6 +145,17 @@ a:hover {
   .home-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Native CSS scroll-snap on mobile — no Lenis, no JS conflicts */
+  .home-snap-container {
+    scroll-snap-type: y mandatory;
+    overscroll-behavior: contain;
+  }
+
+  .home-snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
 .card-caption {
@@ -154,7 +164,6 @@ a:hover {
   align-items: baseline;
   margin-top: 8px;
   text-transform: uppercase;
-  color: #000;
 }
 
 .card-caption-title {
@@ -189,7 +198,6 @@ a:hover {
   align-items: center;
   padding-top: calc(var(--frame-padding) + var(--header-height));
   padding-bottom: calc(var(--frame-padding) + 4rem);
-  color: #000;
 }
 
 .about-content {
@@ -442,12 +450,6 @@ img {
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: start;
-  color: #000;
-}
-
-.proj-info-left,
-.proj-info-right {
-  color: #000;
 }
 
 .proj-title {
@@ -496,7 +498,8 @@ img {
 }
 
 .proj-cta-btn:hover {
-  background: #333;
+  background: #fff;
+  color: #000;
   text-decoration: none;
 }
 

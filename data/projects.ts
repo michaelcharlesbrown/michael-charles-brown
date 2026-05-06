@@ -20,14 +20,10 @@ export interface Project {
   cardPoster: string;
   cardDescriptor: string;
   galleryImages: string[];
-  cta: "WATCH" | "STREAM";
-  videoUrl?: string;
   quote?: string;
   streamUrl?: string;
   buyUrl?: string;
   videoEmbed?: ProjectEmbed;
-  filmVideo?: string;
-  spotifyId?: string;
   links?: ProjectLink[];
   festivalSelections?: string[];
 }
@@ -52,9 +48,6 @@ export const projects: Project[] = [
       "/images/cancuncito.jpg",
       "/images/hero-cancuncito.jpg",
     ],
-    cta: "WATCH",
-    videoUrl: "/video/cancuncito.mp4",
-    filmVideo: "/video/cancuncito.mp4",
   },
   {
     slug: "red-moon-apostles",
@@ -76,14 +69,12 @@ export const projects: Project[] = [
       "/images/rma.jpg",
       "/images/hero-rma.jpg",
     ],
-    cta: "STREAM",
     streamUrl: "https://open.spotify.com/artist/3IXgCsALnK7snY68rFwwe9",
     buyUrl: "https://redmoonapostles.bandcamp.com",
     videoEmbed: {
       type: "youtube",
       src: "https://www.youtube.com/embed/4hZ34bKRIZE?si=gdEzqGPmcgheT4Vi",
     },
-    spotifyId: "3IXgCsALnK7snY68rFwwe9",
     links: [
       { label: "INSTAGRAM", href: "https://instagram.com/redmoonapostles" },
       { label: "BANDCAMP", href: "https://redmoonapostles.bandcamp.com" },
@@ -110,8 +101,6 @@ export const projects: Project[] = [
       "/images/snow-king.jpg",
       "/images/hero-snowking.jpg",
     ],
-    cta: "WATCH",
-    videoUrl: "https://player.vimeo.com/video/42444069?h=0c4c57b95b",
     videoEmbed: {
       type: "vimeo",
       src: "https://player.vimeo.com/video/42444069?h=0c4c57b95b",
@@ -136,14 +125,12 @@ export const projects: Project[] = [
       "/images/booming-dunes.jpg",
       "/images/hero-bd.jpg",
     ],
-    cta: "STREAM",
     streamUrl: "https://open.spotify.com/artist/6Gur5AyvODlXA3mvKSHcOP",
     buyUrl: "https://boomingdunes.bandcamp.com",
     videoEmbed: {
       type: "youtube",
       src: "https://www.youtube.com/embed/kydR3NaZVwg?si=LasO5DdVRv1BNK8Q",
     },
-    spotifyId: "6Gur5AyvODlXA3mvKSHcOP",
     links: [
       { label: "INSTAGRAM", href: "https://instagram.com/boomingdunes" },
       { label: "BANDCAMP", href: "https://boomingdunes.bandcamp.com" },
@@ -171,8 +158,6 @@ export const projects: Project[] = [
       "/images/breathing-chamber.jpg",
       "/images/hero-bc.jpg",
     ],
-    cta: "WATCH",
-    videoUrl: "https://player.vimeo.com/video/59210170",
     videoEmbed: {
       type: "vimeo",
       src: "https://player.vimeo.com/video/59210170",
@@ -210,7 +195,6 @@ export const projects: Project[] = [
       "/images/hero-md.jpg",
       "/images/mad-denizen.jpg",
     ],
-    cta: "STREAM",
     streamUrl: "https://maddenizen.bandcamp.com",
     buyUrl: "https://maddenizen.bandcamp.com/album/starved",
     videoEmbed: {

@@ -4,19 +4,22 @@ import { useEffect, useCallback, useState } from "react";
 import Image from "next/image";
 import AudioPlayer from "@/components/audio/AudioPlayer";
 import { useParallax } from "@/app/hooks/useParallax";
+import { useLenis } from "@/app/components/LenisProvider";
 import type { Project } from "@/data/projects";
 
 interface Props {
   project: Project;
 }
 
-function buildVimeoSrc(raw: string): string {
-  const url = new URL(raw);
-  url.searchParams.set("title", "0");
-  url.searchParams.set("byline", "0");
-  url.searchParams.set("portrait", "0");
-  url.searchParams.set("quality", "1080p");
+function buildEmbedSrc(embed: { type: string; src: string }): string {
+  const url = new URL(embed.src);
   url.searchParams.set("autoplay", "1");
+  if (embed.type === "vimeo") {
+    url.searchParams.set("title", "0");
+    url.searchParams.set("byline", "0");
+    url.searchParams.set("portrait", "0");
+    url.searchParams.set("quality", "1080p");
+  }
   return url.toString();
 }
 
@@ -24,6 +27,7 @@ export default function ProjectPageClient({ project }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSrc, setModalSrc] = useState("");
   const parallax = useParallax({ speed: 0.6 });
+  const lenis = useLenis();
 
   const showCtaRow =
     (project.type === "film" && Boolean(project.videoEmbed)) ||
@@ -33,7 +37,7 @@ export default function ProjectPageClient({ project }: Props) {
   const openModal = useCallback(() => {
     const embed = project.videoEmbed;
     if (!embed) return;
-    setModalSrc(buildVimeoSrc(embed.src));
+    setModalSrc(buildEmbedSrc(embed));
     setModalOpen(true);
   }, [project.videoEmbed]);
 
@@ -45,17 +49,17 @@ export default function ProjectPageClient({ project }: Props) {
   useEffect(() => {
     if (!modalOpen) return;
 
-    document.body.style.overflow = "hidden";
+    lenis?.stop();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
+      lenis?.start();
       window.removeEventListener("keydown", onKey);
     };
-  }, [modalOpen, closeModal]);
+  }, [modalOpen, closeModal, lenis]);
 
   return (
     <>
