@@ -432,6 +432,56 @@ img {
   will-change: transform;
 }
 
+.proj-hero-picture {
+  display: block;
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.proj-hero-desktop-media {
+  display: block;
+  height: 100%;
+}
+
+.proj-hero-mobile-media {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.proj-hero-mobile-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@media (max-width: 767px) {
+  .proj-hero-desktop-media {
+    display: none;
+  }
+
+  .proj-hero-mobile-media {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj-hero-desktop-media {
+      display: block;
+    }
+
+    .proj-hero-mobile-media {
+      display: none;
+    }
+  }
+}
+
 .proj-hero-img {
   object-fit: cover;
   object-position: center;

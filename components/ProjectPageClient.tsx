@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import Image from "next/image";
 import AudioPlayer from "@/components/audio/AudioPlayer";
 import { useParallax } from "@/app/hooks/useParallax";
@@ -9,6 +9,36 @@ import type { Project } from "@/data/projects";
 
 interface Props {
   project: Project;
+}
+
+function ProjectHeroMobileVideo({ project }: { project: Project }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const playAttempt = v.play();
+    if (playAttempt !== undefined) {
+      playAttempt.catch(() => {});
+    }
+  }, []);
+
+  return (
+    <div className="proj-hero-mobile-media">
+      <video
+        ref={videoRef}
+        className="proj-hero-mobile-video"
+        src={project.cardVideo}
+        poster={project.cardPoster}
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="metadata"
+        aria-label={`${project.title} preview clip`}
+      />
+    </div>
+  );
 }
 
 function buildEmbedSrc(embed: { type: string; src: string }): string {
@@ -69,14 +99,17 @@ export default function ProjectPageClient({ project }: Props) {
           className="proj-hero-inner"
           style={{ transform: parallax.transform }}
         >
-          <Image
-            src={project.heroImage}
-            alt={project.title}
-            fill
-            priority
-            sizes="100vw"
-            className="proj-hero-img"
-          />
+          <picture className="proj-hero-picture proj-hero-desktop-media">
+            <Image
+              src={project.heroImage}
+              alt={project.title}
+              fill
+              priority
+              sizes="100vw"
+              className="proj-hero-img"
+            />
+          </picture>
+          <ProjectHeroMobileVideo project={project} />
         </div>
       </div>
 
