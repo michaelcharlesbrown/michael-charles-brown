@@ -43,6 +43,59 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Split-text roll hover (RollLink) */
+.roll-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+.roll-link-track {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  clip-path: inset(0);
+}
+
+.roll-link-line {
+  display: block;
+  transition: transform 0.3s ease-out;
+}
+
+.roll-link:hover .roll-link-line,
+.roll-link:focus-visible .roll-link-line {
+  transform: translateY(-100%);
+}
+
+.roll-link-line[aria-hidden="true"] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  user-select: none;
+}
+
+a.roll-link:hover {
+  text-decoration: none;
+}
+
+.roll-link-passthrough,
+.roll-link-passthrough:hover,
+.roll-link-passthrough:focus,
+.roll-link-passthrough:focus-visible {
+  text-decoration: none;
+}
+
+.proj-cta-btn.roll-link {
+  justify-content: center;
+}
+
+.proj-credits a.roll-link:hover,
+.proj-credits a.roll-link:focus-visible {
+  text-decoration: none;
+}
+
 /* ─── Layout ────────────────────────────────────────────── */
 
 .page-wrap {

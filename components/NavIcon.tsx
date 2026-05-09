@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import RollLink from "@/src/components/ui/RollLink";
 import { usePathname } from "next/navigation";
 
 /** Equilateral: base = view width, altitude = width * √3 / 2 */
@@ -16,7 +16,7 @@ export default function NavIcon() {
 
   return (
     <div className="navTriWrap">
-      <Link
+      <RollLink
         href={href}
         className="transition-opacity duration-300 hover:opacity-80"
         aria-label={label}
@@ -34,7 +34,7 @@ export default function NavIcon() {
             fill="white"
           />
         </svg>
-      </Link>
+      </RollLink>
       <div className="navTriOverlayWrap">
         <span className="navTriOverlay" aria-hidden="true" />
       </div>

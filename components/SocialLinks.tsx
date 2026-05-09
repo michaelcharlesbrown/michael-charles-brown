@@ -1,4 +1,5 @@
 import type { ProjectLink } from "@/data/projects";
+import RollLink from "@/src/components/ui/RollLink";
 
 interface SocialLinksProps {
   links: ProjectLink[];
@@ -13,9 +14,9 @@ export default function SocialLinks({ links, className }: SocialLinksProps) {
     <div className="social-links">
       {links.map((link, i) => (
         <span key={`${link.href}-${link.label}`}>
-          <a href={link.href} target="_blank" rel="noopener noreferrer">
+          <RollLink href={link.href} external>
             {link.label}
-          </a>
+          </RollLink>
           {i < links.length - 1 && (
             <span className="social-links-sep"> | </span>
           )}

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import RollLink from "@/src/components/ui/RollLink";
 import { useRef, useEffect, useState } from "react";
 import Lenis from "lenis";
 import Snap from "lenis/snap";
@@ -95,9 +95,9 @@ export default function HomePage() {
             <div className="home-grid">
               {row.map((project, i) => (
                 <div key={project.slug} className="home-card-wrap">
-                  <Link href={`/projects/${project.slug}`}>
+                  <RollLink href={`/projects/${project.slug}`}>
                     <VideoCard project={project} index={rowIndex * 3 + i} />
-                  </Link>
+                  </RollLink>
                   <div className="card-caption">
                     <span className="card-caption-title">{project.title}</span>
                     <span className="card-caption-descriptor">{project.cardDescriptor}</span>
@@ -118,9 +118,9 @@ export default function HomePage() {
         >
           <div className="home-snap-inner page-wrap">
             <div className="home-card-wrap">
-              <Link href={`/projects/${project.slug}`}>
+              <RollLink href={`/projects/${project.slug}`}>
                 <VideoCard project={project} index={i} />
-              </Link>
+              </RollLink>
               <div className="card-caption">
                 <span className="card-caption-title">{project.title}</span>
                 <span className="card-caption-descriptor">{project.cardDescriptor}</span>

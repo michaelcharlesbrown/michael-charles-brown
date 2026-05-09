@@ -7,6 +7,7 @@ import { useParallax } from "@/app/hooks/useParallax";
 import { useLenis } from "@/app/components/LenisProvider";
 import type { Project } from "@/data/projects";
 import SocialLinks from "@/components/SocialLinks";
+import RollLink from "@/src/components/ui/RollLink";
 
 interface Props {
   project: Project;
@@ -135,13 +136,9 @@ export default function ProjectPageClient({ project }: Props) {
             {project.directorCredit ? (
               <div className="proj-credits">
                 {project.directorCredit.prefix}
-                <a
-                  href={project.directorCredit.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <RollLink href={project.directorCredit.href} external>
                   {project.directorCredit.name}
-                </a>
+                </RollLink>
               </div>
             ) : (
               project.credits && (
@@ -175,24 +172,22 @@ export default function ProjectPageClient({ project }: Props) {
                 {project.type === "music" && (
                   <>
                     {project.streamUrl && (
-                      <a
+                      <RollLink
                         className="proj-cta-btn"
                         href={project.streamUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        external
                       >
                         STREAM
-                      </a>
+                      </RollLink>
                     )}
                     {project.buyUrl && (
-                      <a
+                      <RollLink
                         className="proj-cta-btn"
                         href={project.buyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        external
                       >
                         BUY VINYL
-                      </a>
+                      </RollLink>
                     )}
                   </>
                 )}
