@@ -456,10 +456,20 @@ img {
 }
 
 .proj-hero-mobile-media {
-  display: block;
+  display: none;
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 767px) {
+  .proj-hero-desktop-media {
+    display: none;
+  }
+
+  .proj-hero-mobile-media {
+    display: block;
+  }
 }
 
 .proj-hero-mobile-video {

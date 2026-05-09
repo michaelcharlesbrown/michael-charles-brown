@@ -12,7 +12,17 @@ interface Props {
   project: Project;
 }
 
-function ProjectHeroMobileVideo({ project }: { project: Project }) {
+function ProjectHeroVideo({
+  src,
+  poster,
+  containerClass,
+  label,
+}: {
+  src: string;
+  poster: string;
+  containerClass: string;
+  label: string;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -25,18 +35,18 @@ function ProjectHeroMobileVideo({ project }: { project: Project }) {
   }, []);
 
   return (
-    <div className="proj-hero-mobile-media">
+    <div className={containerClass}>
       <video
         ref={videoRef}
         className="proj-hero-mobile-video"
-        src={project.heroVideo}
-        poster={project.heroPoster}
+        src={src}
+        poster={poster}
         muted
         loop
         playsInline
         autoPlay
-        preload="metadata"
-        aria-label={`${project.title} preview clip`}
+        preload="none"
+        aria-label={label}
       />
     </div>
   );
@@ -100,7 +110,18 @@ export default function ProjectPageClient({ project }: Props) {
           className="proj-hero-inner"
           style={{ transform: parallax.transform }}
         >
-          <ProjectHeroMobileVideo project={project} />
+          <ProjectHeroVideo
+            src={project.heroVideo}
+            poster={project.heroPoster}
+            containerClass="proj-hero-desktop-media"
+            label={`${project.title} hero`}
+          />
+          <ProjectHeroVideo
+            src={project.cardVideo}
+            poster={project.cardPoster}
+            containerClass="proj-hero-mobile-media"
+            label={`${project.title} preview clip`}
+          />
         </div>
       </div>
 
