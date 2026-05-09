@@ -29,8 +29,8 @@ function ProjectHeroMobileVideo({ project }: { project: Project }) {
       <video
         ref={videoRef}
         className="proj-hero-mobile-video"
-        src={project.cardVideo}
-        poster={project.cardPoster}
+        src={project.heroVideo}
+        poster={project.heroPoster}
         muted
         loop
         playsInline
@@ -100,16 +100,6 @@ export default function ProjectPageClient({ project }: Props) {
           className="proj-hero-inner"
           style={{ transform: parallax.transform }}
         >
-          <picture className="proj-hero-picture proj-hero-desktop-media">
-            <Image
-              src={project.heroImage}
-              alt={project.title}
-              fill
-              priority
-              sizes="100vw"
-              className="proj-hero-img"
-            />
-          </picture>
           <ProjectHeroMobileVideo project={project} />
         </div>
       </div>

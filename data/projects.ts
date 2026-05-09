@@ -21,6 +21,8 @@ export interface Project {
   subtitle: string;
   type: "film" | "music";
   heroImage: string;
+  heroVideo: string;
+  heroPoster: string;
   credits: string;
   /** When set, replaces plain credits with prefix + linked director name */
   directorCredit?: DirectorCredit;
@@ -44,6 +46,8 @@ export const projects: Project[] = [
     subtitle: "ORIGINAL SCORE",
     type: "film",
     heroImage: "/images/hero-cancuncito.jpg",
+    heroVideo: "/projects/cancuncito/video/hero-cancuncito.mp4",
+    heroPoster: "/projects/cancuncito/images/poster-hero-cancuncito.jpg",
     credits: "",
     directorCredit: {
       prefix: "A film by ",
@@ -54,8 +58,8 @@ export const projects: Project[] = [
       "Placeholder synopsis for this film project. Final copy will summarize the story, tone, and score when materials are ready.",
       "Second short paragraph placeholder for additional context, festival notes, or instrumentation — replace with real text later.",
     ],
-    cardVideo: "/video/cancuncito.mp4",
-    cardPoster: "/images/cancuncito.jpg",
+    cardVideo: "/projects/cancuncito/video/card-cancuncito.mp4",
+    cardPoster: "/projects/cancuncito/images/poster-card-cancuncito.jpg",
     cardDescriptor: "ORIGINAL SCORE",
     galleryImages: [
       "/images/hero-cancuncito.jpg",
@@ -70,13 +74,15 @@ export const projects: Project[] = [
     subtitle: "APOCALYPTIC AMERICANA",
     type: "music",
     heroImage: "/images/hero-rma.jpg",
+    heroVideo: "/projects/red-moon-apostles/video/hero-red-moon-apostles.mp4",
+    heroPoster: "/projects/red-moon-apostles/images/poster-hero-red-moon-apostles.jpg",
     credits: "",
     description: [
       "Bow down to your algorithmic overlords and embark a harrowing journey across the dusty redsand wasteland of the future past, where time loops in ghostly incantations on magnetic tape and the whispers of a forgotten civilization drift across the barren landscape.",
       "As technology becomes indistinguishable from magic, stone faces float in the shadowy void, warm in the glow of dark reflection, hovering between human longing and mechanical inevitability. Rituals of slumber endlessly reflected across tiny screens blur the line between progress and entropy, fate and free will — a world unraveling under the weight of its own artifice.",
     ],
-    cardVideo: "/video/rma.mp4",
-    cardPoster: "/images/rma.jpg",
+    cardVideo: "/projects/red-moon-apostles/video/card-red-moon-apostles.mp4",
+    cardPoster: "/projects/red-moon-apostles/images/poster-card-red-moon-apostles.jpg",
     cardDescriptor: "APOCALYPTIC AMERICANA",
     galleryImages: [
       "/images/hero-rma.jpg",
@@ -103,6 +109,8 @@ export const projects: Project[] = [
     subtitle: "ORIGINAL SCORE",
     type: "film",
     heroImage: "/images/hero-snowking.jpg",
+    heroVideo: "/projects/snow-king/video/hero-snow-king.mp4",
+    heroPoster: "/projects/snow-king/images/poster-hero-snow-king.jpg",
     credits: "",
     directorCredit: {
       prefix: "A film by ",
@@ -112,8 +120,8 @@ export const projects: Project[] = [
     description: [
       "Snow King is the story of a man, who, as a young boy witnesses the horrors of war, human cruelty and insufferable pain. Deported to a distant land far from home, the boy develops a dangerous friendship with an eccentric local puppet-maker, a bond he must sacrifice to save his mother. Ever since, he is cursed with an unlikely ability; to see the evil in all people. An ability that stays with him into his adult life. One that fuels both talent and malice, bringing him fame and fortune yet driving him ever further toward madness.",
     ],
-    cardVideo: "/video/snow-king.mp4",
-    cardPoster: "/images/snow-king.jpg",
+    cardVideo: "/projects/snow-king/video/card-snow-king.mp4",
+    cardPoster: "/projects/snow-king/images/poster-card-snow-king.jpg",
     cardDescriptor: "ORIGINAL SCORE",
     galleryImages: [
       "/images/hero-snowking.jpg",
@@ -132,12 +140,14 @@ export const projects: Project[] = [
     subtitle: "EXPERIMENTAL ELECTRONIC",
     type: "music",
     heroImage: "/images/hero-bd.jpg",
+    heroVideo: "/projects/booming-dunes/video/hero-booming-dunes.mp4",
+    heroPoster: "/projects/booming-dunes/images/poster-hero-booming-dunes.jpg",
     credits: "",
     description: [
       "Booming Dunes is the lo-fi experimental ambient project of Los Angeles based composer/producer Michael Charles Brown. Weird gadgets and analog synthesizers moaning and howling in reverse, echoing from handmade tape loops dangling from whirring reel-to-reel tape machines in a dark studio in the middle of the night. A cinematic, hallucinatory journey through a soft, warm, saturated dreamworld of sound and emotion. Needles in the red.",
     ],
-    cardVideo: "/video/booming-dunes.mp4",
-    cardPoster: "/images/booming-dunes.jpg",
+    cardVideo: "/projects/booming-dunes/video/card-booming-dunes.mp4",
+    cardPoster: "/projects/booming-dunes/images/poster-card-booming-dunes.jpg",
     cardDescriptor: "EXPERIMENTAL ELECTRONIC",
     galleryImages: [
       "/images/hero-bd.jpg",
@@ -164,6 +174,8 @@ export const projects: Project[] = [
     subtitle: "ORIGINAL SCORE",
     type: "film",
     heroImage: "/images/hero-bc.jpg",
+    heroVideo: "/projects/breathing-chamber/video/hero-breathing-chamber.mp4",
+    heroPoster: "/projects/breathing-chamber/images/poster-hero-breathing-chamber.jpg",
     credits: "",
     directorCredit: {
       prefix: "A film by ",
@@ -174,8 +186,8 @@ export const projects: Project[] = [
       "Mysterious breathing problems begin to change a boy's life as he finds himself suffocating in his familiar surroundings.",
       "EXPERIMENTAL/NARRATIVE, 16mm Film.",
     ],
-    cardVideo: "/video/breathing-chamber.mp4",
-    cardPoster: "/images/breathing-chamber.jpg",
+    cardVideo: "/projects/breathing-chamber/video/card-breathing-chamber.mp4",
+    cardPoster: "/projects/breathing-chamber/images/poster-card-breathing-chamber.jpg",
     cardDescriptor: "ORIGINAL SCORE",
     galleryImages: [
       "/images/hero-bc.jpg",
@@ -202,6 +214,8 @@ export const projects: Project[] = [
     subtitle: "BLEEDING HEART DOOM BALLADS",
     type: "music",
     heroImage: "/images/hero-md.jpg",
+    heroVideo: "/projects/mad-denizen/video/hero-mad-denizen.mp4",
+    heroPoster: "/projects/mad-denizen/images/poster-hero-mad-denizen.jpg",
     credits: "",
     quote: "“Men are so necessarily mad that not to be mad would appear mad through another trick madness played.”",
     description: [
@@ -209,8 +223,8 @@ export const projects: Project[] = [
       "The entire album was self-recorded, engineered, produced, and mixed on a Tascam 388, embracing the limitations and discipline of a fully analog workflow. Final touches — additional instrumentation and subtle production details — were completed at Tiny Telephone in San Francisco.",
       "The album was released on vinyl to critical acclaim, praised for its warmth, restraint, and commitment to process — an artifact shaped as much by intention and limitation as by songcraft.",
     ],
-    cardVideo: "/video/mad-denizen.mp4",
-    cardPoster: "/images/mad-denizen.jpg",
+    cardVideo: "/projects/mad-denizen/video/card-mad-denizen.mp4",
+    cardPoster: "/projects/mad-denizen/images/poster-card-mad-denizen.jpg",
     cardDescriptor: "BLEEDING HEART DOOM BALLADS",
     galleryImages: [
       "/images/hero-md.jpg",

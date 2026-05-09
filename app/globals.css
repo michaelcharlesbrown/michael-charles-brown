@@ -456,7 +456,7 @@ img {
 }
 
 .proj-hero-mobile-media {
-  display: none;
+  display: block;
   position: relative;
   width: 100%;
   height: 100%;
@@ -470,26 +470,6 @@ img {
   display: block;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-}
-
-@media (max-width: 767px) {
-  .proj-hero-desktop-media {
-    display: none;
-  }
-
-  .proj-hero-mobile-media {
-    display: block;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .proj-hero-desktop-media {
-      display: block;
-    }
-
-    .proj-hero-mobile-media {
-      display: none;
-    }
-  }
 }
 
 .proj-hero-img {
