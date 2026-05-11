@@ -2,7 +2,7 @@
 :root {
   --background: #ffffff;
   --foreground: #000000;
-  --frame-padding: 8px;
+  --frame-padding: 16px;
   --page-x: var(--frame-padding);
   --header-height: 3rem;
   --footer-height: 0rem;
@@ -103,6 +103,11 @@ a.roll-link:hover {
   padding-right: var(--page-x);
 }
 
+/* Bottom inset matches horizontal frame on every route (single source). */
+main {
+  padding-bottom: var(--page-x);
+}
+
 /* ─── Header ────────────────────────────────────────────── */
 
 .site-header {
@@ -174,7 +179,7 @@ a.roll-link:hover {
 .home-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 20px;
+  column-gap: var(--frame-padding);
   align-items: end;
 }
 
@@ -250,7 +255,8 @@ a.roll-link:hover {
   display: flex;
   align-items: center;
   padding-top: calc(var(--frame-padding) + var(--header-height));
-  padding-bottom: calc(var(--frame-padding) + 4rem);
+  /* Main supplies var(--page-x) below content; keep extra room above that band. */
+  padding-bottom: 4rem;
 }
 
 .about-content {
@@ -653,14 +659,15 @@ img {
 }
 
 .proj-gallery {
-  column-count: 2;
-  column-gap: 4px;
-  column-fill: balance;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--frame-padding);
+  padding: 0 var(--page-x);
+  box-sizing: border-box;
 }
 
 .proj-gallery-item {
-  break-inside: avoid;
-  margin-bottom: 4px;
+  min-width: 0;
 }
 
 .proj-gallery-item img {
@@ -729,11 +736,6 @@ img {
   }
 
   .proj-gallery {
-    column-count: 1;
-    column-gap: 0;
-  }
-
-  .proj-gallery-item {
-    margin-bottom: 3px;
+    grid-template-columns: 1fr;
   }
 }
