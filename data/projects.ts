@@ -230,10 +230,10 @@ export const projects: Project[] = [
     credits: "",
     quote: "“Men are so necessarily mad that not to be mad would appear mad, through another trick madness played.”",
     description: [
-      "Discovering the debut LP from Mad Denizen, Starved, is kinda like putting on Springsteen\u2019s Nebraska for the first time. It\u2019s one of those records that encourages late-night listening, preferably with cigarettes smoldering in the ashtray, whiskey close at hand.",
+      "Discovering the debut LP from Mad Denizen, Starved, is kinda like putting on Springsteen's Nebraska for the first time. It's one of those records that encourages late-night listening, preferably with cigarettes smoldering in the ashtray, whiskey close at hand.",
       "Starved is primarily the work of Michael Charles, an after-hours LP that, intentional or not, is haunting as all get out (but in a good way). Armed mostly with an acoustic guitar and his voice, Charles tracked the record to tape using a TASCAM 388 reel-to-reel machine. The audio quality of the vinyl is striking in its immediacy and clarity, likely due to the tape medium, attention to detail in the recording process and top-notch mastering/cutting job. Starved is a winner for both the listener and even the most discerning audiophile.",
-      "The lead single \u201cInvisible City\u201d is like a modern update of Nirvana\u2019s \u201cPolly\u201d (complete with tasteful cello).",
-      "The tunes are moody and a great Smiths alternative for when you\u2019re feeling mad at the world and just want a comforting record to turn to. Couple that with the high-quality audio experience and killer album art, and this album definitely deserves a spot on your ever-expanding LP shelf. - Benjamin Ricci, Performer Magazine",
+      "The lead single “Invisible City” is like a modern update of Nirvana's “Polly” (complete with tasteful cello).",
+      "The tunes are moody and a great Smiths alternative for when you're feeling mad at the world and just want a comforting record to turn to. Couple that with the high-quality audio experience and killer album art, and this album definitely deserves a spot on your ever-expanding LP shelf. — Benjamin Ricci, Performer Magazine",
     ],
     cardVideo: "/projects/mad-denizen/video/card-mad-denizen.mp4",
     cardPoster: "/projects/mad-denizen/images/poster-card-mad-denizen.jpg",

@@ -20,7 +20,7 @@ export default function AboutPage() {
             <span key={role}>
               {role}
               {i < roles.length - 1 && (
-                <span className="about-sep"> | </span>
+                <span className="about-sep"> /// </span>
               )}
             </span>
           ))}
@@ -28,25 +28,26 @@ export default function AboutPage() {
 
         <div className="about-body">
           <p>
-            A composer whose work moves fluidly between film scoring and
-            experimental albums. His music blends atmospheric textures with
-            bold rhythmic undercurrents, creating sound worlds that feel both
-            cinematic and deeply personal.
+            A prolific and fiercely independent creator, Michael has forged his
+            own path through a wide range of styles, from the piercing
+            confessionals of his solo acoustic project Mad Denizen, to the
+            sprawling highway-through-the-desert-at-midnight space rock odyssey
+            Red Moon Apostles, to the hypnotic incantations on handmade tape
+            loops and whirring reels of Booming Dunes.
           </p>
           <p>
-            Most recently, Brown completed the original score for Cancuncito
-            (2025), a debut feature headed into festival circulation this
-            year. The project highlights his instinct for sculpting immersive
-            themes that heighten narrative and emotional depth — a style
-            equally at home in fiction and documentary work.
+            DIY from day one, classically trained, Michael came up playing in
+            bands before diving into the underground electronic music scene of
+            San Francisco, where he was a founding member of the Mission
+            District collective Million Fishes. The debut album Starved from Mad
+            Denizen, recorded entirely to vintage reel-to-reel tape, was named
+            Vinyl of the Month by Performer Magazine, who called the record
+            “haunting.”
           </p>
           <p>
-            As a recording artist, Brown has released a series of albums under
-            various monikers and collaborative projects including Red Moon
-            Apostles and Mad Denizen. These projects explore everything from
-            meditative, minimalist soundscapes to raw, driving post-punk
-            energy, reflecting the wide range of voices he brings to his
-            scoring work.
+            For Cancuncito, his first feature film score, Michael crafted the
+            score from recordings of piano, cello, and voice transformed into
+            custom electronic instruments.
           </p>
         </div>
 
