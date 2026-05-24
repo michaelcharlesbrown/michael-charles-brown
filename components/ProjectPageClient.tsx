@@ -68,7 +68,7 @@ function buildEmbedSrc(embed: { type: string; src: string }): string {
 export default function ProjectPageClient({ project }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSrc, setModalSrc] = useState("");
-  const parallax = useParallax({ speed: 0.6 });
+  const parallaxRef = useParallax({ speed: 0.6 });
   const lenis = useLenis();
 
   const showFilmWatchCta =
@@ -109,9 +109,8 @@ export default function ProjectPageClient({ project }: Props) {
     <>
       <div className="proj-hero-wrap">
         <div
-          ref={parallax.ref as React.Ref<HTMLDivElement>}
+          ref={parallaxRef}
           className="proj-hero-inner"
-          style={{ transform: parallax.transform }}
         >
           <ProjectHeroVideo
             src={project.heroVideo}
