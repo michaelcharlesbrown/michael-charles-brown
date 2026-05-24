@@ -609,9 +609,11 @@ img {
   color: #fff;
   background: #000;
   border: 2px solid #000;
-  width: 100px;
-  height: 40px;
   box-sizing: border-box;
+  min-width: 132px;
+  width: fit-content;
+  padding-inline: 14px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;

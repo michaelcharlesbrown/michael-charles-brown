@@ -26,6 +26,8 @@ export interface Project {
   credits: string;
   /** When set, replaces plain credits with prefix + linked director name */
   directorCredit?: DirectorCredit;
+  /** When true with directorCredit, render that line atop the right column instead of under the title on the left */
+  creditInRightColumn?: boolean;
   description: string[];
   cardVideo: string;
   cardPoster: string;
@@ -34,6 +36,8 @@ export interface Project {
   quote?: string;
   streamUrl?: string;
   buyUrl?: string;
+  /** Optional buy CTA label; defaults to BUY in ProjectPageClient */
+  buyLabel?: string;
   videoEmbed?: ProjectEmbed;
   links?: ProjectLink[];
   festivalSelections?: string[];
@@ -52,11 +56,11 @@ export const projects: Project[] = [
     directorCredit: {
       prefix: "A film by ",
       name: "Carlos Alejandro Marulanda",
-      href: "https://example.com/director-carlos-marulanda",
+      href: "https://www.sonambulofilms.com/",
     },
+    creditInRightColumn: true,
     description: [
-      "Placeholder synopsis for this film project. Final copy will summarize the story, tone, and score when materials are ready.",
-      "Second short paragraph placeholder for additional context, festival notes, or instrumentation — replace with real text later.",
+      "Cancuncito is a feature film by writer director Carlos Alejandro Marulanda. The score is comprised of custom instruments sampling studio recordings of cello, piano and voice.",
     ],
     cardVideo: "/projects/cancuncito/video/card-cancuncito.mp4",
     cardPoster: "/projects/cancuncito/images/poster-card-cancuncito.jpg",
@@ -95,7 +99,7 @@ export const projects: Project[] = [
       "/projects/red-moon-apostles/images/red-moon-apostles-posters.jpg",
     ],
     streamUrl: "https://open.spotify.com/artist/3IXgCsALnK7snY68rFwwe9",
-    buyUrl: "https://redmoonapostles.bandcamp.com",
+    buyUrl: "https://redmoonapostles.bandcamp.com/album/beneath-the-burning-sands",
     videoEmbed: {
       type: "youtube",
       src: "https://www.youtube.com/embed/4hZ34bKRIZE?si=gdEzqGPmcgheT4Vi",
@@ -119,10 +123,11 @@ export const projects: Project[] = [
     directorCredit: {
       prefix: "A film by ",
       name: "Greg Jonkajtys",
-      href: "https://example.com/director-greg-jonkajtys",
+      href: "https://grz.squarespace.com/",
     },
+    creditInRightColumn: true,
     description: [
-      "Snow King is the story of a man, who, as a young boy witnesses the horrors of war, human cruelty and insufferable pain. Deported to a distant land far from home, the boy develops a dangerous friendship with an eccentric local puppet-maker, a bond he must sacrifice to save his mother. Ever since, he is cursed with an unlikely ability; to see the evil in all people. An ability that stays with him into his adult life. One that fuels both talent and malice, bringing him fame and fortune yet driving him ever further toward madness.",
+      "Snow King is the story of a man, who, as a young boy witnesses the horrors of war and human cruelty. Deported to a distant land far from home, the boy develops a dangerous friendship with an eccentric local puppet-maker, a bond he must sacrifice to save his mother. Ever since, he is cursed with an unlikely ability; to see the evil in all people. An ability that stays with him into his adult life. One that fuels both talent and malice, bringing him fame and fortune yet driving him ever further toward madness.",
     ],
     cardVideo: "/projects/snow-king/video/card-snow-king.mp4",
     cardPoster: "/projects/snow-king/images/poster-card-snow-king.jpg",
@@ -150,7 +155,8 @@ export const projects: Project[] = [
     heroPoster: "/projects/booming-dunes/images/poster-hero-booming-dunes.jpg",
     credits: "",
     description: [
-      "Booming Dunes is the lo-fi experimental ambient project of Los Angeles based composer/producer Michael Charles Brown. Weird gadgets and analog synthesizers moaning and howling in reverse, echoing from handmade tape loops dangling from whirring reel-to-reel tape machines in a dark studio in the middle of the night. A cinematic, hallucinatory journey through a soft, warm, saturated dreamworld of sound and emotion. Needles in the red.",
+      "Weird gadgets and analog synthesizers moaning and howling in reverse, echoing from handmade tape loops dangling from whirring reel-to-reel tape machines in a dark studio in the middle of the night. A cinematic, hallucinatory journey through a soft, warm, saturated dreamworld of sound and emotion.",
+      "Needles in the red.",
     ],
     cardVideo: "/projects/booming-dunes/video/card-booming-dunes.mp4",
     cardPoster: "/projects/booming-dunes/images/poster-card-booming-dunes.jpg",
@@ -186,11 +192,12 @@ export const projects: Project[] = [
     directorCredit: {
       prefix: "A film by ",
       name: "Carlos Alejandro Marulanda",
-      href: "https://example.com/director-carlos-marulanda",
+      href: "https://www.sonambulofilms.com/",
     },
+    creditInRightColumn: true,
     description: [
       "Mysterious breathing problems begin to change a boy's life as he finds himself suffocating in his familiar surroundings.",
-      "EXPERIMENTAL/NARRATIVE, 16mm Film.",
+      "Shot on 16mm film.",
     ],
     cardVideo: "/projects/breathing-chamber/video/card-breathing-chamber.mp4",
     cardPoster: "/projects/breathing-chamber/images/poster-card-breathing-chamber.jpg",
@@ -203,10 +210,6 @@ export const projects: Project[] = [
       "/projects/breathing-chamber/images/breathing-chamber-girl.jpg",
       "/projects/breathing-chamber/images/breathing-chamber-beach.jpg",
     ],
-    videoEmbed: {
-      type: "vimeo",
-      src: "https://player.vimeo.com/video/59210170",
-    },
     festivalSelections: [
       "Sitges International Film Festival",
       "Ann Arbor Film Festival",
@@ -225,11 +228,12 @@ export const projects: Project[] = [
     heroVideo: "/projects/mad-denizen/video/hero-mad-denizen.mp4",
     heroPoster: "/projects/mad-denizen/images/poster-hero-mad-denizen.jpg",
     credits: "",
-    quote: "“Men are so necessarily mad that not to be mad would appear mad through another trick madness played.”",
+    quote: "“Men are so necessarily mad that not to be mad would appear mad, through another trick madness played.”",
     description: [
-      "Mad Denizen is an acoustic project recorded entirely on analog tape. The songs were written on acoustic guitar and captured end-to-end on a reel-to-reel tape machine, with no digital recording at any stage of the process.",
-      "The entire album was self-recorded, engineered, produced, and mixed on a Tascam 388, embracing the limitations and discipline of a fully analog workflow. Final touches — additional instrumentation and subtle production details — were completed at Tiny Telephone in San Francisco.",
-      "The album was released on vinyl to critical acclaim, praised for its warmth, restraint, and commitment to process — an artifact shaped as much by intention and limitation as by songcraft.",
+      "Discovering the debut LP from Mad Denizen, Starved, is kinda like putting on Springsteen\u2019s Nebraska for the first time. It\u2019s one of those records that encourages late-night listening, preferably with cigarettes smoldering in the ashtray, whiskey close at hand.",
+      "Starved is primarily the work of Michael Charles, an after-hours LP that, intentional or not, is haunting as all get out (but in a good way). Armed mostly with an acoustic guitar and his voice, Charles tracked the record to tape using a TASCAM 388 reel-to-reel machine. The audio quality of the vinyl is striking in its immediacy and clarity, likely due to the tape medium, attention to detail in the recording process and top-notch mastering/cutting job. Starved is a winner for both the listener and even the most discerning audiophile.",
+      "The lead single \u201cInvisible City\u201d is like a modern update of Nirvana\u2019s \u201cPolly\u201d (complete with tasteful cello).",
+      "The tunes are moody and a great Smiths alternative for when you\u2019re feeling mad at the world and just want a comforting record to turn to. Couple that with the high-quality audio experience and killer album art, and this album definitely deserves a spot on your ever-expanding LP shelf. - Benjamin Ricci, Performer Magazine",
     ],
     cardVideo: "/projects/mad-denizen/video/card-mad-denizen.mp4",
     cardPoster: "/projects/mad-denizen/images/poster-card-mad-denizen.jpg",
@@ -242,7 +246,8 @@ export const projects: Project[] = [
       "/projects/mad-denizen/images/mad-denizen-tiny-telephone.jpg",
       "/projects/mad-denizen/images/mad-denizen-music.jpg",
     ],
-    streamUrl: "https://maddenizen.bandcamp.com",
+    streamUrl:
+      "https://open.spotify.com/artist/3WJymJTqfpwT0iybktxqQh?si=sV8RF9QtTIGpYBcj1wOTSw",
     buyUrl: "https://maddenizen.bandcamp.com/album/starved",
     videoEmbed: {
       type: "youtube",
@@ -251,7 +256,10 @@ export const projects: Project[] = [
     links: [
       { label: "INSTAGRAM", href: "https://instagram.com/maddenizen" },
       { label: "BANDCAMP", href: "https://maddenizen.bandcamp.com" },
-      { label: "SPOTIFY", href: "https://open.spotify.com/artist/maddenizen" },
+      {
+        label: "SPOTIFY",
+        href: "https://open.spotify.com/artist/3WJymJTqfpwT0iybktxqQh?si=sV8RF9QtTIGpYBcj1wOTSw",
+      },
       { label: "YOUTUBE", href: "https://www.youtube.com/@maddenizen" },
     ],
   },

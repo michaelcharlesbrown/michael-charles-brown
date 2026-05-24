@@ -71,8 +71,10 @@ export default function ProjectPageClient({ project }: Props) {
   const parallax = useParallax({ speed: 0.6 });
   const lenis = useLenis();
 
+  const showFilmWatchCta =
+    project.type === "film" && Boolean(project.videoEmbed);
   const showCtaRow =
-    project.type === "film" ||
+    showFilmWatchCta ||
     (project.type === "music" &&
       Boolean(project.streamUrl || project.buyUrl));
 
@@ -133,7 +135,7 @@ export default function ProjectPageClient({ project }: Props) {
             {project.subtitle && (
               <div className="proj-subtitle">{project.subtitle}</div>
             )}
-            {project.directorCredit ? (
+            {project.directorCredit && !project.creditInRightColumn ? (
               <div className="proj-credits">
                 {project.directorCredit.prefix}
                 <RollLink href={project.directorCredit.href} external>
@@ -141,6 +143,7 @@ export default function ProjectPageClient({ project }: Props) {
                 </RollLink>
               </div>
             ) : (
+              !project.directorCredit &&
               project.credits && (
                 <div className="proj-credits">{project.credits}</div>
               )
@@ -154,7 +157,7 @@ export default function ProjectPageClient({ project }: Props) {
 
             {showCtaRow && (
               <div className="proj-cta-btns">
-                {project.type === "film" && (
+                {showFilmWatchCta && (
                   <button
                     type="button"
                     className="proj-cta-btn"
@@ -186,7 +189,7 @@ export default function ProjectPageClient({ project }: Props) {
                         href={project.buyUrl}
                         external
                       >
-                        BUY VINYL
+                        {project.buyLabel ?? "BUY"}
                       </RollLink>
                     )}
                   </>
@@ -196,6 +199,15 @@ export default function ProjectPageClient({ project }: Props) {
           </div>
 
           <div className="proj-info-right">
+            {project.directorCredit && project.creditInRightColumn ? (
+              <div className="proj-credits">
+                {project.directorCredit.prefix}
+                <RollLink href={project.directorCredit.href} external>
+                  {project.directorCredit.name}
+                </RollLink>
+              </div>
+            ) : null}
+
             {project.quote && (
               <div className="proj-quote">{project.quote}</div>
             )}
