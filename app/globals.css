@@ -7,6 +7,11 @@
   --header-height: 3rem;
   --footer-height: 0rem;
   --text: 0.75rem;
+  --space-section: 2.5rem;
+  --space-paragraph: 1.5rem;
+  --space-sm: 8px;
+  --content-max: 1200px;
+  --content-narrow: 480px;
 }
 
 @theme inline {
@@ -220,7 +225,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: 8px;
+  margin-top: var(--space-sm);
   text-transform: uppercase;
 }
 
@@ -235,7 +240,7 @@ main {
   aspect-ratio: 5 / 7;
   width: 100%;
   overflow: hidden;
-  background: #e5e5e5;
+  background: var(--foreground);
   cursor: pointer;
 }
 
@@ -261,7 +266,7 @@ main {
 
 .about-content {
   margin-left: 50%;
-  max-width: 480px;
+  max-width: var(--content-narrow);
 }
 
 .about-name {
@@ -278,15 +283,15 @@ main {
 }
 
 .about-body {
-  margin-top: 2.5rem;
+  margin-top: var(--space-section);
 }
 
 .about-body p + p {
-  margin-top: 1.5rem;
+  margin-top: var(--space-paragraph);
 }
 
 .about-social {
-  margin: 2.5rem 0 0 0;
+  margin: var(--space-section) 0 0 0;
 }
 
 /* Unified social account links (About, project pages, etc.) */
@@ -408,7 +413,7 @@ main {
   width: 100%;
   display: inline-flex;
   align-items: stretch;
-  border: 2px solid #000;
+  border: 2px solid var(--foreground);
   border-radius: 0;
   overflow: hidden;
   background: transparent;
@@ -429,7 +434,7 @@ main {
 
 .ap-sep {
   width: 2px;
-  background: #000;
+  background: var(--foreground);
   margin-left: 10px;
 }
 
@@ -457,7 +462,7 @@ main {
   position: relative;
   z-index: 1;
   font-weight: 700;
-  color: #000;
+  color: var(--foreground);
   white-space: nowrap;
   overflow: hidden;
   text-transform: uppercase;
@@ -469,7 +474,7 @@ main {
   height: 0;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  border-left: 12px solid #000;
+  border-left: 12px solid var(--foreground);
   margin-left: 2px;
 }
 
@@ -481,7 +486,7 @@ main {
 .ap-pauseIcon > span {
   width: 3px;
   height: 14px;
-  background: #000;
+  background: var(--foreground);
   border-radius: 0;
 }
 
@@ -499,7 +504,7 @@ img {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #000;
+  background: var(--foreground);
 }
 
 .proj-hero-inner {
@@ -557,13 +562,13 @@ img {
 }
 
 .proj-info-section {
-  background: #fff;
-  color: #000;
+  background: var(--background);
+  color: var(--foreground);
   padding: 12rem var(--page-x);
 }
 
 .proj-info-inner {
-  max-width: 1200px;
+  max-width: var(--content-max);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -572,7 +577,7 @@ img {
 }
 
 .proj-info-left .proj-subtitle + .proj-credits {
-  margin-top: 1.5rem;
+  margin-top: var(--space-paragraph);
 }
 
 .proj-info-left .proj-credits + .proj-cta-btns {
@@ -599,14 +604,14 @@ img {
 }
 
 .proj-audio-wrap {
-  margin-top: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: var(--space-section);
+  margin-bottom: var(--space-paragraph);
 }
 
 .proj-cta-btns {
   display: flex;
-  gap: 8px;
-  margin-top: 2.5rem;
+  gap: var(--space-sm);
+  margin-top: var(--space-section);
 }
 
 .proj-audio-wrap + .proj-cta-btns {
@@ -616,9 +621,9 @@ img {
 .proj-cta-btn {
   font-weight: 700;
   text-transform: uppercase;
-  color: #fff;
-  background: #000;
-  border: 2px solid #000;
+  color: var(--background);
+  background: var(--foreground);
+  border: 2px solid var(--foreground);
   box-sizing: border-box;
   min-width: 132px;
   width: fit-content;
@@ -631,21 +636,21 @@ img {
 }
 
 .proj-cta-btn:hover {
-  background: #fff;
-  color: #000;
+  background: var(--background);
+  color: var(--foreground);
   text-decoration: none;
 }
 
 .proj-cta-btn:disabled {
   opacity: 1;
   cursor: default;
-  color: #fff;
-  background: #000;
+  color: var(--background);
+  background: var(--foreground);
 }
 
 .proj-cta-btn:disabled:hover {
-  background: #000;
-  color: #fff;
+  background: var(--foreground);
+  color: var(--background);
   text-decoration: none;
 }
 
@@ -655,7 +660,7 @@ img {
 }
 
 .proj-info-right .proj-description {
-  margin-top: 2.5rem;
+  margin-top: var(--space-section);
 }
 
 .proj-info-right > .proj-description:first-child {
@@ -663,11 +668,11 @@ img {
 }
 
 .proj-description p + p {
-  margin-top: 1.5rem;
+  margin-top: var(--space-paragraph);
 }
 
 .proj-social-row {
-  margin-top: 2.5rem;
+  margin-top: var(--space-section);
 }
 
 .proj-gallery {
@@ -693,7 +698,7 @@ img {
 .proj-modal-overlay {
   position: fixed;
   inset: 0;
-  background: #000;
+  background: var(--foreground);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -711,7 +716,7 @@ img {
   top: 24px;
   right: 32px;
   font-size: 2.5rem;
-  color: #fff;
+  color: var(--background);
   background: none;
   border: none;
   cursor: pointer;
