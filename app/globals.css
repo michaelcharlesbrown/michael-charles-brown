@@ -293,11 +293,11 @@ main {
 
 .social-links {
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .social-links a {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (max-width: 767px) {
@@ -328,6 +328,14 @@ main {
 /* Inline SVG sits on text baseline by default; that gap skews rotation + overlay vs the visible triangle */
 .navTriWrap > a {
   display: block;
+}
+
+.navTriLink {
+  transition: opacity 300ms ease;
+}
+
+.navTriLink:hover {
+  opacity: 0.8;
 }
 
 .navTriWrap svg {

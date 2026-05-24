@@ -99,7 +99,7 @@ export default function HomePage() {
                   </RollLink>
                   <div className="card-caption">
                     <span className="card-caption-title">{project.title}</span>
-                    <span className="card-caption-descriptor">{project.cardDescriptor}</span>
+                    <span>{project.cardDescriptor}</span>
                   </div>
                 </div>
               ))}
@@ -121,7 +121,7 @@ export default function HomePage() {
               </RollLink>
               <div className="card-caption">
                 <span className="card-caption-title">{project.title}</span>
-                <span className="card-caption-descriptor">{project.cardDescriptor}</span>
+                <span>{project.cardDescriptor}</span>
               </div>
             </div>
           </div>

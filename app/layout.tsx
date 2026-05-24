@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={geistMono.variable}>
-      <body className="antialiased">
+      <body>
         <LenisProvider>
           <Header />
           <main>{children}</main>

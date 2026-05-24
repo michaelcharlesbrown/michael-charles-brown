@@ -17,9 +17,7 @@ export default function SocialLinks({ links, className }: SocialLinksProps) {
           <RollLink href={link.href} external>
             {link.label}
           </RollLink>
-          {i < links.length - 1 && (
-            <span className="social-links-sep"> | </span>
-          )}
+          {i < links.length - 1 && " | "}
         </span>
       ))}
     </div>

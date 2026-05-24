@@ -18,7 +18,7 @@ export default function NavIcon() {
     <div className="navTriWrap">
       <RollLink
         href={href}
-        className="transition-opacity duration-300 hover:opacity-80"
+        className="navTriLink"
         aria-label={label}
       >
         <svg

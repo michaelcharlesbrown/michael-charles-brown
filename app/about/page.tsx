@@ -19,9 +19,7 @@ export default function AboutPage() {
           {roles.map((role, i) => (
             <span key={role}>
               {role}
-              {i < roles.length - 1 && (
-                <span className="about-sep"> /// </span>
-              )}
+              {i < roles.length - 1 && " /// "}
             </span>
           ))}
         </p>
