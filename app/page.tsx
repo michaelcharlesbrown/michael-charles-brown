@@ -21,7 +21,6 @@ export default function HomePage() {
   const rows = chunkArray(projects, 3);
   const containerRef = useRef<HTMLDivElement>(null);
   const desktopRowRefs = useRef<(HTMLElement | null)[]>([]);
-  const mobileCardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -113,7 +112,6 @@ export default function HomePage() {
       {projects.map((project, i) => (
         <section
           key={`mobile-${project.slug}`}
-          ref={(el) => { mobileCardRefs.current[i] = el; }}
           className="home-snap-section home-snap-card"
         >
           <div className="home-snap-inner page-wrap">

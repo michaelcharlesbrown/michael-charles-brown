@@ -135,18 +135,13 @@ export default function ProjectPageClient({ project }: Props) {
             {project.subtitle && (
               <div className="proj-subtitle">{project.subtitle}</div>
             )}
-            {project.directorCredit && !project.creditInRightColumn ? (
+            {project.directorCredit && !project.creditInRightColumn && (
               <div className="proj-credits">
                 {project.directorCredit.prefix}
                 <RollLink href={project.directorCredit.href} external>
                   {project.directorCredit.name}
                 </RollLink>
               </div>
-            ) : (
-              !project.directorCredit &&
-              project.credits && (
-                <div className="proj-credits">{project.credits}</div>
-              )
             )}
 
             {project.type === "music" && (

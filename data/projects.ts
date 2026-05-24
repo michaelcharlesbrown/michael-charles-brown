@@ -20,10 +20,8 @@ export interface Project {
   title: string;
   subtitle: string;
   type: "film" | "music";
-  heroImage: string;
   heroVideo: string;
   heroPoster: string;
-  credits: string;
   /** When set, replaces plain credits with prefix + linked director name */
   directorCredit?: DirectorCredit;
   /** When true with directorCredit, render that line atop the right column instead of under the title on the left */
@@ -40,7 +38,6 @@ export interface Project {
   buyLabel?: string;
   videoEmbed?: ProjectEmbed;
   links?: ProjectLink[];
-  festivalSelections?: string[];
 }
 
 export const projects: Project[] = [
@@ -49,10 +46,8 @@ export const projects: Project[] = [
     title: "CANCUNCITO",
     subtitle: "ORIGINAL SCORE",
     type: "film",
-    heroImage: "/images/hero-cancuncito.jpg",
     heroVideo: "/projects/cancuncito/video/hero-cancuncito.mp4",
     heroPoster: "/projects/cancuncito/images/poster-hero-cancuncito.jpg",
-    credits: "",
     directorCredit: {
       prefix: "A film by ",
       name: "Carlos Alejandro Marulanda",
@@ -79,10 +74,8 @@ export const projects: Project[] = [
     title: "RED MOON APOSTLES",
     subtitle: "APOCALYPTIC AMERICANA",
     type: "music",
-    heroImage: "/images/hero-rma.jpg",
     heroVideo: "/projects/red-moon-apostles/video/hero-red-moon-apostles.mp4",
     heroPoster: "/projects/red-moon-apostles/images/poster-hero-red-moon-apostles.jpg",
-    credits: "",
     description: [
       "Bow down to your algorithmic overlords and embark a harrowing journey across the dusty redsand wasteland of the future past, where time loops in ghostly incantations on magnetic tape and the whispers of a forgotten civilization drift across the barren landscape.",
       "As technology becomes indistinguishable from magic, stone faces float in the shadowy void, warm in the glow of dark reflection, hovering between human longing and mechanical inevitability. Rituals of slumber endlessly reflected across tiny screens blur the line between progress and entropy, fate and free will — a world unraveling under the weight of its own artifice.",
@@ -116,10 +109,8 @@ export const projects: Project[] = [
     title: "SNOW KING",
     subtitle: "ORIGINAL SCORE",
     type: "film",
-    heroImage: "/images/hero-snowking.jpg",
     heroVideo: "/projects/snow-king/video/hero-snow-king.mp4",
     heroPoster: "/projects/snow-king/images/poster-hero-snow-king.jpg",
-    credits: "",
     directorCredit: {
       prefix: "A film by ",
       name: "Greg Jonkajtys",
@@ -150,10 +141,8 @@ export const projects: Project[] = [
     title: "BOOMING DUNES",
     subtitle: "EXPERIMENTAL ELECTRONIC",
     type: "music",
-    heroImage: "/images/hero-bd.jpg",
     heroVideo: "/projects/booming-dunes/video/hero-booming-dunes.mp4",
     heroPoster: "/projects/booming-dunes/images/poster-hero-booming-dunes.jpg",
-    credits: "",
     description: [
       "Weird gadgets and analog synthesizers moaning and howling in reverse, echoing from handmade tape loops dangling from whirring reel-to-reel tape machines in a dark studio in the middle of the night. A cinematic, hallucinatory journey through a soft, warm, saturated dreamworld of sound and emotion.",
       "Needles in the red.",
@@ -185,10 +174,8 @@ export const projects: Project[] = [
     title: "BREATHING CHAMBER",
     subtitle: "ORIGINAL SCORE",
     type: "film",
-    heroImage: "/images/hero-bc.jpg",
     heroVideo: "/projects/breathing-chamber/video/hero-breathing-chamber.mp4",
     heroPoster: "/projects/breathing-chamber/images/poster-hero-breathing-chamber.jpg",
-    credits: "",
     directorCredit: {
       prefix: "A film by ",
       name: "Carlos Alejandro Marulanda",
@@ -210,24 +197,14 @@ export const projects: Project[] = [
       "/projects/breathing-chamber/images/breathing-chamber-girl.jpg",
       "/projects/breathing-chamber/images/breathing-chamber-beach.jpg",
     ],
-    festivalSelections: [
-      "Sitges International Film Festival",
-      "Ann Arbor Film Festival",
-      "S.F. Indiefest",
-      "San Francisco Latino Film Festival — Winner: Best Short Film",
-      "San Francisco Videofest",
-      "CSU Media Arts Festival — Winner: Best Cinematography",
-    ],
   },
   {
     slug: "mad-denizen",
     title: "MAD DENIZEN",
     subtitle: "BLEEDING HEART DOOM BALLADS",
     type: "music",
-    heroImage: "/images/hero-md.jpg",
     heroVideo: "/projects/mad-denizen/video/hero-mad-denizen.mp4",
     heroPoster: "/projects/mad-denizen/images/poster-hero-mad-denizen.jpg",
-    credits: "",
     quote: "“Men are so necessarily mad that not to be mad would appear mad, through another trick madness played.”",
     description: [
       "Discovering the debut LP from Mad Denizen, Starved, is kinda like putting on Springsteen's Nebraska for the first time. It's one of those records that encourages late-night listening, preferably with cigarettes smoldering in the ashtray, whiskey close at hand.",
