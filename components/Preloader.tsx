@@ -38,6 +38,18 @@ export default function Preloader() {
       )
     );
 
+    const waitForVideoCards = new Promise<void>((resolve) => {
+      const check = () => {
+        const videos = document.querySelectorAll(".video-card video");
+        if (videos.length >= projects.length) {
+          resolve();
+        } else {
+          requestAnimationFrame(check);
+        }
+      };
+      requestAnimationFrame(check);
+    });
+
     const el = triRef.current;
     let rafId: number;
 
@@ -52,11 +64,16 @@ export default function Preloader() {
       rafId = requestAnimationFrame(tick);
     }
 
-    Promise.all([document.fonts.ready, imageLoads, minDelay]).then(() => {
+    Promise.all([
+      document.fonts.ready,
+      imageLoads,
+      waitForVideoCards,
+      minDelay,
+    ]).then(() => {
       cancelAnimationFrame(rafId!);
       if (el) el.style.animationDuration = "3s";
       sessionStorage.setItem("preloaded", "1");
-      setTimeout(() => setPhase("wiping"), 100);
+      setTimeout(() => setPhase("wiping"), 150);
     });
 
     return () => cancelAnimationFrame(rafId!);
