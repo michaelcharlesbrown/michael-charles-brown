@@ -3,7 +3,6 @@ import { Geist_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import { LenisProvider } from "./components/LenisProvider";
 import Header from "@/components/Header";
-import Preloader from "@/components/Preloader";
 import "./globals.css";
 
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
@@ -34,7 +33,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ViewTransitions>
       <html lang="en" className={geistMono.variable}>
         <body>
-          <Preloader />
           <LenisProvider>
             <Header />
             <main>{children}</main>
