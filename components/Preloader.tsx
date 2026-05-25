@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { projects } from "@/data/projects";
 
 const TRI_VIEW_W = 100;
@@ -8,18 +8,20 @@ const TRI_VIEW_H = (TRI_VIEW_W * Math.sqrt(3)) / 2;
 const TRI_DISPLAY_W = 44;
 const TRI_DISPLAY_H = (TRI_DISPLAY_W * TRI_VIEW_H) / TRI_VIEW_W;
 
+type Phase = "loading" | "wiping" | "done";
+
 export default function Preloader() {
-  const [visible, setVisible] = useState<boolean | null>(null);
-  const [wiping, setWiping] = useState(false);
+  const [phase, setPhase] = useState<Phase>("loading");
   const triRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (sessionStorage.getItem("preloaded")) {
-      setVisible(false);
-      return;
+      setPhase("done");
     }
+  }, []);
 
-    setVisible(true);
+  useEffect(() => {
+    if (phase !== "loading") return;
 
     const start = Date.now();
     const minDelay = new Promise<void>((r) => setTimeout(r, 600));
@@ -54,16 +56,18 @@ export default function Preloader() {
       cancelAnimationFrame(rafId!);
       if (el) el.style.animationDuration = "3s";
       sessionStorage.setItem("preloaded", "1");
-      setTimeout(() => setWiping(true), 100);
+      setTimeout(() => setPhase("wiping"), 100);
     });
-  }, []);
 
-  if (visible === null || visible === false) return null;
+    return () => cancelAnimationFrame(rafId!);
+  }, [phase]);
+
+  if (phase === "done") return null;
 
   return (
     <div
-      className={`preloader${wiping ? " preloader-wipe" : ""}`}
-      onAnimationEnd={() => setVisible(false)}
+      className={`preloader${phase === "wiping" ? " preloader-wipe" : ""}`}
+      onAnimationEnd={() => setPhase("done")}
     >
       <div ref={triRef} className="preloader-tri">
         <svg
