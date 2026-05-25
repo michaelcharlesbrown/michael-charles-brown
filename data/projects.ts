@@ -86,9 +86,9 @@ export const projects: Project[] = [
     galleryImages: [
       "/projects/red-moon-apostles/images/red-moon-apostles-name.jpg",
       "/projects/red-moon-apostles/images/red-moon-apostles-phones.jpg",
-      "/projects/red-moon-apostles/images/red-moon-apostles-sun.jpg",
-      "/projects/red-moon-apostles/images/red-moon-apostles-eye.jpg",
       "/projects/red-moon-apostles/images/red-moon-apostles-static.jpg",
+      "/projects/red-moon-apostles/images/red-moon-apostles-eye.jpg",
+      "/projects/red-moon-apostles/images/red-moon-apostles-sun.jpg",
       "/projects/red-moon-apostles/images/red-moon-apostles-posters.jpg",
     ],
     streamUrl: "https://open.spotify.com/artist/3IXgCsALnK7snY68rFwwe9",

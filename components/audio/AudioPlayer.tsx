@@ -102,17 +102,48 @@ export default function AudioPlayer({ src, label, className = "" }: AudioPlayerP
     let scrubbing = false;
     let wasPlaying = false;
 
-    // rAF throttle for smoothness + "tape" feel
-    let raf = 0;
-    let lastX = 0;
+    // Velocity tracking
+    let scrubVelocity = 0;
+    let lastMoveX = 0;
+    let lastMoveTime = 0;
+    let scrubTargetPct = 0;
 
-    const requestSeek = (x: number) => {
-      lastX = x;
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        seekFromClientX(lastX);
-      });
+    // playbackRate smoothing
+    let currentRate = 1.0;
+    let targetRate = 1.0;
+    let rateRaf = 0;
+
+    const VELOCITY_SCALE = 1.0;
+    const RATE_LERP = 0.12;
+    const VEL_EMA = 0.3;
+
+    // Compute 0–1 fraction from clientX without touching audio
+    const pctFromClientX = (clientX: number) => {
+      const rect = bar.getBoundingClientRect();
+      const x = clamp(clientX - rect.left, 0, rect.width);
+      return rect.width ? x / rect.width : 0;
+    };
+
+    // Update progress bar visually without seeking
+    const updateVisual = (pct: number) => {
+      const host = hostRef.current;
+      if (host) host.style.setProperty("--audio-player-progress", String(pct));
+    };
+
+    const scrubTick = () => {
+      currentRate += (targetRate - currentRate) * RATE_LERP;
+      a.playbackRate = currentRate;
+
+      if (!scrubbing && Math.abs(currentRate - 1.0) < 0.002) {
+        currentRate = 1.0;
+        a.playbackRate = 1.0;
+        a.preservesPitch = true;
+        (a as HTMLAudioElement & { webkitPreservesPitch: boolean }).webkitPreservesPitch = true;
+        rateRaf = 0;
+        return;
+      }
+
+      rateRaf = requestAnimationFrame(scrubTick);
     };
 
     const onPointerDown = (e: PointerEvent) => {
@@ -121,26 +152,55 @@ export default function AudioPlayer({ src, label, className = "" }: AudioPlayerP
       scrubbing = true;
       wasPlaying = !a.paused;
 
-      bar.setPointerCapture(e.pointerId);
-      requestSeek(e.clientX);
+      lastMoveX = e.clientX;
+      lastMoveTime = performance.now();
+      scrubVelocity = 0;
+      currentRate = 1.0;
+      targetRate = 1.0;
+      scrubTargetPct = pctFromClientX(e.clientX);
+      updateVisual(scrubTargetPct);
 
-      // "Tape scrub" behavior: keep playing if was playing
+      a.preservesPitch = false;
+      (a as HTMLAudioElement & { webkitPreservesPitch: boolean }).webkitPreservesPitch = false;
+
+      bar.setPointerCapture(e.pointerId);
+
       if (wasPlaying) a.play().catch(() => {});
+      if (!rateRaf) rateRaf = requestAnimationFrame(scrubTick);
     };
 
     const onPointerMove = (e: PointerEvent) => {
       if (!scrubbing) return;
-      requestSeek(e.clientX);
+
+      const now = performance.now();
+      const dt = now - lastMoveTime;
+
+      if (dt > 0) {
+        const rawVelocity = (e.clientX - lastMoveX) / dt;
+        scrubVelocity += (rawVelocity - scrubVelocity) * VEL_EMA;
+      }
+
+      lastMoveX = e.clientX;
+      lastMoveTime = now;
+      scrubTargetPct = pctFromClientX(e.clientX);
+      targetRate = clamp(Math.abs(scrubVelocity) * VELOCITY_SCALE, 0.1, 3.5);
+
+      updateVisual(scrubTargetPct);
     };
 
     const end = () => {
       if (!scrubbing) return;
       scrubbing = false;
+      scrubVelocity = 0;
+      targetRate = 1.0;
+
+      // Single seek on release — lands silently as rate winds back to 1.0
+      if (Number.isFinite(a.duration) && a.duration > 0) {
+        a.currentTime = scrubTargetPct * a.duration;
+      }
 
       if (!wasPlaying) a.pause();
-
-      if (raf) cancelAnimationFrame(raf);
-      raf = 0;
+      // rateRaf continues until currentRate settles to 1.0
     };
 
     bar.addEventListener("pointerdown", onPointerDown);
@@ -155,9 +215,12 @@ export default function AudioPlayer({ src, label, className = "" }: AudioPlayerP
       bar.removeEventListener("pointerup", end);
       bar.removeEventListener("pointercancel", end);
       bar.removeEventListener("lostpointercapture", end);
-      if (raf) cancelAnimationFrame(raf);
+      if (rateRaf) { cancelAnimationFrame(rateRaf); rateRaf = 0; }
+      a.playbackRate = 1.0;
+      a.preservesPitch = true;
+      (a as HTMLAudioElement & { webkitPreservesPitch: boolean }).webkitPreservesPitch = true;
     };
-  }, [seekFromClientX]);
+  }, []); // all state via stable refs — no external deps needed
 
   return (
     <div

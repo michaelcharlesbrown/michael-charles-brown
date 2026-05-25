@@ -13,6 +13,14 @@ interface Props {
   project: Project;
 }
 
+const PROJECT_AUDIO: Record<string, string> = {
+  "red-moon-apostles":
+    "/projects/red-moon-apostles/audio/Red_Moon_Apostles_Down_Below.mp3",
+  "booming-dunes":
+    "/projects/booming-dunes/audio/synth_bliss_remixed_101724.m4a",
+  "mad-denizen": "/projects/mad-denizen/audio/08_Curtain_Call.mp3",
+};
+
 function ProjectHeroVideo({
   src,
   poster,
@@ -143,9 +151,12 @@ export default function ProjectPageClient({ project }: Props) {
               </div>
             )}
 
-            {project.type === "music" && (
+            {PROJECT_AUDIO[project.slug] && (
               <div className="proj-audio-wrap">
-                <AudioPlayer src="/audio/test.mp3" label={project.title} />
+                <AudioPlayer
+                  src={PROJECT_AUDIO[project.slug]}
+                  label={project.title}
+                />
               </div>
             )}
 
