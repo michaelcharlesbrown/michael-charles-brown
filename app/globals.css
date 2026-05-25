@@ -134,7 +134,7 @@ a.roll-link:hover {
   display: block;
 }
 
-.preloader-glow {
+.preloader-tri .navTriOverlay {
   opacity: 1;
 }
 

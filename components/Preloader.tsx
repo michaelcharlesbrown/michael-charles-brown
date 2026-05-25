@@ -84,7 +84,7 @@ export default function Preloader() {
           />
         </svg>
         <div className="navTriOverlayWrap">
-          <span className="navTriOverlay preloader-glow" aria-hidden="true" />
+          <span className="navTriOverlay" aria-hidden="true" />
         </div>
       </div>
     </div>
