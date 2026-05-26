@@ -8,6 +8,7 @@ import { useLenis } from "@/app/components/LenisProvider";
 import type { Project } from "@/data/projects";
 import SocialLinks from "@/components/SocialLinks";
 import RollLink from "@/src/components/ui/RollLink";
+import FitText from "@/components/FitText";
 
 interface Props {
   project: Project;
@@ -138,9 +139,9 @@ export default function ProjectPageClient({ project }: Props) {
       <div className="proj-info-section">
         <div className="proj-info-inner">
           <div className="proj-info-left">
-            <div className="proj-title">{project.title}</div>
+            <div className="proj-title"><FitText>{project.title}</FitText></div>
             {project.subtitle && (
-              <div className="proj-subtitle">{project.subtitle}</div>
+              <div className="proj-subtitle"><FitText>{project.subtitle}</FitText></div>
             )}
             {project.directorCredit && !project.creditInRightColumn && (
               <div className="proj-credits">

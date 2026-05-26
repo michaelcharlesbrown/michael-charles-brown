@@ -1,4 +1,5 @@
 import SocialLinks from "@/components/SocialLinks";
+import FitText from "@/components/FitText";
 import type { ProjectLink } from "@/data/projects";
 
 const socialLinks: ProjectLink[] = [
@@ -14,14 +15,16 @@ export default function AboutPage() {
   return (
     <div className="about-main page-wrap">
       <div className="about-content">
-        <h1 className="about-name">MICHAEL CHARLES BROWN</h1>
+        <h1 className="about-name"><FitText>MICHAEL CHARLES BROWN</FitText></h1>
         <p className="about-roles">
-          {roles.map((role, i) => (
-            <span key={role}>
-              {role}
-              {i < roles.length - 1 && " /// "}
-            </span>
-          ))}
+          <FitText>
+            {roles.map((role, i) => (
+              <span key={role}>
+                {role}
+                {i < roles.length - 1 && " /// "}
+              </span>
+            ))}
+          </FitText>
         </p>
 
         <div className="about-body">
