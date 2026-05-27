@@ -737,23 +737,8 @@ img {
   to { opacity: 1; }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
 
-::view-transition-old(root) {
-  animation: fadeOut 0.3s ease forwards;
-}
-
-::view-transition-new(root) {
-  animation: fadeIn 0.3s ease forwards;
-}
 
 .proj-modal-close {
   position: fixed;
@@ -803,4 +788,25 @@ img {
   .proj-cta-btn {
     flex: 1;
   }
+}
+
+/* ─── Page transition wipe ──────────────────────────────── */
+/* To remove: delete this entire block. No other changes needed. */
+
+::view-transition-old(root) {
+  animation: wipe-out 0.45s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: wipe-in 0.45s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes wipe-out {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes wipe-in {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { clip-path: inset(0 0 0 0); }
 }
