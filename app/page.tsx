@@ -182,6 +182,13 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      <img
+        className="video-card-poster"
+        src={project.cardPoster}
+        alt=""
+        aria-hidden="true"
+        fetchPriority={index < 3 ? "high" : "low"}
+      />
       <video
         ref={videoRef}
         src={project.cardVideo}

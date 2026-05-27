@@ -46,6 +46,13 @@ function ProjectHeroVideo({
 
   return (
     <div className={containerClass}>
+      <img
+        className="proj-hero-poster"
+        src={poster}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+      />
       <video
         ref={videoRef}
         className="proj-hero-mobile-video"
@@ -55,7 +62,7 @@ function ProjectHeroVideo({
         loop
         playsInline
         autoPlay
-        preload="none"
+        preload="metadata"
         aria-label={label}
       />
     </div>
