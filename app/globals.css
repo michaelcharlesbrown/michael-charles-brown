@@ -790,23 +790,22 @@ img {
   }
 }
 
-/* ─── Page transition wipe ──────────────────────────────── */
-/* To remove: delete this entire block. No other changes needed. */
+/* ─── Page transition fade ──────────────────────────────── */
 
 ::view-transition-old(root) {
-  animation: wipe-out 0.45s cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation: page-fade-out 0.3s ease both;
 }
 
 ::view-transition-new(root) {
-  animation: wipe-in 0.45s cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation: page-fade-in 0.3s ease both;
 }
 
-@keyframes wipe-out {
-  from { clip-path: inset(0 0 0 0); }
-  to   { clip-path: inset(0 100% 0 0); }
+@keyframes page-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
-@keyframes wipe-in {
-  from { clip-path: inset(0 0 0 100%); }
-  to   { clip-path: inset(0 0 0 0); }
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
