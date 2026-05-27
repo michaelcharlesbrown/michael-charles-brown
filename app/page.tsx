@@ -23,6 +23,18 @@ export default function HomePage() {
   const desktopRowRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
+    const slug = sessionStorage.getItem('returnToSlug');
+    if (!slug || !containerRef.current) return;
+    sessionStorage.removeItem('returnToSlug');
+    const target = containerRef.current.querySelector<HTMLElement>(`[data-slug="${slug}"]`);
+    if (target) {
+      requestAnimationFrame(() => {
+        containerRef.current!.scrollTop = target.offsetTop;
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
@@ -112,11 +124,15 @@ export default function HomePage() {
       {projects.map((project, i) => (
         <section
           key={`mobile-${project.slug}`}
+          data-slug={project.slug}
           className="home-snap-section home-snap-card"
         >
           <div className="home-snap-inner page-wrap">
             <div className="home-card-wrap">
-              <RollLink href={`/projects/${project.slug}`}>
+              <RollLink
+                href={`/projects/${project.slug}`}
+                onClick={() => sessionStorage.setItem('returnToSlug', project.slug)}
+              >
                 <VideoCard project={project} index={i} />
               </RollLink>
               <div className="card-caption">
