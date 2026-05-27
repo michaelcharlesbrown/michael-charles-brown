@@ -1,6 +1,7 @@
 "use client";
 
 import RollLink from "@/src/components/ui/RollLink";
+import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import Lenis from "lenis";
 import Snap from "lenis/snap";
@@ -198,12 +199,13 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img
+      <Image
         className="video-card-poster"
         src={project.cardPoster}
         alt=""
-        aria-hidden="true"
-        fetchPriority={index < 3 ? "high" : "low"}
+        fill
+        sizes="(max-width: 767px) 100vw, 33vw"
+        priority={index < 3}
       />
       <video
         ref={videoRef}
@@ -212,7 +214,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload={index < 3 ? "metadata" : "none"}
       />
     </div>
   );
