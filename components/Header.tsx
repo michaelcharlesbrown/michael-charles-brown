@@ -8,7 +8,7 @@ export default function Header() {
         M/C/B
       </RollLink>
       <NavIcon />
-      <RollLink href="mailto:your@email.com" className="site-header-contact">
+      <RollLink href="mailto:mr.michaelbrown@gmail.com" className="site-header-contact">
         CONTACT
       </RollLink>
     </header>

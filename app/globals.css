@@ -803,6 +803,70 @@ img {
   }
 }
 
+/* ─── Links page ────────────────────────────────────────── */
+
+.links-page {
+  min-height: 100vh;
+  background: var(--foreground);
+  color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0 4rem;
+}
+
+.links-col {
+  width: 100%;
+  max-width: var(--content-narrow);
+  padding-left: var(--page-x);
+  padding-right: var(--page-x);
+}
+
+.links-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.links-tagline {
+  text-transform: uppercase;
+  line-height: 1;
+  margin-top: 0.3rem;
+  width: 100%;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.links-list {
+  margin-top: 2.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.links-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--background);
+  background: transparent;
+  color: var(--background);
+  font-weight: 700;
+  transition: background 180ms ease;
+}
+
+.links-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
 /* ─── Page transition fade ──────────────────────────────── */
 
 ::view-transition-old(root) {
