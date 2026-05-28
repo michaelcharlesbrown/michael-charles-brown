@@ -46,13 +46,12 @@ function ProjectHeroVideo({
 
   return (
     <div className={containerClass}>
-      <Image
+      <img
         className="proj-hero-poster"
         src={poster}
         alt=""
-        fill
-        sizes="100vw"
-        priority
+        aria-hidden="true"
+        fetchPriority="high"
       />
       <video
         ref={videoRef}

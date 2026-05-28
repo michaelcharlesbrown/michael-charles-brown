@@ -1,8 +1,7 @@
 "use client";
 
 import RollLink from "@/src/components/ui/RollLink";
-import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import Lenis from "lenis";
 import Snap from "lenis/snap";
 import { projects, type Project } from "@/data/projects";
@@ -23,15 +22,23 @@ export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const desktopRowRefs = useRef<(HTMLElement | null)[]>([]);
 
-  useEffect(() => {
+  // useLayoutEffect runs synchronously after React commits, before the browser
+  // paints — so the view transition snapshot captures the container already
+  // scrolled to the correct card, not card 1 then a rAF-delayed jump.
+  useLayoutEffect(() => {
     const slug = sessionStorage.getItem('returnToSlug');
     if (!slug || !containerRef.current) return;
     sessionStorage.removeItem('returnToSlug');
-    const target = containerRef.current.querySelector<HTMLElement>(`[data-slug="${slug}"]`);
-    if (target) {
-      requestAnimationFrame(() => {
-        containerRef.current!.scrollTop = target.offsetTop;
-      });
+    const isDesktop = window.innerWidth >= 768;
+    if (isDesktop) {
+      // Desktop: find the card-wrap, then snap to its parent row section.
+      const card = containerRef.current.querySelector<HTMLElement>(`[data-desktop-slug="${slug}"]`);
+      const section = card?.closest('section') as HTMLElement | null;
+      if (section) containerRef.current.scrollTop = section.offsetTop;
+    } else {
+      // Mobile: each card is its own section, targeted directly by data-slug.
+      const section = containerRef.current.querySelector<HTMLElement>(`[data-slug="${slug}"]`);
+      if (section) containerRef.current.scrollTop = section.offsetTop;
     }
   }, []);
 
@@ -106,8 +113,11 @@ export default function HomePage() {
           <div className="home-snap-inner page-wrap">
             <div className="home-grid">
               {row.map((project, i) => (
-                <div key={project.slug} className="home-card-wrap">
-                  <RollLink href={`/projects/${project.slug}`}>
+                <div key={project.slug} data-desktop-slug={project.slug} className="home-card-wrap">
+                  <RollLink
+                    href={`/projects/${project.slug}`}
+                    onClick={() => sessionStorage.setItem('returnToSlug', project.slug)}
+                  >
                     <VideoCard project={project} index={rowIndex * 3 + i} />
                   </RollLink>
                   <div className="card-caption">
@@ -160,6 +170,27 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Restore currentTime saved before the last navigation, then save it on unmount.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const key = `vctime-${project.slug}`;
+    const saved = parseFloat(sessionStorage.getItem(key) ?? "0");
+    if (saved > 0) {
+      if (v.readyState >= 1) {
+        v.currentTime = saved;
+      } else {
+        const onMeta = () => { v.currentTime = saved; };
+        v.addEventListener("loadedmetadata", onMeta, { once: true });
+      }
+    }
+    return () => {
+      if (v.currentTime > 0) {
+        sessionStorage.setItem(key, String(v.currentTime));
+      }
+    };
+  }, [project.slug]);
+
   useEffect(() => {
     if (!isMobile || !containerRef.current || !videoRef.current) return;
 
@@ -199,13 +230,12 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Image
+      <img
         className="video-card-poster"
         src={project.cardPoster}
         alt=""
-        fill
-        sizes="(max-width: 767px) 100vw, 33vw"
-        priority={index < 3}
+        aria-hidden="true"
+        fetchPriority={index < 3 ? "high" : "low"}
       />
       <video
         ref={videoRef}
