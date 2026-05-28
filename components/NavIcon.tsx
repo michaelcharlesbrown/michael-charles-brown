@@ -3,11 +3,14 @@
 import RollLink from "@/src/components/ui/RollLink";
 import { usePathname } from "next/navigation";
 
-/** Equilateral: base = view width, altitude = width * √3 / 2 */
-const TRI_VIEW_W = 100;
-const TRI_VIEW_H = (TRI_VIEW_W * Math.sqrt(3)) / 2;
-const TRI_DISPLAY_W = 44;
-const TRI_DISPLAY_H = (TRI_DISPLAY_W * TRI_VIEW_H) / TRI_VIEW_W;
+// Square viewBox = circumscribed circle diameter; centroid at (50%, 50%) so
+// transform-origin: 50% 50% is the exact pivot — no wobble at any rotation angle.
+const SIDE = 100;
+const H = (SIDE * Math.sqrt(3)) / 2;   // altitude
+const R = (H * 2) / 3;                 // circumradius
+const r = H / 3;                       // inradius
+const VIEW = R * 2;                     // square viewBox side
+const DISPLAY = VIEW * (44 / SIDE);    // display size (~50.8px), base stays 44px
 
 export default function NavIcon() {
   const pathname = usePathname();
@@ -22,15 +25,14 @@ export default function NavIcon() {
         aria-label={label}
       >
         <svg
-          width={TRI_DISPLAY_W}
-          height={TRI_DISPLAY_H}
-          viewBox={`0 0 ${TRI_VIEW_W} ${TRI_VIEW_H}`}
+          width={DISPLAY}
+          height={DISPLAY}
+          viewBox={`0 0 ${VIEW} ${VIEW}`}
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid meet"
         >
           <path
-            d={`M${TRI_VIEW_W / 2} 0 L${TRI_VIEW_W} ${TRI_VIEW_H} L0 ${TRI_VIEW_H} Z`}
+            d={`M${R},0 L${R + SIDE / 2},${R + r} L${R - SIDE / 2},${R + r} Z`}
             fill="white"
           />
         </svg>

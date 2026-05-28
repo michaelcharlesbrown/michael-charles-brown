@@ -336,10 +336,7 @@ main {
   position: relative;
   display: inline-block;
   line-height: 0;
-  /* Equilateral triangle apex-up: centroid is at (50%, 2/3) of the tight
-     bbox, not (50%, 50%). center center = wrong pivot → wobble & uneven
-     clearance to the viewport while rotating. */
-  transform-origin: 50% calc(100% * 2 / 3);
+  transform-origin: 50% 50%;
   animation: navRotate 45s linear infinite;
 }
 
@@ -377,7 +374,8 @@ main {
 .navTriOverlay {
   position: absolute;
   inset: 0;
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  /* triangle sits in a square circumscribed-circle viewBox; vertices at (50%,0%), (93.3%,75%), (6.7%,75%) */
+  clip-path: polygon(50% 0%, 93.3% 75%, 6.7% 75%);
   background: radial-gradient(
     120% 120% at 50% 40%,
     rgba(255, 100, 160, 0.6),
@@ -527,6 +525,11 @@ img {
   width: 100%;
   height: 120%;
   will-change: transform;
+  /* Explicit base transform so the compositor layer is initialized with a
+     matrix from frame 1 on all platforms — prevents mobile Safari from
+     sub-pixel repositioning the layer mid-render. Desktop JS parallax
+     overrides this at runtime. */
+  transform: translateY(0);
 }
 
 .proj-hero-picture {
@@ -557,6 +560,16 @@ img {
 
   .proj-hero-mobile-media {
     display: block;
+  }
+
+  /* No parallax on mobile — collapse the buffer so the hero-inner is exactly
+     the hero-wrap size. The top:-10%/height:120% offset exists only to give
+     the desktop JS parallax room to travel; without it, the compositor layer
+     has no layout ambiguity and the view-transition snapshot is stable. */
+  .proj-hero-inner {
+    top: 0;
+    height: 100%;
+    will-change: auto;
   }
 }
 

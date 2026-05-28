@@ -1,6 +1,23 @@
+import type { Metadata } from "next";
 import SocialLinks from "@/components/SocialLinks";
 import FitText from "@/components/FitText";
 import type { ProjectLink } from "@/data/projects";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Classically trained, DIY from day one. Composer and recording artist Michael Charles Brown creates original film scores, analog tape recordings, and genre-defying projects including Mad Denizen, Red Moon Apostles, and Booming Dunes.",
+  openGraph: {
+    title: "About — Michael Charles Brown",
+    description: "Classically trained, DIY from day one. Composer and recording artist Michael Charles Brown creates original film scores, analog tape recordings, and genre-defying projects including Mad Denizen, Red Moon Apostles, and Booming Dunes.",
+    images: [{ url: "/images/og-michael-charles-brown-about.jpg", width: 1200, height: 630, alt: "Michael Charles Brown" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — Michael Charles Brown",
+    description: "Classically trained, DIY from day one. Composer and recording artist Michael Charles Brown creates original film scores, analog tape recordings, and genre-defying projects including Mad Denizen, Red Moon Apostles, and Booming Dunes.",
+    images: [{ url: "/images/og-michael-charles-brown-about.jpg", alt: "Michael Charles Brown" }],
+  },
+};
 
 const socialLinks: ProjectLink[] = [
   { label: "INSTAGRAM", href: "https://instagram.com" },
