@@ -20,10 +20,7 @@ export const metadata: Metadata = {
 };
 
 const socialLinks: ProjectLink[] = [
-  { label: "INSTAGRAM", href: "https://instagram.com" },
-  { label: "BANDCAMP", href: "https://bandcamp.com" },
-  { label: "SPOTIFY", href: "https://spotify.com" },
-  { label: "YOUTUBE", href: "https://youtube.com" },
+  { label: "INSTAGRAM", href: "https://www.instagram.com/maddenizen" },
 ];
 
 const roles = ["COMPOSER", "PRODUCER", "RECORDING ARTIST"];
@@ -69,7 +66,11 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <SocialLinks links={socialLinks} className="about-social" />
+        <SocialLinks
+          links={socialLinks}
+          prefix="CONNECT ON "
+          className="about-social"
+        />
       </div>
     </div>
   );

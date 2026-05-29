@@ -4,7 +4,13 @@ import { useFitText } from "@/hooks/useFitText"
 
 const roles = ["COMPOSER", "PRODUCER", "RECORDING ARTIST"]
 
-const links = [
+const links: {
+  label: string
+  href: string
+  external: boolean
+  /** Set false to show again when brokenearrecords.com is live */
+  hidden?: boolean
+}[] = [
   {
     label: "michaelcharlesbrown.com",
     href: "https://michaelcharlesbrown.com",
@@ -29,6 +35,7 @@ const links = [
     label: "BROKEN EAR RECORDS",
     href: "https://brokenearrecords.com",
     external: true,
+    hidden: true, // TEMP — site under construction
   },
 ]
 
@@ -56,7 +63,7 @@ export default function LinksPage() {
         </p>
 
         <ul className="links-list">
-          {links.map((link) => (
+          {links.filter((link) => !link.hidden).map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}

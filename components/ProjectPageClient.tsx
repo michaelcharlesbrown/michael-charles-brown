@@ -231,9 +231,9 @@ export default function ProjectPageClient({ project }: Props) {
               ))}
             </div>
 
-            {project.links && project.links.length > 0 && (
+            {project.links && project.links.some((l) => !l.schemaOnly) && (
               <SocialLinks
-                links={project.links}
+                links={project.links.filter((l) => !l.schemaOnly)}
                 className="proj-social-row"
               />
             )}

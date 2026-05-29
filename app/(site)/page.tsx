@@ -170,27 +170,6 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Restore currentTime saved before the last navigation, then save it on unmount.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const key = `vctime-${project.slug}`;
-    const saved = parseFloat(sessionStorage.getItem(key) ?? "0");
-    if (saved > 0) {
-      if (v.readyState >= 1) {
-        v.currentTime = saved;
-      } else {
-        const onMeta = () => { v.currentTime = saved; };
-        v.addEventListener("loadedmetadata", onMeta, { once: true });
-      }
-    }
-    return () => {
-      if (v.currentTime > 0) {
-        sessionStorage.setItem(key, String(v.currentTime));
-      }
-    };
-  }, [project.slug]);
-
   useEffect(() => {
     if (!isMobile || !containerRef.current || !videoRef.current) return;
 

@@ -1,6 +1,8 @@
 export interface ProjectLink {
   label: string;
   href: string;
+  /** When true, included in JSON-LD sameAs only — not shown on the page */
+  schemaOnly?: boolean;
 }
 
 export interface ProjectEmbed {
@@ -249,8 +251,8 @@ export const projects: Project[] = [
         href: "https://open.spotify.com/artist/3WJymJTqfpwT0iybktxqQh?si=sV8RF9QtTIGpYBcj1wOTSw",
       },
       { label: "YOUTUBE", href: "https://www.youtube.com/@maddenizen" },
-      { label: "SOUNDCLOUD", href: "https://soundcloud.com/maddenizen" },
-      { label: "FACEBOOK", href: "https://www.facebook.com/maddenizen/" },
+      { label: "SOUNDCLOUD", href: "https://soundcloud.com/maddenizen", schemaOnly: true },
+      { label: "FACEBOOK", href: "https://www.facebook.com/maddenizen/", schemaOnly: true },
     ],
   },
 ];

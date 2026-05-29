@@ -3,15 +3,18 @@ import RollLink from "@/src/components/ui/RollLink";
 
 interface SocialLinksProps {
   links: ProjectLink[];
+  /** Plain text before the first link (e.g. "CONNECT ON "). Inherits regular weight. */
+  prefix?: string;
   /** Page-specific spacing wrapper (e.g. about-social, proj-social-row). */
   className?: string;
 }
 
-export default function SocialLinks({ links, className }: SocialLinksProps) {
+export default function SocialLinks({ links, prefix, className }: SocialLinksProps) {
   if (!links.length) return null;
 
   const row = (
     <div className="social-links">
+      {prefix}
       {links.map((link, i) => (
         <span key={`${link.href}-${link.label}`}>
           <RollLink href={link.href} external>
