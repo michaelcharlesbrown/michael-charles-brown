@@ -100,6 +100,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
       </LenisProvider>
+      <div className="navTriGlobalOverlayWrap" aria-hidden="true">
+        <div className="navTriGlobalOverlay" />
+      </div>
     </>
   );
 }

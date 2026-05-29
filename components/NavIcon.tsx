@@ -37,9 +37,6 @@ export default function NavIcon() {
           />
         </svg>
       </RollLink>
-      <div className="navTriOverlayWrap">
-        <span className="navTriOverlay" aria-hidden="true" />
-      </div>
     </div>
   );
 }

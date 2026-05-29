@@ -369,33 +369,45 @@ main {
 }
 
 .navTriOverlay {
-  position: absolute;
-  inset: 0;
-  /* triangle sits in a square circumscribed-circle viewBox; vertices at (50%,0%), (93.3%,75%), (6.7%,75%) */
-  clip-path: polygon(50% 0%, 93.3% 75%, 6.7% 75%);
-  background: radial-gradient(
-    120% 120% at 50% 40%,
-    rgba(255, 100, 160, 0.6),
-    rgba(255, 100, 160, 0.4) 45%,
-    rgba(255, 100, 160, 0.2) 70%,
-    rgba(255, 100, 160, 0.05) 100%
-  );
-  animation: navGlow 28s ease-in-out infinite;
-  opacity: 0;
-  transition: opacity 180ms ease;
-  will-change: filter, opacity;
+  display: none;
 }
 
-.navTriWrap:hover .navTriOverlay,
-.navTriWrap:focus-visible .navTriOverlay,
-.navTriWrap:focus-within .navTriOverlay {
+/* ─── NavIcon gradient overlay (outside header stacking context) ── */
+
+.navTriGlobalOverlayWrap {
+  mix-blend-mode: normal;
+  position: fixed;
+  /* align with triangle: header is at frame-padding, triangle is tallest item so flush to top */
+  top: var(--frame-padding);
+  left: 50%;
+  transform: translateX(-50%);
+  /* matches NavIcon DISPLAY ≈ VIEW*(44/100) where VIEW=R*2, R=H*2/3, H=SIDE*sqrt(3)/2, SIDE=100 */
+  width: 50.81px;
+  height: 50.81px;
+  pointer-events: none;
+  z-index: 51;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.navTriGlobalOverlay {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 93.3% 75%, 6.7% 75%);
+  background: linear-gradient(160deg, #ff2d78 0%, #d44dff 50%, #2d8fff 100%);
+  transform-origin: 50% 50%;
+  animation: navRotate 45s linear infinite, navGlow 6s ease-in-out infinite;
+}
+
+body:has(.navTriLink:hover) .navTriGlobalOverlayWrap,
+body:has(.navTriLink:focus-visible) .navTriGlobalOverlayWrap {
   opacity: 1;
 }
 
 @keyframes navGlow {
-  0%   { filter: hue-rotate(0deg) saturate(1.05); }
-  50%  { filter: hue-rotate(180deg) saturate(1.1); }
-  100% { filter: hue-rotate(360deg) saturate(1.05); }
+  0%   { filter: hue-rotate(0deg) saturate(1.4); }
+  50%  { filter: hue-rotate(60deg) saturate(1.6); }
+  100% { filter: hue-rotate(0deg) saturate(1.4); }
 }
 
 /* ─── AudioPlayer ───────────────────────────────────────── */
