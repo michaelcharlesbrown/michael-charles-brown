@@ -110,6 +110,8 @@ export const projects: Project[] = [
       { label: "BANDCAMP", href: "https://redmoonapostles.bandcamp.com" },
       { label: "SPOTIFY", href: "https://open.spotify.com/artist/3IXgCsALnK7snY68rFwwe9" },
       { label: "YOUTUBE", href: "https://www.youtube.com/@redmoonapostles" },
+      { label: "APPLE MUSIC", href: "https://music.apple.com/us/artist/red-moon-apostles/1792943559", schemaOnly: true },
+      { label: "BROKEN EAR RECORDS", href: "https://brokenearrecords.com/artists/red-moon-apostles", schemaOnly: true },
     ],
   },
   {
@@ -177,6 +179,8 @@ export const projects: Project[] = [
       { label: "BANDCAMP", href: "https://boomingdunes.bandcamp.com" },
       { label: "SPOTIFY", href: "https://open.spotify.com/artist/6Gur5AyvODlXA3mvKSHcOP" },
       { label: "YOUTUBE", href: "https://www.youtube.com/@boomingdunes" },
+      { label: "APPLE MUSIC", href: "https://music.apple.com/us/artist/booming-dunes/1758819143", schemaOnly: true },
+      { label: "BROKEN EAR RECORDS", href: "https://brokenearrecords.com/artists/booming-dunes", schemaOnly: true },
     ],
   },
   {
@@ -253,6 +257,9 @@ export const projects: Project[] = [
       { label: "YOUTUBE", href: "https://www.youtube.com/@maddenizen" },
       { label: "SOUNDCLOUD", href: "https://soundcloud.com/maddenizen", schemaOnly: true },
       { label: "FACEBOOK", href: "https://www.facebook.com/maddenizen/", schemaOnly: true },
+      { label: "APPLE MUSIC", href: "https://music.apple.com/us/artist/mad-denizen/1713797479", schemaOnly: true },
+      { label: "PERFORMER MAGAZINE", href: "https://performermag.com/new-music-and-video/reviews/indie-rock-reviews/mad-denizen-starved-vinyl-review/", schemaOnly: true },
+      { label: "BROKEN EAR RECORDS", href: "https://brokenearrecords.com/artists/mad-denizen", schemaOnly: true },
     ],
   },
 ];

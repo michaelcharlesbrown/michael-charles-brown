@@ -74,6 +74,7 @@ const brokenEarRecordsSchema = {
     name: "Michael Charles Brown",
     url: MCB_URL,
   },
+  sameAs: ["https://www.instagram.com/brokenearrecords/"],
 };
 
 const websiteSchema = {
