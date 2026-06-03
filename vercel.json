@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.michaelcharlesbrown.com"
+        }
+      ],
+      "destination": "https://michaelcharlesbrown.com/:path*",
+      "permanent": true
+    }
+  ]
+}
