@@ -258,6 +258,8 @@ export default function ProjectPageClient({ project }: Props) {
                 width={960}
                 height={1280}
                 sizes="50vw"
+                placeholder="blur"
+                blurDataURL={BLUR_PLACEHOLDER}
               />
             </div>
           ))}
