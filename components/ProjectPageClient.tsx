@@ -14,6 +14,9 @@ interface Props {
   project: Project;
 }
 
+const BLUR_PLACEHOLDER =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAADElEQVR42mNgGB4AAADIAAGTvaWOAAAAAElFTkSuQmCC";
+
 const PROJECT_AUDIO: Record<string, string> = {
   "red-moon-apostles":
     "/projects/red-moon-apostles/audio/Red_Moon_Apostles_Down_Below.mp3",
@@ -46,12 +49,16 @@ function ProjectHeroVideo({
 
   return (
     <div className={containerClass}>
-      <img
+      <Image
         className="proj-hero-poster"
         src={poster}
         alt=""
-        aria-hidden="true"
-        fetchPriority="high"
+        aria-hidden
+        priority
+        fill
+        sizes="100vw"
+        placeholder="blur"
+        blurDataURL={BLUR_PLACEHOLDER}
       />
       <video
         ref={videoRef}
