@@ -86,7 +86,7 @@ function buildEmbedSrc(embed: { type: string; src: string }): string {
 export default function ProjectPageClient({ project }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSrc, setModalSrc] = useState("");
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const parallaxRef = useParallax({ speed: 0.6 });
   const lenis = useLenis();
 
