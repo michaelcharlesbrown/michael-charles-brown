@@ -118,6 +118,7 @@ export default function HomePage() {
                   <RollLink
                     href={`/projects/${project.slug}`}
                     onClick={() => sessionStorage.setItem('returnToSlug', project.slug)}
+                    aria-label={project.title}
                   >
                     <VideoCard project={project} index={rowIndex * 3 + i} />
                   </RollLink>
@@ -144,6 +145,7 @@ export default function HomePage() {
               <RollLink
                 href={`/projects/${project.slug}`}
                 onClick={() => sessionStorage.setItem('returnToSlug', project.slug)}
+                aria-label={project.title}
               >
                 <VideoCard project={project} index={i} />
               </RollLink>
