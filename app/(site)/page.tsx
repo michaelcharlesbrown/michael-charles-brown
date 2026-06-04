@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import RollLink from "@/src/components/ui/RollLink";
+import { blurMap } from "@/data/blur-placeholders";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import Lenis from "lenis";
 import Snap from "lenis/snap";
 import { projects, type Project } from "@/data/projects";
 
-const BLUR_PLACEHOLDER =
+const BLUR_FALLBACK =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAADElEQVR42mNgGB4AAADIAAGTvaWOAAAAAElFTkSuQmCC";
 
 const SNAP_DURATION = 1.2;
@@ -222,7 +223,7 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
         fill
         sizes="(min-width: 768px) 33vw, 100vw"
         placeholder="blur"
-        blurDataURL={BLUR_PLACEHOLDER}
+        blurDataURL={blurMap[project.cardPoster] ?? BLUR_FALLBACK}
       />
       <video
         ref={videoRef}
