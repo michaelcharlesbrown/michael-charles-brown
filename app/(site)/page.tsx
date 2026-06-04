@@ -224,7 +224,6 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       <video
         ref={videoRef}
         src={project.cardVideo}
-        poster={project.cardPoster}
         muted
         loop
         playsInline
