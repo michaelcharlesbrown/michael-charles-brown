@@ -1,10 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import RollLink from "@/src/components/ui/RollLink";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import Lenis from "lenis";
 import Snap from "lenis/snap";
 import { projects, type Project } from "@/data/projects";
+
+const BLUR_PLACEHOLDER =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAADElEQVR42mNgGB4AAADIAAGTvaWOAAAAAElFTkSuQmCC";
 
 const SNAP_DURATION = 1.2;
 const SNAP_EASING = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -209,12 +213,16 @@ function VideoCard({ project, index }: { project: Project; index: number }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img
+      <Image
         className="video-card-poster"
         src={project.cardPoster}
         alt=""
-        aria-hidden="true"
-        fetchPriority={index < 3 ? "high" : "low"}
+        aria-hidden
+        priority={index < 3}
+        fill
+        sizes="(min-width: 768px) 33vw, 100vw"
+        placeholder="blur"
+        blurDataURL={BLUR_PLACEHOLDER}
       />
       <video
         ref={videoRef}
