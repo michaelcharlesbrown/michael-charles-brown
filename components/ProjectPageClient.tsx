@@ -91,6 +91,7 @@ function buildEmbedSrc(embed: { type: string; src: string }): string {
 export default function ProjectPageClient({ project }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSrc, setModalSrc] = useState("");
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const parallaxRef = useParallax({ speed: 0.6 });
   const lenis = useLenis();
 
@@ -111,6 +112,14 @@ export default function ProjectPageClient({ project }: Props) {
   const closeModal = useCallback(() => {
     setModalOpen(false);
     setModalSrc("");
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, []);
 
   useEffect(() => {
@@ -135,18 +144,22 @@ export default function ProjectPageClient({ project }: Props) {
           ref={parallaxRef}
           className="proj-hero-inner"
         >
-          <ProjectHeroVideo
-            src={project.heroVideo}
-            poster={project.heroPoster}
-            containerClass="proj-hero-desktop-media"
-            label={`${project.title} hero`}
-          />
-          <ProjectHeroVideo
-            src={project.cardVideo}
-            poster={project.cardPoster}
-            containerClass="proj-hero-mobile-media"
-            label={`${project.title} preview clip`}
-          />
+          {isMobile === false && (
+            <ProjectHeroVideo
+              src={project.heroVideo}
+              poster={project.heroPoster}
+              containerClass="proj-hero-desktop-media"
+              label={`${project.title} hero`}
+            />
+          )}
+          {isMobile === true && (
+            <ProjectHeroVideo
+              src={project.cardVideo}
+              poster={project.cardPoster}
+              containerClass="proj-hero-mobile-media"
+              label={`${project.title} preview clip`}
+            />
+          )}
         </div>
       </div>
 
