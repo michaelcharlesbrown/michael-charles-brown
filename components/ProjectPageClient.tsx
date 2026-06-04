@@ -6,20 +6,12 @@ import AudioPlayer from "@/components/audio/AudioPlayer";
 import { useParallax } from "@/app/hooks/useParallax";
 import { useLenis } from "@/app/components/LenisProvider";
 import type { Project } from "@/data/projects";
-import { blurMap } from "@/data/blur-placeholders";
 import SocialLinks from "@/components/SocialLinks";
 import RollLink from "@/src/components/ui/RollLink";
 import FitText from "@/components/FitText";
 
 interface Props {
   project: Project;
-}
-
-const BLUR_FALLBACK =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAADElEQVR42mNgGB4AAADIAAGTvaWOAAAAAElFTkSuQmCC";
-
-function blur(src: string) {
-  return blurMap[src] ?? BLUR_FALLBACK;
 }
 
 const PROJECT_AUDIO: Record<string, string> = {
@@ -62,8 +54,6 @@ function ProjectHeroVideo({
         priority
         fill
         sizes="100vw"
-        placeholder="blur"
-        blurDataURL={blur(poster)}
       />
       <video
         ref={videoRef}
@@ -276,8 +266,6 @@ export default function ProjectPageClient({ project }: Props) {
                 width={960}
                 height={1280}
                 sizes="50vw"
-                placeholder="blur"
-                blurDataURL={blur(src)}
               />
             </div>
           ))}
