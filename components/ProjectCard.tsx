@@ -73,6 +73,7 @@ export default function ProjectCard({
           alt=""
           aria-hidden
           priority={index < 3}
+          fetchPriority={index === 0 ? "high" : undefined}
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
         />

@@ -10,25 +10,11 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
   return chunks;
 }
 
-const NEXT_IMAGE_WIDTHS = [256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840];
-
 export default function HomePage() {
   const rows = chunkArray(projects, 3);
-  const lcpPoster = projects[0].cardPoster;
-  const lcpSrcSet = NEXT_IMAGE_WIDTHS.map(
-    (w) => `/_next/image?url=${encodeURIComponent(lcpPoster)}&w=${w}&q=75 ${w}w`
-  ).join(", ");
 
   return (
-    <>
-      <link
-        rel="preload"
-        as="image"
-        imageSrcSet={lcpSrcSet}
-        imageSizes="(min-width: 768px) 33vw, 100vw"
-        fetchPriority="high"
-      />
-      <div className="home-snap-container" data-lenis-prevent>
+    <div className="home-snap-container" data-lenis-prevent>
       <HomeLenis />
 
       {/* Desktop: rows of 3 as snap sections */}
@@ -72,6 +58,5 @@ export default function HomePage() {
         </section>
       ))}
     </div>
-    </>
   );
 }
