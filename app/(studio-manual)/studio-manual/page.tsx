@@ -1,34 +1,10 @@
 import styles from "./studio-manual.module.css"
-
-const navItems: { href: string; label: string }[] = [
-  { href: "#quick-reference", label: "Quick Reference" },
-  { href: "#session-setup", label: "Session Setup" },
-  { href: "#recording", label: "Recording" },
-  { href: "#gain-staging", label: "Gain Staging" },
-  { href: "#mixing", label: "Mixing" },
-  { href: "#space", label: "Space" },
-  { href: "#mastering", label: "Mastering" },
-  { href: "#export", label: "Export" },
-  { href: "#plugin-notes", label: "Plugin Notes" },
-  { href: "#checklists", label: "Checklists" },
-  { href: "#open-questions", label: "Open Questions" },
-]
+import StudioNav from "./StudioNav"
 
 export default function StudioManualPage() {
   return (
     <div className={styles.shell}>
-      <aside className={styles.sidebar}>
-        <div className={styles.brand}>
-          Michael Charles Brown<strong>Studio Manual</strong>
-        </div>
-        <nav className={styles.nav}>
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </aside>
+      <StudioNav />
 
       <main className={styles.main}>
         <header className={styles.hero}>

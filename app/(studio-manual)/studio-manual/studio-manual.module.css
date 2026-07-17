@@ -3,11 +3,17 @@
    All tokens are --sm-* prefixed to avoid any collision with globals.
    Mono elements inherit the site's global --font-mono. */
 
-/* Smooth in-page anchor scrolling. This module's CSS is only loaded on
-   the /studio-manual route (Next.js per-route CSS splitting), so this rule
-   never affects the rest of the site. */
+/* Route-only document paints. This module loads only on /studio-manual
+   (Next.js per-route CSS splitting), so these never affect other pages.
+   Dark html/body prevents the site's white body from flashing on mobile
+   overscroll; smooth scrolling is for in-page anchors. */
 :global(html) {
   scroll-behavior: smooth;
+  background: #11110f;
+}
+
+:global(body) {
+  background: #11110f;
 }
 
 .shell {
@@ -28,6 +34,7 @@
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   min-height: 100vh;
+  min-height: 100dvh;
   background:
     radial-gradient(circle at 15% 10%, rgba(216, 255, 99, 0.07), transparent 26rem),
     var(--sm-bg);
@@ -96,10 +103,62 @@
   text-decoration: none;
 }
 
+/* Hamburger — desktop hidden; mobile only */
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--sm-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--sm-text);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.menuButton:hover {
+  background: var(--sm-panel);
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18px;
+  height: 14px;
+}
+
+.burger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--sm-text);
+  border-radius: 1px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.burger[data-open="true"] span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.burger[data-open="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger[data-open="true"] span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
 /* ── Main ────────────────────────────────────────────────── */
 
 .main {
   min-width: 0;
+  /* globals.css sets `main { padding-bottom: var(--page-x) }` site-wide;
+     zero it here so the studio page controls its own bottom spacing. */
+  padding-bottom: 0;
 }
 
 .hero {
@@ -367,39 +426,51 @@
     grid-template-columns: 1fr;
   }
 
-  /* Collapse the sidebar into a compact horizontal jump-nav pinned to the
-     top so a long reference doc stays navigable while scrolling. */
+  /* Compact sticky header: brand left, hamburger right. Nav collapses
+     into a vertical panel under the bar when the menu is open. */
   .sidebar {
     position: sticky;
     top: 0;
     z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
     height: auto;
-    padding: 14px 16px;
+    padding: 12px 16px;
     border-right: 0;
     border-bottom: 1px solid var(--sm-line);
+    overflow: visible;
   }
 
   .brand {
-    margin-bottom: 12px;
+    margin-bottom: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .menuButton {
+    display: flex;
   }
 
   .nav {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    flex-basis: 100%;
+    padding: 8px 0 4px;
+    border-top: 1px solid var(--sm-line);
+    margin-top: 4px;
   }
 
-  .nav::-webkit-scrollbar {
-    display: none;
+  .navOpen {
+    display: flex;
   }
 
   .nav a {
-    white-space: nowrap;
-    /* Larger tap target for touch. */
-    padding: 10px 12px;
+    padding: 12px 10px;
   }
 
   .card,
@@ -415,11 +486,10 @@
     padding: 24px var(--sm-page-x) 72px;
   }
 
-  /* Tighten vertical rhythm so sections aren't separated by huge gaps.
-     Offset anchor targets so headings clear the sticky nav. */
+  /* Offset anchors so headings clear the sticky header bar. */
   .content section {
     padding: 40px 0;
-    scroll-margin-top: 108px;
+    scroll-margin-top: 72px;
   }
 }
 
