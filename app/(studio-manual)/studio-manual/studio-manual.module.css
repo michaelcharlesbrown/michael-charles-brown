@@ -1,0 +1,472 @@
+/* Studio Manual — fully self-contained styling.
+   Scoped to the .shell wrapper so nothing leaks into the site.
+   All tokens are --sm-* prefixed to avoid any collision with globals.
+   Mono elements inherit the site's global --font-mono. */
+
+/* Smooth in-page anchor scrolling. This module's CSS is only loaded on
+   the /studio-manual route (Next.js per-route CSS splitting), so this rule
+   never affects the rest of the site. */
+:global(html) {
+  scroll-behavior: smooth;
+}
+
+.shell {
+  --sm-bg: #11110f;
+  --sm-panel: #181815;
+  --sm-panel-2: #20201c;
+  --sm-text: #f1eee7;
+  --sm-muted: #aaa59a;
+  --sm-line: #34332d;
+  --sm-accent: #d8ff63;
+  --sm-danger: #ff8a72;
+  --sm-max: 1180px;
+  --sm-radius: 18px;
+  --sm-page-x: 6vw;
+  --sm-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", monospace;
+
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(216, 255, 99, 0.07), transparent 26rem),
+    var(--sm-bg);
+  color: var(--sm-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.shell *,
+.shell *::before,
+.shell *::after {
+  box-sizing: border-box;
+}
+
+.shell a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.shell a:hover {
+  text-decoration: none;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 28px 22px;
+  border-right: 1px solid var(--sm-line);
+  background: rgba(17, 17, 15, 0.86);
+  backdrop-filter: blur(12px);
+  overflow: auto;
+}
+
+.brand {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--sm-muted);
+  margin-bottom: 26px;
+}
+
+.brand strong {
+  display: block;
+  color: var(--sm-text);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  margin-top: 5px;
+}
+
+.nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--sm-muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin: 2px 0;
+  font-size: 0.94rem;
+}
+
+.nav a:hover {
+  background: var(--sm-panel);
+  color: var(--sm-text);
+  text-decoration: none;
+}
+
+/* ── Main ────────────────────────────────────────────────── */
+
+.main {
+  min-width: 0;
+}
+
+.hero {
+  padding: 72px var(--sm-page-x) 46px;
+  border-bottom: 1px solid var(--sm-line);
+}
+
+.heroInner {
+  max-width: var(--sm-max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  color: var(--sm-accent);
+  font-family: var(--sm-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  margin: 0 0 26px;
+  max-width: 900px;
+}
+
+.dek {
+  max-width: 760px;
+  color: #d2cec5;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+}
+
+.meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.pill {
+  border: 1px solid var(--sm-line);
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: var(--sm-muted);
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Max-width includes the horizontal padding so the inner text block is
+   exactly --sm-max wide and centers identically to .heroInner (which pads
+   on the outer .hero and caps width on the inner wrapper). Keeps the hero
+   and body content left edges aligned at all viewport widths. */
+.content {
+  max-width: calc(var(--sm-max) + var(--sm-page-x) * 2);
+  margin: 0 auto;
+  padding: 34px var(--sm-page-x) 110px;
+}
+
+.content section {
+  padding: 58px 0;
+  border-bottom: 1px solid var(--sm-line);
+  scroll-margin-top: 20px;
+}
+
+.content h2 {
+  font-size: clamp(2rem, 4vw, 3.7rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0 0 26px;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+  margin: 30px 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.content p {
+  max-width: 820px;
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: #d8d3c9;
+}
+
+/* ── Grid & cards ────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.card {
+  grid-column: span 6;
+  background: linear-gradient(180deg, var(--sm-panel), #151512);
+  border: 1px solid var(--sm-line);
+  border-radius: var(--sm-radius);
+  padding: 24px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.third {
+  grid-column: span 4;
+}
+
+.label {
+  color: var(--sm-accent);
+  font-family: var(--sm-mono);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-size: 1.65rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.small {
+  color: var(--sm-muted);
+  font-size: 0.92rem;
+  margin-top: 8px;
+}
+
+/* ── Callouts ────────────────────────────────────────────── */
+
+.callout {
+  border-left: 3px solid var(--sm-accent);
+  padding: 18px 22px;
+  background: rgba(216, 255, 99, 0.06);
+  border-radius: 0 14px 14px 0;
+  margin: 26px 0;
+  max-width: 880px;
+  font-size: 1.16rem;
+}
+
+.warning {
+  border-left-color: var(--sm-danger);
+  background: rgba(255, 138, 114, 0.06);
+}
+
+/* ── Signal chains ───────────────────────────────────────── */
+
+.chain {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: var(--sm-mono);
+  font-size: 0.9rem;
+  margin: 20px 0 4px;
+}
+
+.node {
+  padding: 10px 13px;
+  border: 1px solid var(--sm-line);
+  border-radius: 10px;
+  background: var(--sm-panel-2);
+}
+
+.arrow {
+  color: var(--sm-muted);
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 8px;
+  font-size: 0.95rem;
+}
+
+.content th,
+.content td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--sm-line);
+  vertical-align: top;
+}
+
+.content th {
+  color: var(--sm-muted);
+  font-weight: 500;
+}
+
+.content code,
+.content kbd {
+  font-family: var(--sm-mono);
+  background: #24241f;
+  border: 1px solid var(--sm-line);
+  border-radius: 6px;
+  padding: 0.12rem 0.36rem;
+  font-size: 0.88em;
+}
+
+/* ── Lists ───────────────────────────────────────────────── */
+
+.content ul,
+.content ol {
+  padding-left: 1.25rem;
+}
+
+.content li {
+  margin: 0.35rem 0;
+}
+
+.checklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.checklist li {
+  position: relative;
+  padding-left: 28px;
+  margin: 0.6rem 0;
+}
+
+.checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.34rem;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #666357;
+  border-radius: 4px;
+}
+
+/* ── Details ─────────────────────────────────────────────── */
+
+.content details {
+  border-top: 1px solid var(--sm-line);
+  padding: 16px 0;
+}
+
+.content summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.footer {
+  color: var(--sm-muted);
+  font-size: 0.85rem;
+  padding-top: 28px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  /* Collapse the sidebar into a compact horizontal jump-nav pinned to the
+     top so a long reference doc stays navigable while scrolling. */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: auto;
+    padding: 14px 16px;
+    border-right: 0;
+    border-bottom: 1px solid var(--sm-line);
+  }
+
+  .brand {
+    margin-bottom: 12px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav a {
+    white-space: nowrap;
+    /* Larger tap target for touch. */
+    padding: 10px 12px;
+  }
+
+  .card,
+  .third {
+    grid-column: 1 / -1;
+  }
+
+  .hero {
+    padding: 44px var(--sm-page-x) 36px;
+  }
+
+  .content {
+    padding: 24px var(--sm-page-x) 72px;
+  }
+
+  /* Tighten vertical rhythm so sections aren't separated by huge gaps.
+     Offset anchor targets so headings clear the sticky nav. */
+  .content section {
+    padding: 40px 0;
+    scroll-margin-top: 108px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shell {
+    --sm-page-x: 20px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .callout {
+    padding: 16px 18px;
+  }
+
+  /* Denser tables on small phones. */
+  .content th,
+  .content td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media print {
+  .sidebar {
+    display: none;
+  }
+
+  .shell {
+    display: block;
+    background: white;
+    color: black;
+  }
+
+  .hero,
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .card {
+    break-inside: avoid;
+    background: white;
+  }
+
+  .content section {
+    break-before: auto;
+  }
+}
