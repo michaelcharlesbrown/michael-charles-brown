@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Claude Code scratch worktrees hold full copies of the app; linting them
+    // buried the real findings under thousands of duplicate problems.
+    ".claude/**",
   ]),
 ]);
 

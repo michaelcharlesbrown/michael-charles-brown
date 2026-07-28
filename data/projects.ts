@@ -62,7 +62,7 @@ export const projects: Project[] = [
     type: "film",
     heroVideo: "/projects/cancuncito/video/hero-cancuncito.mp4",
     heroPoster: "/projects/cancuncito/images/poster-hero-cancuncito.jpg",
-    ogDescription: "Original score by Michael Charles Brown for Cancuncito, a feature film by Carlos Alejandro Marulanda. Composed from custom instruments built on recordings of cello, piano, and voice.",
+    ogDescription: "Original score by Michael Charles Brown for Cancuncito, a feature by Carlos Alejandro Marulanda. Built from custom instruments made of cello, piano, and voice.",
     directorCredit: {
       prefix: "A film by ",
       name: "Carlos Alejandro Marulanda",
@@ -91,7 +91,7 @@ export const projects: Project[] = [
     type: "music",
     heroVideo: "/projects/red-moon-apostles/video/hero-red-moon-apostles.mp4",
     heroPoster: "/projects/red-moon-apostles/images/poster-hero-red-moon-apostles.jpg",
-    ogDescription: "Red Moon Apostles is the apocalyptic Americana project from Michael Charles Brown — a hallucinatory journey through dusty wastelands, magnetic tape loops, and the blur between human longing and mechanical inevitability.",
+    ogDescription: "Red Moon Apostles is the apocalyptic Americana project from Michael Charles Brown — a hallucinatory journey through dusty wastelands and magnetic tape loops.",
     description: [
       "Bow down to your algorithmic overlords and embark a harrowing journey across the dusty redsand wasteland of the future past, where time loops in ghostly incantations on magnetic tape and the whispers of a forgotten civilization drift across the barren landscape.",
       "As technology becomes indistinguishable from magic, stone faces float in the shadowy void, warm in the glow of dark reflection, hovering between human longing and mechanical inevitability. Rituals of slumber endlessly reflected across tiny screens blur the line between progress and entropy, fate and free will — a world unraveling under the weight of its own artifice.",
@@ -164,7 +164,7 @@ export const projects: Project[] = [
     type: "music",
     heroVideo: "/projects/booming-dunes/video/hero-booming-dunes.mp4",
     heroPoster: "/projects/booming-dunes/images/poster-hero-booming-dunes.jpg",
-    ogDescription: "Booming Dunes is the experimental electronic project from Michael Charles Brown — cinematic soundscapes built from analog synthesizers, handmade tape loops, and whirring reel-to-reel machines.",
+    ogDescription: "Booming Dunes is the experimental electronic project from Michael Charles Brown — cinematic soundscapes from analog synthesizers and handmade tape loops.",
     description: [
       "Weird gadgets and analog synthesizers moaning and howling in reverse, echoing from handmade tape loops dangling from whirring reel-to-reel tape machines in a dark studio in the middle of the night. A cinematic, hallucinatory journey through a soft, warm, saturated dreamworld of sound and emotion.",
       "Needles in the red.",
@@ -201,7 +201,7 @@ export const projects: Project[] = [
     type: "film",
     heroVideo: "/projects/breathing-chamber/video/hero-breathing-chamber.mp4",
     heroPoster: "/projects/breathing-chamber/images/poster-hero-breathing-chamber.jpg",
-    ogDescription: "Original score by Michael Charles Brown for Breathing Chamber, a short film by Carlos Alejandro Marulanda. Shot on 16mm. An intimate, suffocating portrait of a boy losing himself to fear.",
+    ogDescription: "Original score by Michael Charles Brown for Breathing Chamber, a 16mm short by Carlos Alejandro Marulanda. A boy suffocating in his familiar surroundings.",
     directorCredit: {
       prefix: "A film by ",
       name: "Carlos Alejandro Marulanda",
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     type: "music",
     heroVideo: "/projects/mad-denizen/video/hero-mad-denizen.mp4",
     heroPoster: "/projects/mad-denizen/images/poster-hero-mad-denizen.jpg",
-    ogDescription: "Mad Denizen is the solo acoustic project from Michael Charles Brown. Debut LP Starved — recorded to vintage reel-to-reel tape — was named Vinyl of the Month by Performer Magazine.",
+    ogDescription: "Mad Denizen is the solo acoustic project from Michael Charles Brown. Debut LP Starved, recorded to reel-to-reel tape, named Vinyl of the Month by Performer.",
     quote: "“Men are so necessarily mad that not to be mad would appear mad, through another trick madness played.”",
     description: [
       "Discovering the debut LP from Mad Denizen, Starved, is kinda like putting on Springsteen's Nebraska for the first time. It's one of those records that encourages late-night listening, preferably with cigarettes smoldering in the ashtray, whiskey close at hand.",

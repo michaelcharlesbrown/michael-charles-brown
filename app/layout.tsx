@@ -19,12 +19,9 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
-  icons: {
-    icon: [
-      { url: "/images/mcb-fav.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-  },
+  // No `icons` field: app/favicon.ico, app/icon.svg and app/apple-icon.png are
+  // Next file conventions and emit their own links. Declaring them here too
+  // produced duplicate <link rel="icon"> tags.
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
