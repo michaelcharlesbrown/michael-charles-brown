@@ -34,6 +34,15 @@ export interface Project {
   cardVideo: string;
   cardPoster: string;
   cardDescriptor: string;
+  /** Recognized genres for JSON-LD only. cardDescriptor/subtitle stay display copy. */
+  genre?: string[];
+  /**
+   * Release year for JSON-LD, films only. Currently unset on every project,
+   * deliberately: Cancuncito is unreleased, Snow King's year is unknown, and
+   * dating only Breathing Chamber (2007) would make the film work look
+   * nineteen years stale. Add these back when there is a full, honest set.
+   */
+  datePublished?: string;
   galleryImages: string[];
   quote?: string;
   albumTitle?: string;
@@ -90,6 +99,7 @@ export const projects: Project[] = [
     cardVideo: "/projects/red-moon-apostles/video/card-red-moon-apostles.mp4",
     cardPoster: "/projects/red-moon-apostles/images/poster-card-red-moon-apostles.jpg",
     cardDescriptor: "APOCALYPTIC AMERICANA",
+    genre: ["Psychedelic Rock", "Desert Rock", "Americana"],
     galleryImages: [
       "/projects/red-moon-apostles/images/red-moon-apostles-name.jpg",
       "/projects/red-moon-apostles/images/red-moon-apostles-phones.jpg",
@@ -162,6 +172,7 @@ export const projects: Project[] = [
     cardVideo: "/projects/booming-dunes/video/card-booming-dunes.mp4",
     cardPoster: "/projects/booming-dunes/images/poster-card-booming-dunes.jpg",
     cardDescriptor: "EXPERIMENTAL ELECTRONIC",
+    genre: ["Ambient", "Drone", "Experimental Electronic"],
     galleryImages: [
       "/projects/booming-dunes/images/booming-dunes-nagra.jpg",
       "/projects/booming-dunes/images/booming-dunes-teac.jpg",
@@ -231,6 +242,7 @@ export const projects: Project[] = [
     cardVideo: "/projects/mad-denizen/video/card-mad-denizen.mp4",
     cardPoster: "/projects/mad-denizen/images/poster-card-mad-denizen.jpg",
     cardDescriptor: "BLEEDING HEART DOOM BALLADS",
+    genre: ["Indie", "Acoustic", "Americana"],
     galleryImages: [
       "/projects/mad-denizen/images/mad-denizen-statue.jpg",
       "/projects/mad-denizen/images/mad-denizen-388.jpg",

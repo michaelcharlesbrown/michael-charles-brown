@@ -2,11 +2,18 @@ import Header from "@/components/Header"
 import { LenisProvider } from "@/app/components/LenisProvider"
 import { JsonLd } from "@/components/JsonLd"
 
-const MCB_URL = "https://michaelcharlesbrown.com";
+import {
+  JOB_TITLES,
+  KNOWS_ABOUT,
+  PERSON_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "@/data/site"
+
+const MCB_URL = SITE_URL;
 const BER_URL = "https://brokenearrecords.com";
 const MCBC_URL = "https://mcbcreative.design";
-const MCB_DESCRIPTION =
-  "Composer and recording artist. Original scores for film, experimental electronic music, and genre-defying recording projects.";
+const MCB_DESCRIPTION = PERSON_DESCRIPTION;
 
 const MCB_ID = `${MCB_URL}/#person`;
 const BER_ID = `${BER_URL}/#organization`;
@@ -30,19 +37,12 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": MCB_ID,
-  name: "Michael Charles Brown",
+  name: SITE_NAME,
   url: MCB_URL,
   image: `${MCB_URL}/images/og-michael-charles-brown.jpg`,
   description: MCB_DESCRIPTION,
-  jobTitle: ["Composer", "Recording Artist", "Music Producer"],
-  knowsAbout: [
-    "Film Scoring",
-    "Music Composition",
-    "Analog Recording",
-    "Electronic Music",
-    "Experimental Music",
-    "Singer-Songwriter",
-  ],
+  jobTitle: JOB_TITLES,
+  knowsAbout: KNOWS_ABOUT,
   homeLocation: {
     "@type": "Place",
     name: "San Francisco, California",
@@ -71,7 +71,7 @@ const brokenEarRecordsSchema = {
   founder: {
     "@type": "Person",
     "@id": MCB_ID,
-    name: "Michael Charles Brown",
+    name: SITE_NAME,
     url: MCB_URL,
   },
   sameAs: ["https://www.instagram.com/brokenearrecords/"],
@@ -80,13 +80,15 @@ const brokenEarRecordsSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Michael Charles Brown",
+  "@id": `${MCB_URL}/#website`,
+  name: SITE_NAME,
   url: MCB_URL,
+  inLanguage: "en-US",
   description: MCB_DESCRIPTION,
   author: {
     "@type": "Person",
     "@id": MCB_ID,
-    name: "Michael Charles Brown",
+    name: SITE_NAME,
     url: MCB_URL,
   },
 };

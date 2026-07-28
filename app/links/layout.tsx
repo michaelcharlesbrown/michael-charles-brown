@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
+import { SITE_NAME } from "@/data/site"
 
 export const metadata: Metadata = {
-  title: "Michael Charles Brown — Links",
+  title: { absolute: `${SITE_NAME} — Links` },
   robots: { index: false },
 }
 

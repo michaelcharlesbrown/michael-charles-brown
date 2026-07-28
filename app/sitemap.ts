@@ -1,12 +1,14 @@
 import { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
+import { SITE_URL } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://michaelcharlesbrown.com";
+  const baseUrl = SITE_URL;
 
+  // No lastModified: it would be the build timestamp, which claims every page
+  // changed on every deploy. An absent lastmod is a better signal than a false one.
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -14,21 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/links`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
     },
     ...projectUrls,
   ];

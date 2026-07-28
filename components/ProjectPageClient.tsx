@@ -161,9 +161,9 @@ export default function ProjectPageClient({ project }: Props) {
       <div className="proj-info-section">
         <div className="proj-info-inner">
           <div className="proj-info-left">
-            <div className="proj-title"><FitText>{project.title}</FitText></div>
+            <h1 className="proj-title"><FitText>{project.title}</FitText></h1>
             {project.subtitle && (
-              <div className="proj-subtitle"><FitText>{project.subtitle}</FitText></div>
+              <p className="proj-subtitle"><FitText>{project.subtitle}</FitText></p>
             )}
             {project.directorCredit && !project.creditInRightColumn && (
               <div className="proj-credits">

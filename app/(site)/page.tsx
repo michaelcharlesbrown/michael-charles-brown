@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { projects } from "@/data/projects";
+import { SITE_TITLE } from "@/data/site";
 import HomeLenis from "@/components/HomeLenis";
 import ProjectCard from "@/components/ProjectCard";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const chunks: T[][] = [];
@@ -14,6 +20,8 @@ export default function HomePage() {
   const rows = chunkArray(projects, 3);
 
   return (
+    <>
+    <h1 className="visually-hidden">{SITE_TITLE}</h1>
     <div className="home-snap-container" data-lenis-prevent>
       <HomeLenis />
 
@@ -29,7 +37,7 @@ export default function HomePage() {
                 <div key={project.slug} data-desktop-slug={project.slug} className="home-card-wrap">
                   <ProjectCard project={project} index={rowIndex * 3 + i} />
                   <div className="card-caption">
-                    <span className="card-caption-title">{project.title}</span>
+                    <h2 className="card-caption-title">{project.title}</h2>
                     <span>{project.cardDescriptor}</span>
                   </div>
                 </div>
@@ -50,7 +58,7 @@ export default function HomePage() {
             <div className="home-card-wrap">
               <ProjectCard project={project} index={i} />
               <div className="card-caption">
-                <span className="card-caption-title">{project.title}</span>
+                <h2 className="card-caption-title">{project.title}</h2>
                 <span>{project.cardDescriptor}</span>
               </div>
             </div>
@@ -58,5 +66,6 @@ export default function HomePage() {
         </section>
       ))}
     </div>
+    </>
   );
 }

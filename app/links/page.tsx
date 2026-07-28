@@ -1,8 +1,7 @@
 "use client"
 
 import { useFitText } from "@/hooks/useFitText"
-
-const roles = ["COMPOSER", "PRODUCER", "RECORDING ARTIST"]
+import { ROLES, SITE_NAME } from "@/data/site"
 
 const links: {
   label: string
@@ -47,16 +46,14 @@ export default function LinksPage() {
     <div className="links-page">
       <div className="links-col">
         <h1 className="about-name">
-          <span ref={nameRef as React.Ref<HTMLSpanElement>}>
-            MICHAEL CHARLES BROWN
-          </span>
+          <span ref={nameRef as React.Ref<HTMLSpanElement>}>{SITE_NAME}</span>
         </h1>
         <p className="about-roles links-tagline">
           <span ref={rolesRef as React.Ref<HTMLSpanElement>}>
-            {roles.map((role, i) => (
+            {ROLES.map((role, i) => (
               <span key={role}>
                 {role}
-                {i < roles.length - 1 && " /// "}
+                {i < ROLES.length - 1 && " /// "}
               </span>
             ))}
           </span>

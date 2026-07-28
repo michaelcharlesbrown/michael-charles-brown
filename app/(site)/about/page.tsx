@@ -1,41 +1,69 @@
 import type { Metadata } from "next";
 import SocialLinks from "@/components/SocialLinks";
 import FitText from "@/components/FitText";
+import { JsonLd } from "@/components/JsonLd";
 import type { ProjectLink } from "@/data/projects";
+import { ROLES, SITE_NAME, SITE_URL } from "@/data/site";
+
+// Page-specific sentence: Google penalises identical descriptions across pages.
+// The identity framing must still match data/site.ts. Keep under ~160 chars.
+const ABOUT_DESCRIPTION =
+  "Classically trained, DIY from day one. Original film scores, analog tape recordings, and genre-defying projects: Mad Denizen, Red Moon Apostles, Booming Dunes.";
+
+const ABOUT_TITLE = `About — ${SITE_NAME}`;
+const ABOUT_URL = `${SITE_URL}/about`;
+const ABOUT_IMAGE = "/images/og-michael-charles-brown-about.jpg";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Classically trained, DIY from day one. Composer and recording artist Michael Charles Brown creates original film scores, analog tape recordings, and genre-defying projects including Mad Denizen, Red Moon Apostles, and Booming Dunes.",
+  description: ABOUT_DESCRIPTION,
+  alternates: { canonical: "/about" },
   openGraph: {
-    title: "About — Michael Charles Brown",
-    description: "Classically trained, DIY from day one. Composer and recording artist Michael Charles Brown creates original film scores, analog tape recordings, and genre-defying projects including Mad Denizen, Red Moon Apostles, and Booming Dunes.",
-    images: [{ url: "/images/og-michael-charles-brown-about.jpg", width: 1200, height: 630, alt: "Michael Charles Brown" }],
+    title: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+    url: ABOUT_URL,
+    type: "profile",
+    images: [{ url: ABOUT_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About — Michael Charles Brown",
-    description: "Classically trained, DIY from day one. Composer and recording artist Michael Charles Brown creates original film scores, analog tape recordings, and genre-defying projects including Mad Denizen, Red Moon Apostles, and Booming Dunes.",
-    images: [{ url: "/images/og-michael-charles-brown-about.jpg", alt: "Michael Charles Brown" }],
+    title: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+    images: [{ url: ABOUT_IMAGE, alt: SITE_NAME }],
   },
+};
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${ABOUT_URL}#profilepage`,
+  url: ABOUT_URL,
+  name: ABOUT_TITLE,
+  description: ABOUT_DESCRIPTION,
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}${ABOUT_IMAGE}`,
+  },
+  mainEntity: { "@id": `${SITE_URL}/#person` },
 };
 
 const socialLinks: ProjectLink[] = [
   { label: "INSTAGRAM", href: "https://www.instagram.com/maddenizen" },
 ];
 
-const roles = ["COMPOSER", "PRODUCER", "RECORDING ARTIST"];
-
 export default function AboutPage() {
   return (
+    <>
+    <JsonLd schema={profilePageSchema} />
     <div className="about-main page-wrap">
       <div className="about-content">
-        <h1 className="about-name"><FitText>MICHAEL CHARLES BROWN</FitText></h1>
+        <h1 className="about-name"><FitText>{SITE_NAME}</FitText></h1>
         <p className="about-roles">
           <FitText>
-            {roles.map((role, i) => (
+            {ROLES.map((role, i) => (
               <span key={role}>
                 {role}
-                {i < roles.length - 1 && " /// "}
+                {i < ROLES.length - 1 && " /// "}
               </span>
             ))}
           </FitText>
@@ -73,5 +101,6 @@ export default function AboutPage() {
         />
       </div>
     </div>
+    </>
   );
 }
