@@ -1,5 +1,5 @@
 import type { ProjectLink } from "@/data/projects";
-import RollLink from "@/src/components/ui/RollLink";
+import RollLink from "@/components/RollLink";
 
 interface SocialLinksProps {
   links: ProjectLink[];

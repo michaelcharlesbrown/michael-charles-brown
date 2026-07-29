@@ -1,4 +1,4 @@
-import RollLink from "@/src/components/ui/RollLink";
+import RollLink from "@/components/RollLink";
 
 export default function NotFoundContent() {
   return (

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
-import RollLink from "@/src/components/ui/RollLink";
+import RollLink from "@/components/RollLink";
 import type { Project } from "@/data/projects";
 
 export default function ProjectCard({

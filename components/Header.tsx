@@ -1,5 +1,5 @@
 import NavIcon from "@/components/NavIcon";
-import RollLink from "@/src/components/ui/RollLink";
+import RollLink from "@/components/RollLink";
 
 export default function Header() {
   return (

@@ -5,7 +5,6 @@
   --frame-padding: 16px;
   --page-x: var(--frame-padding);
   --header-height: 3rem;
-  --footer-height: 0rem;
   --text: 0.75rem;
   --space-section: 2.5rem;
   --space-paragraph: 1.5rem;
@@ -190,7 +189,7 @@ main {
   display: flex;
   align-items: center;
   padding-top: calc(var(--frame-padding) + var(--header-height));
-  padding-bottom: calc(var(--frame-padding) + var(--footer-height));
+  padding-bottom: var(--frame-padding);
   box-sizing: border-box;
 }
 
@@ -206,7 +205,7 @@ main {
 }
 
 .home-card-wrap .video-card {
-  max-height: calc(100dvh - var(--frame-padding) * 2 - var(--header-height) - var(--footer-height) - 4rem);
+  max-height: calc(100dvh - var(--frame-padding) * 2 - var(--header-height) - 4rem);
 }
 
 .home-snap-card {

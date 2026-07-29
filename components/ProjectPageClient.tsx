@@ -7,7 +7,7 @@ import { useParallax } from "@/app/hooks/useParallax";
 import { useLenis } from "@/app/components/LenisProvider";
 import type { Project } from "@/data/projects";
 import SocialLinks from "@/components/SocialLinks";
-import RollLink from "@/src/components/ui/RollLink";
+import RollLink from "@/components/RollLink";
 import FitText from "@/components/FitText";
 
 interface Props {

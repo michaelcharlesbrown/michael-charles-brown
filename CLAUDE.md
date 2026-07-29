@@ -8,9 +8,38 @@
 
 ## Dev Server
 
-This project always runs on port 3000. This is hardcoded in package.json.
-Start the server with: npm run dev
-The dev script automatically kills port 3000 before starting. Do not manually kill the port. Do not run npm run dev more than once per session. Do not suggest running on any other port.
+**This project runs on port 3000. Always.** It is hardcoded in `package.json`.
+Michael runs several Next apps side by side (3000, 3001, 3002…), so a server on
+the wrong port is worse than no server at all — you would be verifying a
+different site. Never suggest, accept, or fall back to another port.
+
+**Port 3000 already being in use is the normal, healthy state. It is not an
+error and not a conflict.** It almost always means the server is already up and
+ready to use. Treat "address in use" as *success*, never as something to
+diagnose or work around.
+
+Follow this order:
+
+1. **Check before doing anything.** This is cheap and settles it:
+   ```
+   curl -s -o /dev/null -w "%{http_code}" --max-time 3 http://localhost:3000
+   ```
+   `200` means it is serving. Use it. Do not restart it, do not kill it, do not
+   run `npm run dev`. Michael often has it running from Cursor already, and
+   `npm run dev` would kill that instance out from under him.
+2. **Only if that check fails**, start it — **in the background, never in the
+   foreground.** `next dev` never exits, so a foreground call blocks until the
+   tool times out and reports a failure that did not actually happen. That false
+   failure, followed by a retry that then sees port 3000 "in use", is the exact
+   runaround this section exists to prevent. Use `run_in_background: true`.
+3. **Confirm readiness by polling the URL**, not by reading process output:
+   ```
+   until curl -s -o /dev/null http://localhost:3000; do sleep 2; done
+   ```
+
+Never kill port 3000 by hand. The `dev` script already clears the listener —
+and note it filters on `-sTCP:LISTEN` deliberately: a bare `lsof -ti:3000` also
+matches any *browser* connected to the site and would `kill -9` Chrome.
 
 ---
 
@@ -20,8 +49,9 @@ The dev script automatically kills port 3000 before starting. Do not manually ki
 - TypeScript
 - Tailwind CSS v4
 - Lenis (smooth scroll)
-- No CMS — content is hardcoded or file-based in /data/projects.ts
-- Images and video self-hosted in /public
+- No CMS — content is file-based: `data/projects.ts` (project content) and
+  `data/site.ts` (site identity)
+- Images, video, and audio self-hosted in /public
 - No database, no auth, no e-commerce
 
 ---
@@ -81,9 +111,8 @@ components/
   FitText.tsx             ← Wraps useFitText; mobile-only fluid sizing.
   SocialLinks.tsx         ← Renders a ProjectLink[] as a separated row.
   HomeLenis.tsx           ← Homepage-only Lenis instance.
-  audio/AudioPlayer.tsx   ← Custom audio player. Do not modify.
-src/components/ui/
   RollLink.tsx            ← Split-text roll hover link. Used site-wide.
+  audio/AudioPlayer.tsx   ← Custom audio player. Do not modify.
 data/
   site.ts                 ← SINGLE SOURCE OF TRUTH for name, roles, tagline, titles.
   projects.ts             ← All project content. Single source of truth for project data.
@@ -97,16 +126,24 @@ hooks/
 
 ### Typography
 
-The entire site uses one font, one size, period:
+One font, and one size for everything except a single display treatment:
 
-- **Geist Mono, 12px** — everywhere. Header, captions, body copy, labels, buttons, all of it.
-- No other fonts. No Geist Sans. No IBM Plex Mono. No other size variants.
+- **Geist Mono, 12px** — the body size, and the size of essentially all text:
+  header, captions, body copy, labels, buttons.
+- One font. No Geist Sans, no second family, anywhere.
 - Defined once: `--text: 0.75rem` on `:root`, applied on `body` via `font-size: var(--text)`. Every element inherits.
-- The only typographic deviations allowed:
-  - `font-weight: 700` on items that are bold (site title, card titles, project titles, CTA buttons, social rows, audio player label).
-  - `text-transform: uppercase` on items that are uppercase.
-  - That is the full extent. No `letter-spacing`, no per-class `font-size`, no per-class `font-family` declarations.
-- Non-typography elements may have larger sizes when they are icons or glyph buttons (e.g. the `×` close button on the project video modal). These are UI elements, not text.
+- Allowed deviations, and this list is exhaustive:
+  - `font-weight: 700` on bold items (site title, card titles, project titles,
+    CTA buttons, social rows, audio player label).
+  - `text-transform: uppercase` on uppercase items.
+  - **One display size**, shared by exactly two rules: `.about-name` and
+    `.notfound-code` use `font-size: clamp(1.4rem, 4.9vw, 2.25rem)`. This is the
+    big name treatment on /about and the `404` glyph. Reuse that exact clamp if
+    a third display heading ever appears; do not invent a new size.
+  - Glyph buttons may size to their icon (e.g. the `×` on the video modal at
+    `2.5rem`). These are UI, not text.
+- No `letter-spacing` anywhere. No per-class `font-family`. No other `font-size`
+  values beyond the ones named above.
 
 ### Color
 
@@ -125,17 +162,24 @@ The entire site uses one font, one size, period:
 
 - No border-radius on images. `img { border-radius: 0 }` globally.
 - Images are content. They fill their containers completely using `object-fit: cover`.
-- All images are self-hosted in `/public/images/`.
+- All media is self-hosted under `/public`, organised by project:
+  - `/public/projects/<slug>/images|video|audio/` — per-project media, including
+    that project's `og-<slug>.jpg`.
+  - `/public/images/` — site-level OG images only (three files).
+  - Icons live in `app/` as Next file conventions (`icon.svg`, `favicon.ico`,
+    `apple-icon.png`), not in `/public`.
 
 ### Navigation
 
-- The triangle is the only navigation element on the entire site.
-- Navigation is contextual:
-  - Homepage (`/`) → links to `/about`
-  - About (`/about`) → links to `/`
-  - Project pages (`/projects/[slug]`) → links to `/`
-- It is centered horizontally, positioned near the top of every page.
-- It lives inside the `Header` component. It is never manually placed in a page file.
+- The triangle is the only *dedicated* nav element — there is no menu, no nav
+  bar, no breadcrumb UI. (The Header also has `M/C/B` → `/about` and `CONTACT`
+  as a mailto, and project cards are links; those are not a nav system.)
+- The triangle is contextual, driven by `usePathname()` in `NavIcon.tsx`:
+  on `/` it points to `/about`; everywhere else it points to `/`.
+- It is centered horizontally, near the top, inside `Header`. Never placed in a
+  page file.
+- It only appears on `(site)` routes. `/links` and `/studio-manual` sit outside
+  that group and have no Header, so no triangle.
 
 ---
 
@@ -260,34 +304,52 @@ These are load-bearing. Do not undo them.
 
 ## Core Rules
 
-- No inline styles. Ever. Typography, spacing, and color live in globals.css only.
-- No `!important`. Ever.
-- No hardcoded colors, font sizes, or spacing values in component files.
-- No new dependencies without explicit approval.
-- No restructuring working code unless explicitly asked.
-- No quick fixes that create technical debt.
+The general engineering rules live in `~/.claude/CLAUDE.md` and apply here
+without being restated: no inline styles, no `!important`, no hardcoded colors /
+font sizes / spacing in components, no new dependencies without asking, no
+quick fixes that create debt, and the debugging protocol.
+
+**They are deliberately not duplicated below.** Two copies drift — that is
+exactly how this file ended up asserting the dev server was already running when
+it was not, and how the site ended up describing Michael three different ways.
+If a rule is general, edit the global file. Only project-specific rules and
+deliberate overrides belong here.
+
+### Overrides of the global rules
+
+- **`npm run build`** — the global rule says never without being asked. Here you
+  *may* build to verify before a production deploy, when asked to push, publish,
+  or go live. Verifying a deploy is not a casual build.
+- **Restructuring working code** — the global rule says never without being
+  asked. One carve-out: if duplication is the direct cause of a bug Michael
+  reported, removing that duplication *is* the fix and does not need separate
+  permission. (This is how `data/site.ts` came to exist — the same copy lived in
+  six files and had drifted into three contradictory versions.) Say what you did.
+
+### Project-specific rules
+
 - Do not add a CMS, database, or any external data layer.
-- Do not run `npm run build` unless explicitly asked.
-- Do not start the dev server more than once per session.
-- The dev server is already running on port 3000 when you receive this. That is the site we are working on. Do not attempt to start it, restart it, kill it, or suggest running on any other port. If you see port 3000 is occupied, that is correct and expected. Leave it alone.
-- Do not introduce additional fonts, font sizes, or `letter-spacing`. The site is one font (Geist Mono) at one size (12px). See the Typography section.
-- Do not add dark mode styles.
+- One font (Geist Mono), one body size (12px), plus the single shared display
+  clamp. No `letter-spacing`. See the Typography section.
+- Do not add dark mode styles, or any `prefers-color-scheme` block.
 - Do not add border-radius to images.
 - Do not drop Header or NavIcon manually into page files — they render from
   `app/(site)/layout.tsx`. (`app/not-found.tsx` is the one exception: it sits
   outside the `(site)` group and so renders Header itself.)
 - Do not add a Footer. There isn't one.
+- All components live in `components/`. There is no `src/` tree — do not create
+  one.
+- Port 3000, always. See the Dev Server section before touching the server.
 
 ---
 
 ## Debugging Protocol
 
-1. State what is actually happening vs. what should be happening. Be specific.
-2. Form one hypothesis. State it clearly.
-3. Make the smallest possible change to test it.
-4. Report the result.
+Defined in `~/.claude/CLAUDE.md`. Not restated here.
 
-If two consecutive hypotheses are wrong, stop and ask for direction. Do not keep guessing.
+One project-specific note: after any git operation that touches `globals.css`,
+verify computed styles in the browser before declaring done. Turbopack has
+silently dropped newly added rules from its cache more than once.
 
 ---
 
@@ -296,3 +358,4 @@ If two consecutive hypotheses are wrong, stop and ask for direction. Do not keep
 - `components/audio/AudioPlayer.tsx` — custom audio player, complete, do not touch
 - `app/components/LenisProvider.tsx` — smooth scroll, complete, do not touch
 - The IntersectionObserver logic in `components/ProjectCard.tsx` — working correctly, do not touch
+- `components/RollLink.tsx` — split-text roll hover, working; used site-wide

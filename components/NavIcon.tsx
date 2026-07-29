@@ -1,6 +1,6 @@
 "use client";
 
-import RollLink from "@/src/components/ui/RollLink";
+import RollLink from "@/components/RollLink";
 import { usePathname } from "next/navigation";
 
 // Square viewBox = circumscribed circle diameter; centroid at (50%, 50%) so
