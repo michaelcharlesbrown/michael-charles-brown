@@ -11,6 +11,7 @@ const navItems: { href: string; label: string }[] = [
   { href: "#mixing", label: "Mixing" },
   { href: "#space", label: "Space" },
   { href: "#mastering", label: "Mastering" },
+  { href: "#streaming-specs", label: "Streaming Specs" },
   { href: "#export", label: "Export" },
   { href: "#plugin-notes", label: "Plugin Notes" },
   { href: "#checklists", label: "Checklists" },
